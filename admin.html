@@ -1,0 +1,2666 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>لوحة التحكم - تقنية الارتفاع</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom Styles -->
+  <style>
+    * {
+      font-family: "Tajawal", sans-serif;
+    }
+
+    :root {
+      --primary-green: #004d40;
+      --primary-gold: #b8952b;
+      --light-gold: #d4af37;
+      --dark-green: #00332a;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sidebar-transition {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .modal-overlay {
+      backdrop-filter: blur(4px);
+    }
+
+    .form-input {
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.1);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50">
+  <!-- Login Modal -->
+  <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center">
+    <div class="bg-white rounded-xl shadow-2xl p-6 sm:p-8 w-full max-w-md mx-4">
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 bg-gradient-to-r from-[#004d40] to-[#00332a] rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-lock text-white text-2xl"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900">دخول لوحة التحكم</h2>
+        <p class="text-gray-600 mt-2">أدخل كلمة المرور للمتابعة</p>
+      </div>
+
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">كلمة المرور</label>
+          <input type="password" id="password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="أدخل كلمة المرور" />
+        </div>
+
+        <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+          <i class="fas fa-sign-in-alt ml-2"></i> دخول
+        </button>
+      </form>
+
+      <div id="loginError" class="mt-4 text-red-600 text-sm text-center hidden">
+        كلمة المرور غير صحيحة
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Admin Interface -->
+  <div id="adminInterface" class="hidden min-h-screen bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <!-- Logo and Title -->
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-gradient-to-r from-[#004d40] to-[#00332a] rounded-lg flex items-center justify-center">
+              <i class="fas fa-cog text-white text-sm"></i>
+            </div>
+            <h1 class="text-xl font-bold text-gray-900">لوحة التحكم</h1>
+          </div>
+
+          <!-- User Menu -->
+          <div class="flex items-center gap-4">
+            <span class="text-sm text-gray-600">مرحباً، المدير</span>
+            <button id="logoutBtn" class="px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+              <i class="fas fa-sign-out-alt ml-1"></i> خروج
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="flex">
+      <!-- Sidebar -->
+      <aside id="sidebar" class="w-64 bg-white shadow-sm border-r border-gray-200 min-h-screen">
+        <nav class="p-4">
+          <div class="mb-6 border-b border-gray-100 pb-5">
+            <a href="index.html" class="flex items-center justify-center rounded-lg p-2 hover:bg-gray-50 transition-colors" aria-label="تقنية الارتفاع">
+              <img src="assets/logo.png" alt="تقنية الارتفاع" class="h-14 w-auto object-contain" />
+            </a>
+          </div>
+          <ul class="space-y-2">
+            <li>
+              <button data-section="dashboard" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-right rounded-lg hover:bg-gray-50 transition-colors active">
+                <i class="fas fa-tachometer-alt text-gray-500 w-5"></i>
+                <span class="text-sm font-medium">لوحة المعلومات</span>
+              </button>
+            </li>
+            <li>
+              <button data-section="services" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-right rounded-lg hover:bg-gray-50 transition-colors">
+                <i class="fas fa-cogs text-gray-500 w-5"></i>
+                <span class="text-sm font-medium">إدارة الخدمات</span>
+              </button>
+            </li>
+            <li>
+              <button data-section="products" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-right rounded-lg hover:bg-gray-50 transition-colors">
+                <i class="fas fa-box text-gray-500 w-5"></i>
+                <span class="text-sm font-medium">إدارة المنتجات</span>
+              </button>
+            </li>
+            <li>
+              <button data-section="projects" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-right rounded-lg hover:bg-gray-50 transition-colors">
+                <i class="fas fa-briefcase text-gray-500 w-5"></i>
+                <span class="text-sm font-medium">إدارة المشاريع</span>
+              </button>
+            </li>
+            <li>
+              <button data-section="testimonials" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-right rounded-lg hover:bg-gray-50 transition-colors">
+                <i class="fas fa-star text-gray-500 w-5"></i>
+                <span class="text-sm font-medium">إدارة التقييمات</span>
+              </button>
+            </li>
+            <li>
+              <button data-section="partners" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-right rounded-lg hover:bg-gray-50 transition-colors">
+                <i class="fas fa-handshake text-gray-500 w-5"></i>
+                <span class="text-sm font-medium">&#1573;&#1583;&#1575;&#1585;&#1577; &#1588;&#1585;&#1603;&#1575;&#1569; &#1575;&#1604;&#1606;&#1580;&#1575;&#1581;</span>
+              </button>
+            </li>
+            <li>
+              <button data-section="media" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-right rounded-lg hover:bg-gray-50 transition-colors">
+                <i class="fas fa-images text-gray-500 w-5"></i>
+                <span class="text-sm font-medium">إدارة الوسائط</span>
+              </button>
+            </li>
+            <li>
+              <button data-section="settings" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-right rounded-lg hover:bg-gray-50 transition-colors">
+                <i class="fas fa-cog text-gray-500 w-5"></i>
+                <span class="text-sm font-medium">الإعدادات</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 p-6">
+        <!-- Dashboard Section -->
+        <div id="dashboard-section" class="section">
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">لوحة المعلومات</h2>
+            <p class="text-gray-600">نظرة عامة على الموقع والمحتوى</p>
+          </div>
+
+          <!-- Stats Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-600">الخدمات</p>
+                  <p class="text-2xl font-bold text-gray-900" id="services-count">6</p>
+                </div>
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-cogs text-blue-600"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-600">المنتجات</p>
+                  <p class="text-2xl font-bold text-gray-900" id="products-count">6</p>
+                </div>
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-box text-green-600"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-600">المشاريع</p>
+                  <p class="text-2xl font-bold text-gray-900" id="projects-count">4</p>
+                </div>
+                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-briefcase text-yellow-600"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-600">التقييمات</p>
+                  <p class="text-2xl font-bold text-gray-900" id="testimonials-count">3</p>
+                </div>
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-star text-purple-600"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-600">&#1588;&#1585;&#1603;&#1575;&#1569; &#1575;&#1604;&#1606;&#1580;&#1575;&#1581;</p>
+                  <p class="text-2xl font-bold text-gray-900" id="partners-count">15</p>
+                </div>
+                <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-handshake text-emerald-600"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">إجراءات سريعة</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <button onclick="showSection('services')" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-right">
+                <i class="fas fa-plus text-green-600 mb-2 block"></i>
+                <span class="text-sm font-medium">إضافة خدمة جديدة</span>
+              </button>
+              <button onclick="showSection('products')" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-right">
+                <i class="fas fa-plus text-blue-600 mb-2 block"></i>
+                <span class="text-sm font-medium">إضافة منتج جديد</span>
+              </button>
+              <button onclick="showSection('projects')" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-right">
+                <i class="fas fa-plus text-yellow-600 mb-2 block"></i>
+                <span class="text-sm font-medium">إضافة مشروع جديد</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Services Section -->
+        <div id="services-section" class="section hidden">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة الخدمات</h2>
+              <p class="text-gray-600">إضافة وتعديل وحذف الخدمات</p>
+            </div>
+            <button onclick="openServiceModal()" class="bg-gradient-to-r from-[#004d40] to-[#00332a] text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+              <i class="fas fa-plus ml-2"></i> إضافة خدمة
+            </button>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-6">
+              <div id="services-list" class="space-y-4">
+                <!-- Services will be loaded here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Section -->
+        <div id="products-section" class="section hidden">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة المنتجات</h2>
+              <p class="text-gray-600">إضافة وتعديل وحذف المنتجات</p>
+            </div>
+            <button onclick="openProductModal()" class="bg-gradient-to-r from-[#004d40] to-[#00332a] text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+              <i class="fas fa-plus ml-2"></i> إضافة منتج
+            </button>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-6">
+              <div id="products-list" class="space-y-4">
+                <!-- Products will be loaded here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div id="projects-section" class="section hidden">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة المشاريع</h2>
+              <p class="text-gray-600">إضافة وتعديل وحذف المشاريع</p>
+            </div>
+            <button onclick="openProjectModal()" class="bg-gradient-to-r from-[#004d40] to-[#00332a] text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+              <i class="fas fa-plus ml-2"></i> إضافة مشروع
+            </button>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-6">
+              <div id="projects-list" class="space-y-4">
+                <!-- Projects will be loaded here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonials Section -->
+        <div id="testimonials-section" class="section hidden">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة التقييمات</h2>
+              <p class="text-gray-600">إضافة وتعديل وحذف التقييمات</p>
+            </div>
+            <button onclick="openTestimonialModal()" class="bg-gradient-to-r from-[#004d40] to-[#00332a] text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+              <i class="fas fa-plus ml-2"></i> إضافة تقييم
+            </button>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-6">
+              <div id="testimonials-list" class="space-y-4">
+                <!-- Testimonials will be loaded here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partners Section -->
+        <div id="partners-section" class="section hidden">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">&#1573;&#1583;&#1575;&#1585;&#1577; &#1588;&#1585;&#1603;&#1575;&#1569; &#1575;&#1604;&#1606;&#1580;&#1575;&#1581;</h2>
+              <p class="text-gray-600">&#1573;&#1590;&#1575;&#1601;&#1577; &#1608;&#1578;&#1593;&#1583;&#1610;&#1604; &#1608;&#1581;&#1584;&#1601; &#1588;&#1593;&#1575;&#1585;&#1575;&#1578; &#1575;&#1604;&#1588;&#1585;&#1603;&#1575;&#1569;</p>
+            </div>
+            <button onclick="openPartnerModal()" class="bg-gradient-to-r from-[#004d40] to-[#00332a] text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+              <i class="fas fa-plus ml-2"></i> &#1573;&#1590;&#1575;&#1601;&#1577; &#1588;&#1585;&#1610;&#1603;
+            </button>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-6">
+              <div id="partners-list" class="space-y-4">
+                <!-- Partners will be loaded here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Media Section -->
+        <div id="media-section" class="section hidden">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة الوسائط</h2>
+              <p class="text-gray-600">إدارة الصور والملفات</p>
+            </div>
+            <button onclick="openMediaModal()" class="bg-gradient-to-r from-[#004d40] to-[#00332a] text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+              <i class="fas fa-plus ml-2"></i> رفع صورة
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Image Upload -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">رفع الصور</h3>
+              <form id="mediaUploadForm" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">اختر الصور</label>
+                  <input type="file" id="media-files" multiple class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+                  <p class="text-xs text-gray-500 mt-1">????? ?????? ??? ??? ?? ?????</p>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">التصنيف</label>
+                  <select id="media-category" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input">
+                    <option value="products">منتجات</option>
+                    <option value="projects">مشاريع</option>
+                    <option value="services">خدمات</option>
+                    <option value="testimonials">تقييمات</option>
+                    <option value="partners">شركاء النجاح</option>
+                    <option value="general">عام</option>
+                  </select>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                  <i class="fas fa-upload ml-2"></i> رفع الصور
+                </button>
+              </form>
+            </div>
+
+            <!-- Media Library -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">مكتبة الوسائط</h3>
+              <div class="mb-4">
+                <select id="media-filter" class="px-4 py-2 border border-gray-300 rounded-lg form-input">
+                  <option value="all">جميع الصور</option>
+                  <option value="products">منتجات</option>
+                  <option value="projects">مشاريع</option>
+                  <option value="services">خدمات</option>
+                  <option value="testimonials">تقييمات</option>
+                  <option value="partners">شركاء النجاح</option>
+                  <option value="general">عام</option>
+                </select>
+              </div>
+              <div id="media-library" class="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
+                <!-- Images will be loaded here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settings-section" class="section hidden">
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">الإعدادات</h2>
+            <p class="text-gray-600">إعدادات الموقع والنظام</p>
+          </div>
+
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <!-- General Settings -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">الإعدادات العامة</h3>
+              <form id="general-settings" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">اسم الشركة</label>
+                  <input type="text" id="company-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="تقنية الارتفاع" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني</label>
+                  <input type="email" id="company-email" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="sales@elevation-tech.sa" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف الأساسي</label>
+                  <input type="tel" id="company-phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="+966531154551" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف الثانوي</label>
+                  <input type="tel" id="company-phone-alt" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="+966544925287" />
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                  <i class="fas fa-save ml-2"></i> حفظ التغييرات
+                </button>
+              </form>
+            </div>
+
+            <!-- Home Page Settings -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات الصفحة الرئيسية</h3>
+              <form id="home-settings" class="space-y-4">
+                <div>
+                  <p class="text-sm font-semibold text-gray-700 mb-2">ترتيب الأقسام</p>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-xs text-gray-600">البطل</label>
+                      <input type="number" id="order-hero" class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input" min="1" max="6" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-600">الخدمات</label>
+                      <input type="number" id="order-services" class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input" min="1" max="6" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-600">المنتجات</label>
+                      <input type="number" id="order-products" class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input" min="1" max="6" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-600">الشركاء</label>
+                      <input type="number" id="order-partners" class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input" min="1" max="6" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-600">المشاريع</label>
+                      <input type="number" id="order-projects" class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input" min="1" max="6" />
+                    </div>
+                    <div>
+                      <label class="block text-xs text-gray-600">التقييمات</label>
+                      <input type="number" id="order-testimonials" class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input" min="1" max="6" />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-700 mb-2">عرض الأقسام</p>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <label class="inline-flex items-center gap-2 text-sm text-gray-700"><input type="checkbox" id="show-hero" class="form-checkbox rounded text-[#004d40]"> عرض البطل</label>
+                    <label class="inline-flex items-center gap-2 text-sm text-gray-700"><input type="checkbox" id="show-services" class="form-checkbox rounded text-[#004d40]"> عرض الخدمات</label>
+                    <label class="inline-flex items-center gap-2 text-sm text-gray-700"><input type="checkbox" id="show-products" class="form-checkbox rounded text-[#004d40]"> عرض المنتجات</label>
+                    <label class="inline-flex items-center gap-2 text-sm text-gray-700"><input type="checkbox" id="show-partners" class="form-checkbox rounded text-[#004d40]"> عرض الشركاء</label>
+                    <label class="inline-flex items-center gap-2 text-sm text-gray-700"><input type="checkbox" id="show-projects" class="form-checkbox rounded text-[#004d40]"> عرض المشاريع</label>
+                    <label class="inline-flex items-center gap-2 text-sm text-gray-700"><input type="checkbox" id="show-testimonials" class="form-checkbox rounded text-[#004d40]"> عرض التقييمات</label>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">عنوان قسم الخدمات</label>
+                  <input type="text" id="title-services" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="عنوان قسم الخدمات" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">عنوان قسم المنتجات</label>
+                  <input type="text" id="title-products" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="عنوان قسم المنتجات" />
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                  <i class="fas fa-save ml-2"></i> حفظ إعدادات الصفحة الرئيسية
+                </button>
+              </form>
+            </div>
+
+            <!-- Header & Footer Settings -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات الرأس والتذييل</h3>
+              <form id="header-footer-settings" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الرأس</label>
+                  <input type="text" id="header-title" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: حلول المصاعد الذكية" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">وصف الرأس</label>
+                  <input type="text" id="header-subtitle" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: أفضل نظام تحكم للمصاعد في السعودية" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">نص زر الرأس</label>
+                  <input type="text" id="header-button-text" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: تواصل معنا" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">رابط زر الرأس</label>
+                  <input type="text" id="header-button-url" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: #contact" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">نص التذييل</label>
+                  <textarea id="footer-copy" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: © 2026 تقنية الارتفاع. جميع الحقوق محفوظة."></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">العنوان في التذييل</label>
+                  <input type="text" id="footer-address" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="الرياض، المملكة العربية السعودية" />
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                  <i class="fas fa-save ml-2"></i> حفظ إعدادات الرأس والتذييل
+                </button>
+              </form>
+            </div>
+
+            <!-- Social Media Settings -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات وسائل التواصل</h3>
+              <form id="social-settings" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">إنستجرام</label>
+                  <input type="text" id="social-instagram" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="https://www.instagram.com/..." />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">تيك توك</label>
+                  <input type="text" id="social-tiktok" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="https://www.tiktok.com/@..." />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">سناب شات</label>
+                  <input type="text" id="social-snapchat" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="https://www.snapchat.com/add/..." />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">لينكد إن</label>
+                  <input type="text" id="social-linkedin" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="https://www.linkedin.com/..." />
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                  <i class="fas fa-save ml-2"></i> حفظ إعدادات التواصل
+                </button>
+              </form>
+            </div>
+
+            <!-- Tracking Settings -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">Tracking integrations</h3>
+              <form id="tracking-settings" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Google Tag Manager ID</label>
+                  <input type="text" id="tracking-gtm" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="GTM-XXXXXXX" dir="ltr" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Google Analytics GA4 ID</label>
+                  <input type="text" id="tracking-ga" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="G-XXXXXXXXXX" dir="ltr" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Google Ads ID</label>
+                  <input type="text" id="tracking-ads" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="AW-XXXXXXXXXX" dir="ltr" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Google Ads conversion label</label>
+                  <input type="text" id="tracking-ads-label" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="Conversion label" dir="ltr" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Meta Pixel ID</label>
+                  <input type="text" id="tracking-meta" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="000000000000000" dir="ltr" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Microsoft Clarity ID</label>
+                  <input type="text" id="tracking-clarity" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="Clarity project ID" dir="ltr" />
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                  <i class="fas fa-save ml-2"></i> Save tracking settings
+                </button>
+              </form>
+            </div>
+
+            <!-- Pages Editor -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 xl:col-span-2">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">Pages content and SEO</h3>
+              <form id="seo-settings" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Page</label>
+                  <select id="seo-page" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input">
+                    <option value="home">Home</option>
+                    <option value="about">About</option>
+                    <option value="services">Services</option>
+                    <option value="products">Products</option>
+                    <option value="projects">Projects</option>
+                    <option value="contact">Contact</option>
+                  </select>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Page heading</label>
+                    <input type="text" id="page-heading" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Page subtitle</label>
+                    <input type="text" id="page-subtitle" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">SEO title</label>
+                    <input type="text" id="seo-title" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" maxlength="70" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Canonical URL</label>
+                    <input type="url" id="seo-canonical" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" dir="ltr" />
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Meta description</label>
+                  <textarea id="seo-description" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" maxlength="170"></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Keywords</label>
+                  <input type="text" id="seo-keywords" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Social preview image</label>
+                    <input type="text" id="seo-image" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" dir="ltr" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Image alt text</label>
+                    <input type="text" id="seo-image-alt" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Robots</label>
+                    <input type="text" id="seo-robots" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" dir="ltr" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Schema type</label>
+                    <select id="seo-schema-type" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input">
+                      <option value="">Keep default</option>
+                      <option value="LocalBusiness">LocalBusiness</option>
+                      <option value="AboutPage">AboutPage</option>
+                      <option value="Service">Service</option>
+                      <option value="CollectionPage">CollectionPage</option>
+                      <option value="ContactPage">ContactPage</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Custom JSON-LD</label>
+                  <textarea id="seo-schema-json" rows="7" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input font-mono text-sm" dir="ltr" placeholder='{"@context":"https://schema.org","@type":"WebPage"}'></textarea>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                  <i class="fas fa-save ml-2"></i> Save page SEO
+                </button>
+              </form>
+            </div>
+
+            <!-- Security Settings -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات الأمان</h3>
+              <form id="security-settings" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">كلمة المرور الجديدة</label>
+                  <input type="password" id="new-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="أدخل كلمة مرور جديدة" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">تأكيد كلمة المرور</label>
+                  <input type="password" id="confirm-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="أعد إدخال كلمة المرور" />
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-[#b8952b] to-[#d4af37] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                  <i class="fas fa-key ml-2"></i> تغيير كلمة المرور
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <!-- Service Modal -->
+  <div id="serviceModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold text-gray-900">إضافة/تعديل خدمة</h3>
+          <button onclick="closeModal('serviceModal')" class="text-gray-400 hover:text-gray-600">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <form id="serviceForm" class="p-6 space-y-4">
+        <input type="hidden" id="service-id" />
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الخدمة</label>
+          <input type="text" id="service-title" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">وصف الخدمة</label>
+          <textarea id="service-description" required rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Service details / bullet points</label>
+          <textarea id="service-features" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="One detail per line"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">أيقونة الخدمة (FontAwesome class أو صورة)</label>
+          <div class="space-y-3">
+            <div class="flex gap-3">
+              <input type="text" id="service-icon" required class="flex-1 px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: fas fa-cogs أو اختر صورة" />
+              <button type="button" onclick="openMediaSelector('service-icon')" class="px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                <i class="fas fa-images"></i>
+              </button>
+              <button type="button" onclick="uploadImageForTarget('service-icon', 'services')" class="px-4 py-3 bg-[#004d40] text-white rounded-lg hover:bg-[#00332a] transition-colors">
+                <i class="fas fa-upload"></i>
+              </button>
+            </div>
+            <div id="service-icon-preview" class="hidden">
+              <img id="service-icon-thumb" src="" alt="معاينة" class="w-20 h-20 object-cover rounded-lg border border-gray-200" />
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-200 pt-4 space-y-4">
+          <h4 class="font-bold text-gray-900">Service SEO</h4>
+          <input type="text" id="service-seo-title" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="SEO title" />
+          <textarea id="service-seo-description" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="SEO description"></textarea>
+          <input type="text" id="service-seo-keywords" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="SEO keywords" />
+        </div>
+        <div class="flex gap-4">
+          <button type="submit" class="flex-1 bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+            <i class="fas fa-save ml-2"></i> حفظ
+          </button>
+          <button type="button" onclick="closeModal('serviceModal')" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+            إلغاء
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Product Modal -->
+  <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold text-gray-900">إضافة/تعديل منتج</h3>
+          <button onclick="closeModal('productModal')" class="text-gray-400 hover:text-gray-600">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <form id="productForm" class="p-6 space-y-4">
+        <input type="hidden" id="product-id" />
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">اسم المنتج</label>
+          <input type="text" id="product-name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">وصف المنتج</label>
+          <textarea id="product-description" required rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Product details / bullet points</label>
+          <textarea id="product-features" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="One detail per line"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">صورة المنتج</label>
+          <div class="space-y-3">
+            <div class="flex gap-3">
+              <textarea id="product-image" required rows="2" readonly class="flex-1 px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="اختر أو ارفع صورة واحدة أو أكثر"></textarea>
+              <button type="button" onclick="openMediaSelector('product')" class="px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                <i class="fas fa-images"></i>
+              </button>
+              <button type="button" onclick="uploadImageForTarget('product', 'products')" class="px-4 py-3 bg-[#004d40] text-white rounded-lg hover:bg-[#00332a] transition-colors" title="رفع صور متعددة">
+                <i class="fas fa-upload"></i>
+              </button>
+            </div>
+            <div id="product-image-preview" class="hidden">
+              <img id="product-image-thumb" src="" alt="معاينة" class="w-20 h-20 object-cover rounded-lg border border-gray-200" />
+              <div id="product-image-gallery" class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-3"></div>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-200 pt-4 space-y-4">
+          <h4 class="font-bold text-gray-900">Product SEO</h4>
+          <input type="text" id="product-seo-title" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="SEO title" />
+          <textarea id="product-seo-description" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="SEO description"></textarea>
+          <input type="text" id="product-seo-keywords" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="SEO keywords" />
+        </div>
+        <div class="flex gap-4">
+          <button type="submit" class="flex-1 bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+            <i class="fas fa-save ml-2"></i> حفظ
+          </button>
+          <button type="button" onclick="closeModal('productModal')" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+            إلغاء
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Project Modal -->
+  <div id="projectModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold text-gray-900">إضافة/تعديل مشروع</h3>
+          <button onclick="closeModal('projectModal')" class="text-gray-400 hover:text-gray-600">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <form id="projectForm" class="p-6 space-y-4">
+        <input type="hidden" id="project-id" />
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">اسم المشروع</label>
+          <input type="text" id="project-title" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">وصف المشروع</label>
+          <textarea id="project-description" required rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">نوع المشروع</label>
+          <input type="text" id="project-type" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: برج سكني" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">عدد المصاعد</label>
+          <input type="number" id="project-elevators" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Project speed</label>
+            <input type="text" id="project-speed" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="1 m/s" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Project capacity</label>
+            <input type="text" id="project-capacity" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="600 kg" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">الموقع</label>
+          <input type="text" id="project-location" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">سنة الإنجاز</label>
+          <input type="number" id="project-year" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">صورة المشروع</label>
+          <div class="space-y-3">
+            <div class="flex gap-3">
+              <textarea id="project-image" rows="2" readonly class="flex-1 px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="اختر أو ارفع صورة واحدة أو أكثر"></textarea>
+              <button type="button" onclick="openMediaSelector('project')" class="px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                <i class="fas fa-images"></i>
+              </button>
+              <button type="button" onclick="uploadImageForTarget('project', 'projects')" class="px-4 py-3 bg-[#004d40] text-white rounded-lg hover:bg-[#00332a] transition-colors" title="رفع صور متعددة">
+                <i class="fas fa-upload"></i>
+              </button>
+            </div>
+            <div id="project-image-preview" class="hidden">
+              <img id="project-image-thumb" src="" alt="معاينة" class="w-20 h-20 object-cover rounded-lg border border-gray-200" />
+              <div id="project-image-gallery" class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-3"></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Project image captions</label>
+          <textarea id="project-image-captions" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="One caption per image, same order"></textarea>
+        </div>
+        <div class="border-t border-gray-200 pt-4 space-y-4">
+          <h4 class="font-bold text-gray-900">Project SEO</h4>
+          <input type="text" id="project-seo-title" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="SEO title" />
+          <textarea id="project-seo-description" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="SEO description"></textarea>
+          <input type="text" id="project-seo-keywords" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="SEO keywords" />
+        </div>
+        <div class="flex gap-4">
+          <button type="submit" class="flex-1 bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+            <i class="fas fa-save ml-2"></i> حفظ
+          </button>
+          <button type="button" onclick="closeModal('projectModal')" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+            إلغاء
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Testimonial Modal -->
+  <div id="testimonialModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold text-gray-900">إضافة/تعديل تقييم</h3>
+          <button onclick="closeModal('testimonialModal')" class="text-gray-400 hover:text-gray-600">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <form id="testimonialForm" class="p-6 space-y-4">
+        <input type="hidden" id="testimonial-id" />
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">اسم العميل</label>
+          <input type="text" id="testimonial-name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">المسمى الوظيفي</label>
+          <input type="text" id="testimonial-position" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">التقييم</label>
+          <textarea id="testimonial-content" required rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">عدد النجوم (1-5)</label>
+          <input type="number" id="testimonial-rating" required min="1" max="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">صورة العميل</label>
+          <div class="space-y-3">
+            <div class="flex gap-3">
+              <input type="text" id="testimonial-image" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مسار الصورة أو اختر من المكتبة" />
+              <button type="button" onclick="openMediaSelector('testimonial')" class="px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                <i class="fas fa-images"></i>
+              </button>
+              <button type="button" onclick="uploadImageForTarget('testimonial', 'testimonials')" class="px-4 py-3 bg-[#004d40] text-white rounded-lg hover:bg-[#00332a] transition-colors">
+                <i class="fas fa-upload"></i>
+              </button>
+            </div>
+            <div id="testimonial-image-preview" class="hidden">
+              <img id="testimonial-image-thumb" src="" alt="معاينة" class="w-20 h-20 object-cover rounded-lg border border-gray-200" />
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <button type="submit" class="flex-1 bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+            <i class="fas fa-save ml-2"></i> حفظ
+          </button>
+          <button type="button" onclick="closeModal('testimonialModal')" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+            إلغاء
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Partner Modal -->
+  <div id="partnerModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold text-gray-900">&#1573;&#1590;&#1575;&#1601;&#1577;/&#1578;&#1593;&#1583;&#1610;&#1604; &#1588;&#1585;&#1610;&#1603;</h3>
+          <button onclick="closeModal('partnerModal')" class="text-gray-400 hover:text-gray-600">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <form id="partnerForm" class="p-6 space-y-4">
+        <input type="hidden" id="partner-id" />
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">&#1575;&#1587;&#1605; &#1575;&#1604;&#1588;&#1585;&#1610;&#1603;</label>
+          <input type="text" id="partner-name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">&#1575;&#1604;&#1583;&#1608;&#1604;&#1577; / &#1575;&#1604;&#1608;&#1589;&#1601;</label>
+          <input type="text" id="partner-country" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="&#1605;&#1579;&#1575;&#1604;: &#1573;&#1610;&#1591;&#1575;&#1604;&#1610;&#1575;" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">&#1588;&#1593;&#1575;&#1585; &#1575;&#1604;&#1588;&#1585;&#1610;&#1603;</label>
+          <div class="space-y-3">
+            <div class="flex gap-3">
+              <input type="text" id="partner-image" required class="flex-1 px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="&#1605;&#1587;&#1575;&#1585; &#1575;&#1604;&#1588;&#1593;&#1575;&#1585; &#1571;&#1608; &#1575;&#1582;&#1578;&#1585; &#1605;&#1606; &#1575;&#1604;&#1605;&#1603;&#1578;&#1576;&#1577;" />
+              <button type="button" onclick="openMediaSelector('partner')" class="px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                <i class="fas fa-images"></i>
+              </button>
+              <button type="button" onclick="uploadImageForTarget('partner', 'partners')" class="px-4 py-3 bg-[#004d40] text-white rounded-lg hover:bg-[#00332a] transition-colors">
+                <i class="fas fa-upload"></i>
+              </button>
+            </div>
+            <div id="partner-image-preview" class="hidden">
+              <img id="partner-image-thumb" src="" alt="&#1605;&#1593;&#1575;&#1610;&#1606;&#1577;" class="w-24 h-20 object-contain rounded-lg border border-gray-200 bg-gray-50" />
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <button type="submit" class="flex-1 bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+            <i class="fas fa-save ml-2"></i> &#1581;&#1601;&#1592;
+          </button>
+          <button type="button" onclick="closeModal('partnerModal')" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+            &#1573;&#1604;&#1594;&#1575;&#1569;
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Media Modal -->
+  <div id="mediaModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold text-gray-900">إدارة الصورة</h3>
+          <button onclick="closeModal('mediaModal')" class="text-gray-400 hover:text-gray-600">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <img id="media-preview" src="" alt="" class="w-full h-64 object-cover rounded-lg border border-gray-200" />
+          </div>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">اسم الصورة</label>
+              <input type="text" id="media-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">التصنيف</label>
+              <select id="media-edit-category" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input">
+                <option value="products">منتجات</option>
+                <option value="projects">مشاريع</option>
+                <option value="services">خدمات</option>
+                <option value="testimonials">تقييمات</option>
+                <option value="partners">شركاء النجاح</option>
+                <option value="general">عام</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">الوصف</label>
+              <textarea id="media-description" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"></textarea>
+            </div>
+            <div class="flex gap-4">
+              <button onclick="updateMedia()" class="flex-1 bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                <i class="fas fa-save ml-2"></i> حفظ
+              </button>
+              <button onclick="deleteMedia()" class="flex-1 bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors">
+                <i class="fas fa-trash ml-2"></i> حذف
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Media Modal -->
+  <div id="mediaModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold text-gray-900">إدارة الصورة</h3>
+          <button onclick="closeModal('mediaModal')" class="text-gray-400 hover:text-gray-600">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <img id="media-preview" src="" alt="" class="w-full h-64 object-cover rounded-lg border border-gray-200" />
+          </div>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">اسم الصورة</label>
+              <input type="text" id="media-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">التصنيف</label>
+              <select id="media-edit-category" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input">
+                <option value="products">منتجات</option>
+                <option value="projects">مشاريع</option>
+                <option value="services">خدمات</option>
+                <option value="testimonials">تقييمات</option>
+                <option value="partners">شركاء النجاح</option>
+                <option value="general">عام</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">الوصف</label>
+              <textarea id="media-description" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"></textarea>
+            </div>
+            <div class="flex gap-4">
+              <button onclick="updateMedia()" class="flex-1 bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                <i class="fas fa-save ml-2"></i> حفظ
+              </button>
+              <button onclick="deleteMedia()" class="flex-1 bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors">
+                <i class="fas fa-trash ml-2"></i> حذف
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Media Selector Modal -->
+  <div id="mediaSelectorModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-5xl mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold text-gray-900">اختيار صورة</h3>
+          <button onclick="closeModal('mediaSelectorModal')" class="text-gray-400 hover:text-gray-600">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="p-6">
+        <div class="mb-4">
+          <select id="selector-category-filter" class="px-4 py-2 border border-gray-300 rounded-lg form-input">
+            <option value="all">جميع الصور</option>
+            <option value="products">منتجات</option>
+            <option value="projects">مشاريع</option>
+            <option value="services">خدمات</option>
+            <option value="testimonials">تقييمات</option>
+            <option value="partners">شركاء النجاح</option>
+            <option value="general">عام</option>
+          </select>
+        </div>
+        <div id="media-selector-grid" class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-4 max-h-96 overflow-y-auto">
+          <!-- Images will be loaded here -->
+        </div>
+        <div class="flex gap-4 mt-6">
+          <button onclick="selectMediaImage()" class="flex-1 bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+            <i class="fas fa-check ml-2"></i> اختر الصورة
+          </button>
+          <button type="button" onclick="closeModal('mediaSelectorModal')" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+            إلغاء
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Admin password (in production, this should be server-side)
+    const ADMIN_PASSWORD = "Admin@123";
+
+    // Check if user is logged in
+    function checkLogin() {
+      const isLoggedIn = localStorage.getItem('admin_logged_in') === 'true';
+      if (isLoggedIn) {
+        document.getElementById('loginModal').classList.add('hidden');
+        document.getElementById('adminInterface').classList.remove('hidden');
+        loadDashboard();
+      }
+    }
+
+    // Login form handler
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('loginError');
+
+      if (password === ADMIN_PASSWORD) {
+        localStorage.setItem('admin_logged_in', 'true');
+        document.getElementById('loginModal').classList.add('hidden');
+        document.getElementById('adminInterface').classList.remove('hidden');
+        loadDashboard();
+      } else {
+        errorDiv.classList.remove('hidden');
+        setTimeout(() => errorDiv.classList.add('hidden'), 3000);
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+      localStorage.removeItem('admin_logged_in');
+      document.getElementById('adminInterface').classList.add('hidden');
+      document.getElementById('loginModal').classList.remove('hidden');
+      document.getElementById('loginForm').reset();
+    });
+
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(button => {
+      button.addEventListener('click', function() {
+        const section = this.dataset.section;
+        showSection(section);
+      });
+    });
+
+    function showSection(sectionName) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.add('hidden');
+      });
+
+      // Remove active class from nav items
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+
+      // Show selected section
+      document.getElementById(sectionName + '-section').classList.remove('hidden');
+
+      // Add active class to clicked nav item
+      document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+
+      // Load section data
+      switch(sectionName) {
+        case 'services':
+          loadServices();
+          break;
+        case 'products':
+          loadProducts();
+          break;
+        case 'projects':
+          loadProjects();
+          break;
+        case 'testimonials':
+          loadTestimonials();
+          break;
+        case 'partners':
+          loadPartners();
+          break;
+        case 'media':
+          loadMedia();
+          break;
+      }
+    }
+
+    // Media management functions
+    function openMediaModal(media = null) {
+      const modal = document.getElementById('mediaModal');
+
+      if (media) {
+        document.getElementById('media-preview').src = media.url;
+        document.getElementById('media-name').value = media.name;
+        document.getElementById('media-edit-category').value = media.category;
+        document.getElementById('media-description').value = media.description || '';
+        modal.dataset.mediaId = media.id;
+      } else {
+        modal.dataset.mediaId = '';
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function loadMedia(filter = 'all') {
+      const media = getData('media') || [];
+      const container = document.getElementById('media-library');
+
+      let filteredMedia = media;
+      if (filter !== 'all') {
+        filteredMedia = media.filter(item => item.category === filter);
+      }
+
+      if (filteredMedia.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-center py-8 col-span-full">لا توجد صور في هذا التصنيف</p>';
+        return;
+      }
+
+      container.innerHTML = filteredMedia.map(item => `
+        <div class="relative group cursor-pointer" onclick="openMediaModal(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+          ${item.type && !item.type.startsWith('image/') ? `<div class="w-full h-24 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center"><i class="fas fa-file text-3xl text-gray-400"></i></div>` : `<img src="${item.url}" alt="${item.name}" class="w-full h-24 object-cover rounded-lg border border-gray-200 hover:border-[#004d40] transition-colors" />`}
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all rounded-lg flex items-center justify-center">
+            <i class="fas fa-eye text-white opacity-0 group-hover:opacity-100 transition-opacity"></i>
+          </div>
+          <p class="text-xs text-gray-600 mt-1 truncate">${item.name}</p>
+        </div>
+      `).join('');
+    }
+
+    // Media upload handler
+    document.getElementById('mediaUploadForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const files = document.getElementById('media-files').files;
+      const category = document.getElementById('media-category').value;
+
+      if (files.length === 0) {
+        alert('يرجى اختيار صور للرفع');
+        return;
+      }
+
+      const media = getData('media') || [];
+
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const mediaItem = {
+            id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+            name: file.name,
+            url: e.target.result,
+            category: category,
+            description: '',
+            size: file.size,
+            type: file.type || 'application/octet-stream',
+            uploadedAt: new Date().toISOString()
+          };
+
+          media.push(mediaItem);
+          saveData('media', media);
+          loadMedia(document.getElementById('media-filter').value);
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById('mediaUploadForm').reset();
+      alert('تم رفع الصور بنجاح!');
+    });
+
+    // Media filter handler
+    document.getElementById('media-filter').addEventListener('change', function() {
+      loadMedia(this.value);
+    });
+
+    function updateMedia() {
+      const mediaId = document.getElementById('mediaModal').dataset.mediaId;
+      if (!mediaId) return;
+
+      const media = getData('media') || [];
+      const index = media.findIndex(item => item.id === mediaId);
+
+      if (index >= 0) {
+        media[index].name = document.getElementById('media-name').value;
+        media[index].category = document.getElementById('media-edit-category').value;
+        media[index].description = document.getElementById('media-description').value;
+
+        saveData('media', media);
+        loadMedia(document.getElementById('media-filter').value);
+        closeModal('mediaModal');
+        alert('تم تحديث الصورة بنجاح!');
+      }
+    }
+
+    function deleteMedia() {
+      const mediaId = document.getElementById('mediaModal').dataset.mediaId;
+      if (!mediaId) return;
+
+      if (confirm('هل أنت متأكد من حذف هذه الصورة؟')) {
+        const media = getData('media') || [];
+        const filteredMedia = media.filter(item => item.id !== mediaId);
+        saveData('media', filteredMedia);
+        loadMedia(document.getElementById('media-filter').value);
+        closeModal('mediaModal');
+        alert('تم حذف الصورة بنجاح!');
+      }
+    }
+
+    // Media selector functions
+    let selectedMediaImage = null;
+    let mediaSelectorTarget = null;
+
+    function openMediaSelector(target) {
+      mediaSelectorTarget = target;
+      selectedMediaImage = null;
+      loadMediaSelector();
+      document.getElementById('mediaSelectorModal').classList.remove('hidden');
+    }
+
+    function loadMediaSelector(filter = 'all') {
+      const media = getData('media') || [];
+      const container = document.getElementById('media-selector-grid');
+
+      let filteredMedia = media;
+      if (filter !== 'all') {
+        filteredMedia = media.filter(item => item.category === filter);
+      }
+
+      if (filteredMedia.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-center py-8 col-span-full">لا توجد صور في هذا التصنيف</p>';
+        return;
+      }
+
+      container.innerHTML = filteredMedia.map(item => `
+        <div class="relative cursor-pointer border-2 border-transparent hover:border-[#004d40] rounded-lg transition-colors ${selectedMediaImage && selectedMediaImage.id === item.id ? 'border-[#004d40] bg-[#004d40] bg-opacity-10' : ''}" onclick="selectMediaItem(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+          <img src="${item.url}" alt="${item.name}" class="w-full h-20 object-cover rounded-lg" />
+          <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all rounded-lg flex items-center justify-center">
+            <i class="fas fa-check text-white ${selectedMediaImage && selectedMediaImage.id === item.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity"></i>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectMediaItem(media) {
+      selectedMediaImage = media;
+      loadMediaSelector(document.getElementById('selector-category-filter').value);
+    }
+
+    function selectMediaImage() {
+      if (!selectedMediaImage || !mediaSelectorTarget) return;
+      if (selectedMediaImage.type && !selectedMediaImage.type.startsWith('image/')) {
+        alert('يرجى اختيار صورة لهذا الحقل');
+        return;
+      }
+
+      setTargetImageValue(mediaSelectorTarget, selectedMediaImage.url, selectedMediaImage.name);
+
+      closeModal('mediaSelectorModal');
+    }
+
+    function uploadImageForTarget(target, category) {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.multiple = ['product', 'project'].includes(target);
+      input.onchange = function() {
+        const files = Array.from(input.files || []);
+        if (files.length === 0) return;
+
+        let completed = 0;
+        files.forEach(file => {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+          const media = getData('media') || [];
+          const mediaItem = {
+            id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+            name: file.name,
+            url: e.target.result,
+            category: category || 'services',
+            size: file.size,
+            type: file.type,
+            uploadedAt: new Date().toISOString()
+          };
+
+          media.push(mediaItem);
+          saveData('media', media);
+          setTargetImageValue(target, mediaItem.url, mediaItem.name);
+          completed += 1;
+          if (completed === files.length) {
+            alert(files.length > 1 ? 'تم رفع الصور بنجاح!' : 'تم رفع الصورة بنجاح!');
+          }
+          };
+          reader.readAsDataURL(file);
+        });
+      };
+      input.click();
+    }
+
+    function getImageEntriesFromField(target) {
+      const fieldId = target === 'service-icon' ? 'service-icon' : `${target}-image`;
+      const imageInput = document.getElementById(fieldId);
+      const value = imageInput ? imageInput.value.trim() : '';
+      if (!value) return [];
+
+      try {
+        const parsed = JSON.parse(value);
+        if (Array.isArray(parsed)) {
+          return parsed
+            .map(item => typeof item === 'string' ? { src: item, name: '', caption: '' } : { src: item.src || item.url || '', name: item.name || '', caption: item.caption || '' })
+            .filter(item => item.src);
+        }
+      } catch (error) {
+        // Legacy single-image value.
+      }
+
+      return value ? [{ src: value, name: '', caption: '' }] : [];
+    }
+
+    function saveImageEntriesToField(target, entries) {
+      const fieldId = target === 'service-icon' ? 'service-icon' : `${target}-image`;
+      const imageInput = document.getElementById(fieldId);
+      if (imageInput) imageInput.value = entries.length > 0 ? JSON.stringify(entries) : '';
+      renderTargetImagePreview(target, entries);
+    }
+
+    function renderTargetImagePreview(target, entries = null) {
+      const previewId = target === 'service-icon' ? 'service-icon-preview' : `${target}-image-preview`;
+      const thumbId = target === 'service-icon' ? 'service-icon-thumb' : `${target}-image-thumb`;
+      const galleryId = `${target}-image-gallery`;
+      const previewDiv = document.getElementById(previewId);
+      const previewImg = document.getElementById(thumbId);
+      const gallery = document.getElementById(galleryId);
+      const images = entries || getImageEntriesFromField(target);
+
+      if (!previewDiv || !previewImg) return;
+      if (images.length === 0) {
+        previewDiv.classList.add('hidden');
+        previewImg.removeAttribute('src');
+        if (gallery) gallery.innerHTML = '';
+        return;
+      }
+
+      previewImg.src = images[0].src;
+      previewDiv.classList.remove('hidden');
+
+      if (gallery) {
+        gallery.innerHTML = images.map((image, index) => `
+          <div class="relative rounded-lg border border-gray-200 bg-gray-50 p-2">
+            <img src="${image.src}" alt="${image.name || 'معاينة'}" class="w-full h-20 object-cover rounded" />
+            <p class="text-xs text-gray-600 mt-1 truncate" title="${image.name || ''}">${image.name || `صورة ${index + 1}`}</p>
+            <button type="button" onclick="removeTargetImage('${target}', ${index})" class="absolute top-1 left-1 w-7 h-7 bg-red-600 text-white rounded-full hover:bg-red-700">
+              <i class="fas fa-times text-xs"></i>
+            </button>
+          </div>
+        `).join('');
+      }
+    }
+
+    function removeTargetImage(target, index) {
+      const entries = getImageEntriesFromField(target);
+      entries.splice(index, 1);
+      saveImageEntriesToField(target, entries);
+    }
+
+    function setTargetImageValue(target, imageUrl, imageName = '') {
+      const fieldId = target === 'service-icon' ? 'service-icon' : `${target}-image`;
+      const previewId = target === 'service-icon' ? 'service-icon-preview' : `${target}-image-preview`;
+      const thumbId = target === 'service-icon' ? 'service-icon-thumb' : `${target}-image-thumb`;
+      const imageInput = document.getElementById(fieldId);
+      const previewDiv = document.getElementById(previewId);
+      const previewImg = document.getElementById(thumbId);
+
+      if (['product', 'project'].includes(target)) {
+        const entries = getImageEntriesFromField(target);
+        entries.push({ src: imageUrl, name: imageName || '' });
+        saveImageEntriesToField(target, entries);
+        return;
+      }
+
+      if (imageInput) imageInput.value = imageUrl;
+      if (previewDiv && previewImg) {
+        previewImg.src = imageUrl;
+        previewDiv.classList.remove('hidden');
+      }
+    }
+
+    function getItemImages(item) {
+      if (Array.isArray(item.images) && item.images.length > 0) {
+        return item.images
+          .map(image => typeof image === 'string' ? { src: image, name: '', caption: '' } : { src: image.src || image.url || '', name: image.name || '', caption: image.caption || '' })
+          .filter(image => image.src);
+      }
+
+      return item.image ? [{ src: item.image, name: item.imageName || '' }] : [];
+    }
+
+    function isImageValue(value) {
+      return /^data:image\//.test(value || '') || /\.(png|jpe?g|webp|gif|svg|jfif)(\?.*)?$/i.test(value || '') || /^https?:\/\//i.test(value || '');
+    }
+
+    function renderServiceIcon(icon) {
+      return isImageValue(icon)
+        ? `<img src="${icon}" alt="" class="w-8 h-8 object-contain">`
+        : `<i class="${icon} text-[#004d40] text-xl"></i>`;
+    }
+
+    function parseLines(value) {
+      return String(value || '')
+        .split(/\r?\n/)
+        .map(item => item.trim())
+        .filter(Boolean);
+    }
+
+    function linesToText(value) {
+      return Array.isArray(value) ? value.join('\n') : String(value || '');
+    }
+
+    function getSeoFields(prefix) {
+      return {
+        title: document.getElementById(`${prefix}-seo-title`)?.value.trim() || '',
+        description: document.getElementById(`${prefix}-seo-description`)?.value.trim() || '',
+        keywords: document.getElementById(`${prefix}-seo-keywords`)?.value.trim() || ''
+      };
+    }
+
+    function setSeoFields(prefix, seo = {}) {
+      const title = document.getElementById(`${prefix}-seo-title`);
+      const description = document.getElementById(`${prefix}-seo-description`);
+      const keywords = document.getElementById(`${prefix}-seo-keywords`);
+      if (title) title.value = seo.title || '';
+      if (description) description.value = seo.description || '';
+      if (keywords) keywords.value = seo.keywords || '';
+    }
+
+    function hasSeoData(seo) {
+      return !!(seo && (seo.title || seo.description || seo.keywords));
+    }
+
+    function buildItemSeo(type, item = {}) {
+      if (hasSeoData(item.seo)) return item.seo;
+
+      const name = item.title || item.name || '';
+      const description = item.description || '';
+      const suffix = ' | Elevation Tech';
+      const typeKeywords = {
+        services: 'elevator services, elevator maintenance, elevator installation, Riyadh, Saudi Arabia',
+        products: 'elevator products, passenger elevators, home elevators, freight elevators, Riyadh',
+        projects: 'elevator projects, elevator contractor, completed elevator projects, Saudi Arabia'
+      };
+
+      return {
+        title: name ? `${name}${suffix}` : '',
+        description: description,
+        keywords: [name, typeKeywords[type]].filter(Boolean).join(', ')
+      };
+    }
+
+    function renderSeoSummary(seo) {
+      const activeSeo = seo || {};
+      return `
+        <div class="mt-2 rounded-lg bg-emerald-50 border border-emerald-100 px-3 py-2 text-xs text-emerald-800">
+          <div class="font-semibold">SEO: ${activeSeo.title || 'No title'}</div>
+          <div class="truncate">${activeSeo.description || 'No description'}</div>
+        </div>
+      `;
+    }
+
+    // Media selector filter handler
+    document.getElementById('selector-category-filter').addEventListener('change', function() {
+      loadMediaSelector(this.value);
+    });
+
+    // Modal functions
+    function openServiceModal(service = null) {
+      const modal = document.getElementById('serviceModal');
+      const form = document.getElementById('serviceForm');
+
+      if (service) {
+        document.getElementById('service-id').value = service.id;
+        document.getElementById('service-title').value = service.title;
+        document.getElementById('service-description').value = service.description;
+        document.getElementById('service-features').value = linesToText(service.features);
+        document.getElementById('service-icon').value = service.icon;
+        setSeoFields('service', buildItemSeo('services', service));
+        if (isImageValue(service.icon)) {
+          document.getElementById('service-icon-thumb').src = service.icon;
+          document.getElementById('service-icon-preview').classList.remove('hidden');
+        } else {
+          document.getElementById('service-icon-preview').classList.add('hidden');
+        }
+      } else {
+        form.reset();
+        document.getElementById('service-id').value = '';
+        setSeoFields('service');
+        document.getElementById('service-icon-preview').classList.add('hidden');
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function openProductModal(product = null) {
+      const modal = document.getElementById('productModal');
+      const form = document.getElementById('productForm');
+
+      if (product) {
+        document.getElementById('product-id').value = product.id;
+        document.getElementById('product-name').value = product.name;
+        document.getElementById('product-description').value = product.description;
+        document.getElementById('product-features').value = linesToText(product.features);
+        setSeoFields('product', buildItemSeo('products', product));
+        saveImageEntriesToField('product', getItemImages(product));
+      } else {
+        form.reset();
+        document.getElementById('product-id').value = '';
+        setSeoFields('product');
+        saveImageEntriesToField('product', []);
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function openProjectModal(project = null) {
+      const modal = document.getElementById('projectModal');
+      const form = document.getElementById('projectForm');
+
+      if (project) {
+        document.getElementById('project-id').value = project.id;
+        document.getElementById('project-title').value = project.title;
+        document.getElementById('project-description').value = project.description;
+        document.getElementById('project-type').value = project.type;
+        document.getElementById('project-elevators').value = project.elevators;
+        document.getElementById('project-speed').value = project.speed || '';
+        document.getElementById('project-capacity').value = project.capacity || '';
+        document.getElementById('project-location').value = project.location;
+        document.getElementById('project-year').value = project.year;
+        document.getElementById('project-image-captions').value = linesToText(project.imageCaptions);
+        setSeoFields('project', buildItemSeo('projects', project));
+        saveImageEntriesToField('project', getItemImages(project));
+      } else {
+        form.reset();
+        document.getElementById('project-id').value = '';
+        setSeoFields('project');
+        saveImageEntriesToField('project', []);
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function openTestimonialModal(testimonial = null) {
+      const modal = document.getElementById('testimonialModal');
+      const form = document.getElementById('testimonialForm');
+
+      if (testimonial) {
+        document.getElementById('testimonial-id').value = testimonial.id;
+        document.getElementById('testimonial-name').value = testimonial.name;
+        document.getElementById('testimonial-position').value = testimonial.position;
+        document.getElementById('testimonial-content').value = testimonial.content;
+        document.getElementById('testimonial-rating').value = testimonial.rating;
+        document.getElementById('testimonial-image').value = testimonial.image || '';
+        if (testimonial.image) {
+          document.getElementById('testimonial-image-thumb').src = testimonial.image;
+          document.getElementById('testimonial-image-preview').classList.remove('hidden');
+        } else {
+          document.getElementById('testimonial-image-preview').classList.add('hidden');
+        }
+      } else {
+        form.reset();
+        document.getElementById('testimonial-id').value = '';
+        document.getElementById('testimonial-image-preview').classList.add('hidden');
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function openPartnerModal(partner = null) {
+      const modal = document.getElementById('partnerModal');
+      const form = document.getElementById('partnerForm');
+
+      if (partner) {
+        document.getElementById('partner-id').value = partner.id;
+        document.getElementById('partner-name').value = partner.name;
+        document.getElementById('partner-country').value = partner.country || '';
+        document.getElementById('partner-image').value = partner.image || '';
+        if (partner.image) {
+          document.getElementById('partner-image-thumb').src = partner.image;
+          document.getElementById('partner-image-preview').classList.remove('hidden');
+        } else {
+          document.getElementById('partner-image-preview').classList.add('hidden');
+        }
+      } else {
+        form.reset();
+        document.getElementById('partner-id').value = '';
+        document.getElementById('partner-image-preview').classList.add('hidden');
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add('hidden');
+    }
+
+    const DEFAULT_DATA = {
+      services: [
+        { id: 'default-service-1', title: 'توريد وتركيب المصاعد', description: 'توريد وتركيب أحدث أنواع المصاعد من أفضل الماركات العالمية', icon: 'fas fa-building', features: ['تصميم حسب الطلب', 'تركيب احترافي', 'ضمان شامل'] },
+        { id: 'default-service-2', title: 'الصيانة الدورية', description: 'برامج صيانة دورية شاملة لضمان عمل المصاعد بكفاءة عالية', icon: 'fas fa-tools', features: ['صيانة وقائية شهرية', 'فحص دوري شامل', 'تقارير فنية مفصلة'] },
+        { id: 'default-service-3', title: 'التحديث والتطوير', description: 'تحديث المصاعد القديمة بأحدث التقنيات والأنظمة الذكية', icon: 'fas fa-sync-alt', features: ['أنظمة تحكم حديثة', 'تحسين كفاءة الطاقة', 'تقنيات أمان متطورة'] },
+        { id: 'default-service-4', title: 'خدمة الطوارئ 24/7', description: 'فريق طوارئ متخصص متاح على مدار الساعة لحل أي مشكلة طارئة', icon: 'fas fa-phone-alt', features: ['استجابة سريعة', 'فنيون مؤهلون', 'قطع غيار أصلية'] },
+        { id: 'default-service-5', title: 'السلالم المتحركة', description: 'توريد وتركيب وصيانة السلالم المتحركة للمراكز التجارية', icon: 'fas fa-stairs', features: ['سلالم متحركة داخلية', 'سلالم متحركة خارجية', 'ممرات متحركة'] },
+        { id: 'default-service-6', title: 'الاستشارات الفنية', description: 'استشارات متخصصة لاختيار الحلول المثالية لمشروعك', icon: 'fas fa-clipboard-check', features: ['دراسات الجدوى', 'التصاميم الهندسية', 'المواصفات الفنية'] }
+      ],
+      products: [
+        { id: 'default-product-1', name: 'مصاعد الركاب', description: 'مصاعد عصرية بتصاميم أنيقة وتقنيات متطورة للمباني السكنية والتجارية', image: 'assets/passenger.jpg', features: ['سعة من 4 إلى 21 راكب', 'سرعة حتى 4 متر/ثانية', 'أنظمة توفير الطاقة'] },
+        { id: 'default-product-2', name: 'مصاعد البضائع', description: 'مصاعد قوية مصممة لنقل البضائع الثقيلة بأمان وكفاءة عالية', image: 'assets/escalators.jpg', features: ['حمولة حتى 5000 كجم', 'أبواب قوية ومتينة', 'أرضيات مقاومة للصدمات'] },
+        { id: 'default-product-3', name: 'مصاعد المستشفيات', description: 'مصاعد مخصصة للمستشفيات بمواصفات خاصة لنقل المرضى والأسرة', image: 'assets/hospitals.jpeg', features: ['أبعاد كبيرة للأسرة', 'حركة سلسة وهادئة', 'أنظمة طوارئ متقدمة'] },
+        { id: 'default-product-4', name: 'مصاعد بانورامية', description: 'مصاعد زجاجية فاخرة توفر إطلالة مميزة وتضيف لمسة جمالية للمبنى', image: 'assets/panoramy.jpg', features: ['كابينة زجاجية شفافة', 'إضاءة LED متطورة', 'تصاميم عصرية فاخرة'] },
+        { id: 'default-product-5', name: 'مصاعد المنازل', description: 'مصاعد منزلية أنيقة وصغيرة الحجم تناسب الفلل والمنازل الخاصة', image: 'assets/internal-home.webp', features: ['تصميم مدمج', 'تشغيل هادئ', 'استهلاك منخفض للطاقة'] },
+        { id: 'default-product-6', name: 'السلالم المتحركة', description: 'سلالم متحركة عالية الجودة للمراكز التجارية والمطارات', image: 'assets/degree_parallel.webp', features: ['مناسبة للتدفق العالي', 'أنظمة أمان متقدمة', 'تشغيل مستمر وموثوق'] }
+      ],
+      projects: [
+        { id: 'default-project-1', title: 'شركة هدب للتطوير والاستثمار', description: 'تركيب 25 مصعد عالي السرعة لأطول برج في المملكة', type: 'مشروع متكامل لتوريد وتركيب المصاعد', elevators: 25, speed: '1 م/ث', capacity: '600 كجم', location: 'الرياض', year: 2024, image: 'assets/hero-img.jpeg' },
+        { id: 'default-project-2', title: 'شركات ومجمعات تجارية', description: 'توريد وتركيب وصيانة مصاعد بمواصفات خاصة', type: 'مولات تجارية', elevators: 15, speed: '1 م/ث', capacity: '600 كجم', location: 'الرياض', year: 2024, image: 'assets/escalators.jpg' },
+        { id: 'default-project-3', title: 'مستشفيات وعيادات', description: 'توريد وتركيب مصاعد طبية بمواصفات خاصة للمستشفى', type: 'مجمعات طبية', elevators: 17, speed: '1 م/ث', capacity: '1000 كجم', location: 'الرياض', year: 2024, image: 'assets/hospitals.jpeg' },
+        { id: 'default-project-4', title: 'فنادق', description: 'تركيب مصاعد عالية السرعة بأفضل جودة', type: 'فنادق', elevators: 15, speed: '1.5 م/ث', capacity: '800 كجم', location: 'الرياض', year: 2024, image: 'assets/panoramy.jpg' }
+      ],
+      testimonials: [
+        {
+          id: 'default-testimonial-1',
+          name: 'م. خالد السعدي',
+          position: 'مدير مشروع - برج المملكة',
+          content: 'شركة تقنية الارتفاع قدمت لنا حلولا متميزة وبجودة عالية. التزامهم بالمواعيد ودقة التنفيذ كانت استثنائية',
+          rating: 5,
+          image: 'https://i.pravatar.cc/60?img=1'
+        },
+        {
+          id: 'default-testimonial-2',
+          name: 'د. فاطمة الزهراني',
+          position: 'مديرة المشاريع - مستشفى الملك فيصل',
+          content: 'خدمة الصيانة الدورية ممتازة، وفريق الطوارئ متاح دائما. المصاعد تعمل بكفاءة عالية منذ التركيب',
+          rating: 5,
+          image: 'https://i.pravatar.cc/60?img=2'
+        },
+        {
+          id: 'default-testimonial-3',
+          name: 'أ. محمد الشمري',
+          position: 'مدير عام - الرياض بارك مول',
+          content: 'السلالم المتحركة والمصاعد البانورامية أضافت قيمة حقيقية لمشروعنا. احترافية عالية في التعامل',
+          rating: 5,
+          image: 'https://i.pravatar.cc/60?img=3'
+        }
+      ],
+      partners: [
+        { id: 'default-partner-1', name: 'Otis', country: 'إيطاليا', image: 'assets/partners/otis.svg' },
+        { id: 'default-partner-2', name: 'Schindler', country: 'إيطاليا', image: 'assets/partners/schindler.svg' },
+        { id: 'default-partner-3', name: 'KONE', country: 'تركيا', image: 'assets/partners/kone.svg' },
+        { id: 'default-partner-4', name: 'ThyssenKrupp', country: 'تركيا', image: 'assets/partners/thyssenkrupp.svg' },
+        { id: 'default-partner-5', name: 'Hitachi', country: 'الصين', image: 'assets/partners/hitachi.svg' },
+        { id: 'default-partner-6', name: 'Mitsubishi', country: 'الصين', image: 'assets/partners/mitsubishi.svg' },
+        { id: 'default-partner-7', name: 'Siemens', country: 'إيطاليا', image: 'assets/partners/siemens.svg' },
+        { id: 'default-partner-8', name: 'Bosch', country: 'تركيا', image: 'assets/partners/bosch.svg' },
+        { id: 'default-partner-9', name: 'Montanari', country: 'إيطاليا', image: 'assets/partners/montanari.svg' },
+        { id: 'default-partner-10', name: 'Sicor', country: 'إيطاليا', image: 'assets/partners/sicor.svg' },
+        { id: 'default-partner-11', name: 'Vega', country: 'إيطاليا', image: 'assets/partners/vega.svg' },
+        { id: 'default-partner-12', name: 'Sky', country: 'إيطاليا', image: 'assets/partners/sky.svg' },
+        { id: 'default-partner-13', name: 'Wittur', country: 'النمسا', image: 'assets/partners/wittur.svg' },
+        { id: 'default-partner-14', name: 'IFE', country: 'النمسا', image: 'assets/partners/ife.svg' },
+        { id: 'default-partner-15', name: 'Cedes', country: 'سويسرا', image: 'assets/partners/cedes.svg' }
+      ]
+    };
+
+    function getDefaultData(type) {
+      return (DEFAULT_DATA[type] || []).map(item => ({ ...item }));
+    }
+
+    function hydrateDefaultDetails(type, item) {
+      const defaults = DEFAULT_DATA[type] || [];
+      const fallback = defaults.find(defaultItem =>
+        defaultItem.id === item.id ||
+        defaultItem.icon === item.icon ||
+        (type === 'services' && defaultItem.title === item.title) ||
+        (type === 'products' && defaultItem.name === item.name)
+      );
+
+      if (!fallback) return item;
+
+      return {
+        ...item,
+        features: Array.isArray(item.features) && item.features.length > 0 ? item.features : fallback.features,
+        speed: item.speed || fallback.speed,
+        capacity: item.capacity || fallback.capacity,
+        seo: hasSeoData(item.seo) ? item.seo : buildItemSeo(type, { ...fallback, ...item })
+      };
+    }
+
+    // Data management functions
+    function getData(type) {
+      const stored = localStorage.getItem(type);
+      if (!stored) return getDefaultData(type);
+
+      try {
+        const data = JSON.parse(stored);
+        if (Array.isArray(data) && data.length === 0 && ['services', 'products', 'projects', 'testimonials'].includes(type)) {
+          return getDefaultData(type);
+        }
+        return Array.isArray(data) ? data.map(item => hydrateDefaultDetails(type, item)) : getDefaultData(type);
+      } catch (error) {
+        console.warn(`Unable to parse ${type}`, error);
+        return getDefaultData(type);
+      }
+    }
+
+    function saveData(type, data) {
+      localStorage.setItem(`${type}_managed`, 'true');
+      localStorage.setItem(type, JSON.stringify(data));
+    }
+
+    // Load dashboard
+    function loadDashboard() {
+      const services = getData('services');
+      const products = getData('products');
+      const projects = getData('projects');
+      const testimonials = getData('testimonials');
+      const partners = getData('partners');
+
+      document.getElementById('services-count').textContent = services.length;
+      document.getElementById('products-count').textContent = products.length;
+      document.getElementById('projects-count').textContent = projects.length;
+      document.getElementById('testimonials-count').textContent = testimonials.length;
+      document.getElementById('partners-count').textContent = partners.length;
+      loadSettings();
+    }
+
+    // Services management
+    function loadServices() {
+      const services = getData('services');
+      const container = document.getElementById('services-list');
+
+      if (services.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-center py-8">لا توجد خدمات مضافة</p>';
+        return;
+      }
+
+      container.innerHTML = services.map(service => {
+        const features = Array.isArray(service.features) ? service.features : [];
+        const featuresHtml = features.length
+          ? `<div class="flex flex-wrap gap-2 mt-2">${features.map(feature => `<span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">${feature}</span>`).join('')}</div>`
+          : '<p class="text-xs text-amber-600 mt-2">No service details saved yet</p>';
+        const seoSummary = renderSeoSummary(buildItemSeo('services', service));
+
+        return `
+          <div class="border border-gray-200 rounded-lg p-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                  ${renderServiceIcon(service.icon)}
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-900">${service.title}</h4>
+                  <p class="text-sm text-gray-600">${service.description.substring(0, 100)}...</p>
+                  ${featuresHtml}
+                  ${seoSummary}
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button onclick="editService('${service.id}')" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button onclick="deleteService('${service.id}')" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Service form handler
+    document.getElementById('serviceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const id = document.getElementById('service-id').value || Date.now().toString();
+      const service = {
+        id: id,
+        title: document.getElementById('service-title').value,
+        description: document.getElementById('service-description').value,
+        features: parseLines(document.getElementById('service-features').value),
+        icon: document.getElementById('service-icon').value,
+        seo: getSeoFields('service')
+      };
+
+      const services = getData('services');
+      const existingIndex = services.findIndex(s => s.id === id);
+
+      if (existingIndex >= 0) {
+        services[existingIndex] = service;
+      } else {
+        services.push(service);
+      }
+
+      saveData('services', services);
+      closeModal('serviceModal');
+      loadServices();
+      loadDashboard();
+    });
+
+    function editService(id) {
+      const services = getData('services');
+      const service = services.find(s => s.id === id);
+      if (service) {
+        openServiceModal(service);
+      }
+    }
+
+    function deleteService(id) {
+      if (confirm('هل أنت متأكد من حذف هذه الخدمة؟')) {
+        const services = getData('services').filter(s => s.id !== id);
+        saveData('services', services);
+        loadServices();
+        loadDashboard();
+      }
+    }
+
+    // Products management (similar pattern)
+    function loadProducts() {
+      const products = getData('products');
+      const container = document.getElementById('products-list');
+
+      if (products.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-center py-8">لا توجد منتجات مضافة</p>';
+        return;
+      }
+
+      container.innerHTML = products.map(product => {
+        const images = getItemImages(product);
+        const primaryImage = images[0]?.src || product.image || '';
+        return `
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              ${primaryImage ? `<img src="${primaryImage}" alt="${product.name}" class="w-12 h-12 rounded object-cover">` : '<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center"><i class="fas fa-image text-gray-400"></i></div>'}
+              <div>
+                <h4 class="font-bold text-gray-900">${product.name}</h4>
+                <p class="text-sm text-gray-600">${product.description.substring(0, 100)}...</p>
+                <p class="text-xs text-gray-500 mt-1">${images.length} صورة</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="editProduct('${product.id}')" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button onclick="deleteProduct('${product.id}')" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      }).join('');
+    }
+
+    document.getElementById('productForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const id = document.getElementById('product-id').value || Date.now().toString();
+      const productImages = getImageEntriesFromField('product');
+      const product = {
+        id: id,
+        name: document.getElementById('product-name').value,
+        description: document.getElementById('product-description').value,
+        features: parseLines(document.getElementById('product-features').value),
+        image: productImages[0]?.src || '',
+        imageName: productImages[0]?.name || '',
+        images: productImages,
+        seo: getSeoFields('product')
+      };
+
+      const products = getData('products');
+      const existingIndex = products.findIndex(p => p.id === id);
+
+      if (existingIndex >= 0) {
+        products[existingIndex] = product;
+      } else {
+        products.push(product);
+      }
+
+      saveData('products', products);
+      closeModal('productModal');
+      loadProducts();
+      loadDashboard();
+    });
+
+    function editProduct(id) {
+      const products = getData('products');
+      const product = products.find(p => p.id === id);
+      if (product) {
+        openProductModal(product);
+      }
+    }
+
+    function deleteProduct(id) {
+      if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
+        const products = getData('products').filter(p => p.id !== id);
+        saveData('products', products);
+        loadProducts();
+        loadDashboard();
+      }
+    }
+
+    // Projects management
+    function loadProjects() {
+      const projects = getData('projects');
+      const container = document.getElementById('projects-list');
+
+      if (projects.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-center py-8">لا توجد مشاريع مضافة</p>';
+        return;
+      }
+
+      container.innerHTML = projects.map(project => {
+        const images = getItemImages(project);
+        const primaryImage = images[0]?.src || project.image || '';
+        return `
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              ${primaryImage ? `<img src="${primaryImage}" alt="${project.title}" class="w-12 h-12 rounded object-cover">` : '<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center"><i class="fas fa-image text-gray-400"></i></div>'}
+              <div>
+                <h4 class="font-bold text-gray-900">${project.title}</h4>
+                <p class="text-sm text-gray-600">${project.description.substring(0, 100)}...</p>
+                <p class="text-xs text-gray-500 mt-1">${images.length} صورة</p>
+                <div class="flex gap-4 mt-2 text-xs text-gray-500">
+                  <span>${project.type}</span>
+                  <span>${project.elevators} مصعد</span>
+                  <span>${project.location}</span>
+                  <span>${project.year}</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="editProject('${project.id}')" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button onclick="deleteProject('${project.id}')" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      }).join('');
+    }
+
+    document.getElementById('projectForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const id = document.getElementById('project-id').value || Date.now().toString();
+      const projectImages = getImageEntriesFromField('project');
+      const captions = parseLines(document.getElementById('project-image-captions').value);
+      const imagesWithCaptions = projectImages.map((image, index) => ({
+        ...image,
+        caption: captions[index] || image.caption || image.name || ''
+      }));
+      const project = {
+        id: id,
+        title: document.getElementById('project-title').value,
+        description: document.getElementById('project-description').value,
+        type: document.getElementById('project-type').value,
+        elevators: parseInt(document.getElementById('project-elevators').value),
+        speed: document.getElementById('project-speed').value,
+        capacity: document.getElementById('project-capacity').value,
+        location: document.getElementById('project-location').value,
+        year: parseInt(document.getElementById('project-year').value),
+        image: imagesWithCaptions[0]?.src || '',
+        imageName: imagesWithCaptions[0]?.name || '',
+        imageCaptions: captions,
+        images: imagesWithCaptions,
+        seo: getSeoFields('project')
+      };
+
+      const projects = getData('projects');
+      const existingIndex = projects.findIndex(p => p.id === id);
+
+      if (existingIndex >= 0) {
+        projects[existingIndex] = project;
+      } else {
+        projects.push(project);
+      }
+
+      saveData('projects', projects);
+      closeModal('projectModal');
+      loadProjects();
+      loadDashboard();
+    });
+
+    function editProject(id) {
+      const projects = getData('projects');
+      const project = projects.find(p => p.id === id);
+      if (project) {
+        openProjectModal(project);
+      }
+    }
+
+    function deleteProject(id) {
+      if (confirm('هل أنت متأكد من حذف هذا المشروع؟')) {
+        const projects = getData('projects').filter(p => p.id !== id);
+        saveData('projects', projects);
+        loadProjects();
+        loadDashboard();
+      }
+    }
+
+    // Testimonials management
+    function loadTestimonials() {
+      const testimonials = getData('testimonials');
+      const container = document.getElementById('testimonials-list');
+
+      if (testimonials.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-center py-8">لا توجد تقييمات مضافة</p>';
+        return;
+      }
+
+      container.innerHTML = testimonials.map(testimonial => `
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              ${testimonial.image ? `<img src="${testimonial.image}" alt="${testimonial.name}" class="w-12 h-12 rounded-full object-cover">` : '<div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center"><i class="fas fa-user text-gray-400"></i></div>'}
+              <div>
+                <h4 class="font-bold text-gray-900">${testimonial.name}</h4>
+                <p class="text-sm text-gray-600 mb-2">${testimonial.position}</p>
+                <p class="text-sm text-gray-700">${testimonial.content.substring(0, 100)}...</p>
+                <div class="flex mt-2">
+                  ${Array(testimonial.rating).fill('<i class="fas fa-star text-yellow-400"></i>').join('')}
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="editTestimonial('${testimonial.id}')" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button onclick="deleteTestimonial('${testimonial.id}')" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('testimonialForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const id = document.getElementById('testimonial-id').value || Date.now().toString();
+      const testimonial = {
+        id: id,
+        name: document.getElementById('testimonial-name').value,
+        position: document.getElementById('testimonial-position').value,
+        content: document.getElementById('testimonial-content').value,
+        rating: parseInt(document.getElementById('testimonial-rating').value),
+        image: document.getElementById('testimonial-image').value
+      };
+
+      const testimonials = getData('testimonials');
+      const existingIndex = testimonials.findIndex(t => t.id === id);
+
+      if (existingIndex >= 0) {
+        testimonials[existingIndex] = testimonial;
+      } else {
+        testimonials.push(testimonial);
+      }
+
+      saveData('testimonials', testimonials);
+      closeModal('testimonialModal');
+      loadTestimonials();
+      loadDashboard();
+    });
+
+    function editTestimonial(id) {
+      const testimonials = getData('testimonials');
+      const testimonial = testimonials.find(t => t.id === id);
+      if (testimonial) {
+        openTestimonialModal(testimonial);
+      }
+    }
+
+    function deleteTestimonial(id) {
+      if (confirm('هل أنت متأكد من حذف هذا التقييم؟')) {
+        const testimonials = getData('testimonials').filter(t => t.id !== id);
+        saveData('testimonials', testimonials);
+        loadTestimonials();
+        loadDashboard();
+      }
+    }
+
+    // Partners management
+    function loadPartners() {
+      const partners = getData('partners');
+      const container = document.getElementById('partners-list');
+
+      if (partners.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-center py-8">&#1604;&#1575; &#1610;&#1608;&#1580;&#1583; &#1588;&#1585;&#1603;&#1575;&#1569; &#1605;&#1590;&#1575;&#1601;&#1608;&#1606;</p>';
+        return;
+      }
+
+      container.innerHTML = partners.map(partner => `
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              ${partner.image ? `<img src="${partner.image}" alt="${partner.name}" class="w-16 h-12 rounded object-contain bg-gray-50 border border-gray-100 p-1">` : '<div class="w-16 h-12 bg-gray-100 rounded flex items-center justify-center"><i class="fas fa-image text-gray-400"></i></div>'}
+              <div>
+                <h4 class="font-bold text-gray-900">${partner.name}</h4>
+                <p class="text-sm text-gray-600">${partner.country || ''}</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="editPartner('${partner.id}')" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button onclick="deletePartner('${partner.id}')" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('partnerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const id = document.getElementById('partner-id').value || Date.now().toString();
+      const partner = {
+        id: id,
+        name: document.getElementById('partner-name').value,
+        country: document.getElementById('partner-country').value,
+        image: document.getElementById('partner-image').value
+      };
+
+      const partners = getData('partners');
+      const existingIndex = partners.findIndex(p => p.id === id);
+
+      if (existingIndex >= 0) {
+        partners[existingIndex] = partner;
+      } else {
+        partners.push(partner);
+      }
+
+      saveData('partners', partners);
+      closeModal('partnerModal');
+      loadPartners();
+      loadDashboard();
+    });
+
+    function editPartner(id) {
+      const partners = getData('partners');
+      const partner = partners.find(p => p.id === id);
+      if (partner) {
+        openPartnerModal(partner);
+      }
+    }
+
+    function deletePartner(id) {
+      if (confirm('هل أنت متأكد من حذف هذا الشريك؟')) {
+        const partners = getData('partners').filter(p => p.id !== id);
+        saveData('partners', partners);
+        loadPartners();
+        loadDashboard();
+      }
+    }
+
+    const seoDefaults = {
+      home: {
+        title: 'Elevation Tech | Elevator Installation and Maintenance in Saudi Arabia',
+        description: 'Elevation Tech provides elevator installation, maintenance, modernization, escalators, home elevators, freight elevators, and hospital elevator solutions in Riyadh and Saudi Arabia.',
+        keywords: 'elevators Saudi Arabia, elevator maintenance Riyadh, elevator installation, escalators, home elevators, freight elevators, hospital elevators, Elevation Tech',
+        canonical: 'https://elevation-tech.sa/',
+        image: 'https://elevation-tech.sa/assets/hero-img.jpeg',
+        imageAlt: 'Elevation Tech | Elevator Installation and Maintenance in Saudi Arabia',
+        robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+        schemaType: 'LocalBusiness'
+      },
+      about: {
+        title: 'About Elevation Tech | Elevator Company in Saudi Arabia',
+        description: 'Learn about Elevation Tech, a Saudi elevator company providing installation, maintenance, modernization, and escalator solutions for residential and commercial projects.',
+        keywords: 'about Elevation Tech, elevator company Saudi Arabia, elevator contractor Riyadh, lift company, escalator company',
+        canonical: 'https://elevation-tech.sa/pages/about.html',
+        image: 'https://elevation-tech.sa/assets/logo.png',
+        imageAlt: 'About Elevation Tech | Elevator Company in Saudi Arabia',
+        robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+        schemaType: 'AboutPage'
+      },
+      services: {
+        title: 'Elevator Services | Installation, Maintenance and Modernization',
+        description: 'Elevation Tech services include elevator installation, preventive maintenance, emergency support, elevator modernization, technical consultation, and escalator solutions.',
+        keywords: 'elevator services, elevator maintenance, elevator installation, elevator modernization, emergency elevator service, escalator maintenance',
+        canonical: 'https://elevation-tech.sa/pages/services.html',
+        image: 'https://elevation-tech.sa/assets/hero-img.jpeg',
+        imageAlt: 'Elevator Services | Installation, Maintenance and Modernization',
+        robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+        schemaType: 'Service'
+      },
+      products: {
+        title: 'Elevator Products | Passenger, Home, Freight and Hospital Elevators',
+        description: 'Explore Elevation Tech elevator products including passenger elevators, freight elevators, hospital elevators, panoramic elevators, home elevators, and escalators.',
+        keywords: 'passenger elevators, freight elevators, hospital elevators, panoramic elevators, home elevators, escalators, elevator products Saudi Arabia',
+        canonical: 'https://elevation-tech.sa/pages/products.html',
+        image: 'https://elevation-tech.sa/assets/passenger.jpg',
+        imageAlt: 'Elevator Products | Passenger, Home, Freight and Hospital Elevators',
+        robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+        schemaType: 'CollectionPage'
+      },
+      projects: {
+        title: 'Elevator Projects | Elevation Tech Completed Projects',
+        description: 'View Elevation Tech completed elevator projects for residential towers, commercial complexes, healthcare facilities, and hotel projects in Saudi Arabia.',
+        keywords: 'elevator projects, completed elevator projects, elevator contractor projects, Saudi elevator projects, Riyadh elevator installation',
+        canonical: 'https://elevation-tech.sa/pages/projects.html',
+        image: 'https://elevation-tech.sa/assets/hero-img.jpeg',
+        imageAlt: 'Elevator Projects | Elevation Tech Completed Projects',
+        robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+        schemaType: 'CollectionPage'
+      },
+      contact: {
+        title: 'Contact Elevation Tech | Elevator Consultation and Quotation',
+        description: 'Contact Elevation Tech for elevator consultation, quotation, installation, maintenance, modernization, and escalator services in Riyadh and Saudi Arabia.',
+        keywords: 'contact elevator company, elevator quotation Riyadh, elevator consultation Saudi Arabia, Elevation Tech contact, elevator maintenance phone',
+        canonical: 'https://elevation-tech.sa/pages/contact.html',
+        image: 'https://elevation-tech.sa/assets/logo.png',
+        imageAlt: 'Contact Elevation Tech | Elevator Consultation and Quotation',
+        robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+        schemaType: 'ContactPage'
+      }
+    };
+
+    function deepMerge(base, update) {
+      const output = { ...base };
+      Object.keys(update || {}).forEach(key => {
+        if (update[key] && typeof update[key] === 'object' && !Array.isArray(update[key])) {
+          output[key] = deepMerge(output[key] || {}, update[key]);
+        } else {
+          output[key] = update[key];
+        }
+      });
+      return output;
+    }
+
+    function getSiteSettings() {
+      try {
+        return JSON.parse(localStorage.getItem('site_settings') || '{}');
+      } catch (error) {
+        return {};
+      }
+    }
+
+    // Settings helpers
+    function saveSiteSettings(partialSettings) {
+      const current = getSiteSettings();
+      const merged = deepMerge(current, partialSettings);
+      localStorage.setItem('site_settings', JSON.stringify(merged));
+    }
+
+    function getSeoPageSettings(pageKey) {
+      const settings = getSiteSettings();
+      return { ...(seoDefaults[pageKey] || {}), ...(settings.seo?.pages?.[pageKey] || {}) };
+    }
+
+    function loadSeoForm(pageKey = document.getElementById('seo-page').value) {
+      const pageSeo = getSeoPageSettings(pageKey);
+      const pageContent = getSiteSettings().pages?.[pageKey] || {};
+      document.getElementById('page-heading').value = pageContent.heading || '';
+      document.getElementById('page-subtitle').value = pageContent.subtitle || '';
+      document.getElementById('seo-title').value = pageSeo.title || '';
+      document.getElementById('seo-description').value = pageSeo.description || '';
+      document.getElementById('seo-keywords').value = pageSeo.keywords || '';
+      document.getElementById('seo-canonical').value = pageSeo.canonical || '';
+      document.getElementById('seo-image').value = pageSeo.image || '';
+      document.getElementById('seo-image-alt').value = pageSeo.imageAlt || '';
+      document.getElementById('seo-robots').value = pageSeo.robots || '';
+      document.getElementById('seo-schema-type').value = pageSeo.schemaType || '';
+      document.getElementById('seo-schema-json').value = pageSeo.schemaJson || '';
+    }
+
+    function loadSettings() {
+      const settings = getSiteSettings();
+
+      document.getElementById('company-name').value = settings.companyName || 'تقنية الارتفاع';
+      document.getElementById('company-email').value = settings.companyEmail || 'sales@elevation-tech.sa';
+      document.getElementById('company-phone').value = settings.companyPhone || '+966531154551';
+      document.getElementById('company-phone-alt').value = settings.companyPhoneAlt || '+966544925287';
+
+      document.getElementById('order-hero').value = settings.homeOrder?.hero || 1;
+      document.getElementById('order-services').value = settings.homeOrder?.services || 2;
+      document.getElementById('order-products').value = settings.homeOrder?.products || 3;
+      document.getElementById('order-partners').value = settings.homeOrder?.partners || 4;
+      document.getElementById('order-projects').value = settings.homeOrder?.projects || 5;
+      document.getElementById('order-testimonials').value = settings.homeOrder?.testimonials || 6;
+
+      document.getElementById('show-hero').checked = settings.homeShow?.hero !== false;
+      document.getElementById('show-services').checked = settings.homeShow?.services !== false;
+      document.getElementById('show-products').checked = settings.homeShow?.products !== false;
+      document.getElementById('show-partners').checked = settings.homeShow?.partners !== false;
+      document.getElementById('show-projects').checked = settings.homeShow?.projects !== false;
+      document.getElementById('show-testimonials').checked = settings.homeShow?.testimonials !== false;
+
+      document.getElementById('title-services').value = settings.sectionTitles?.services || 'خدماتنا المميزة';
+      document.getElementById('title-products').value = settings.sectionTitles?.products || 'منتجاتنا';
+
+      document.getElementById('header-title').value = settings.headerTitle || 'حلول المصاعد الذكية';
+      document.getElementById('header-subtitle').value = settings.headerSubtitle || 'أفضل نظام تحكم للمصاعد في السعودية';
+      document.getElementById('header-button-text').value = settings.headerButtonText || 'تواصل معنا';
+      document.getElementById('header-button-url').value = settings.headerButtonUrl || '#contact';
+      document.getElementById('footer-copy').value = settings.footerCopy || '© 2026 تقنية الارتفاع. جميع الحقوق محفوظة.';
+      document.getElementById('footer-address').value = settings.footerAddress || 'الرياض، المملكة العربية السعودية';
+
+      document.getElementById('social-instagram').value = settings.social?.instagram || 'https://www.instagram.com/elevationtech0';
+      document.getElementById('social-tiktok').value = settings.social?.tiktok || 'https://www.tiktok.com/@elevationtech0';
+      document.getElementById('social-snapchat').value = settings.social?.snapchat || 'https://www.snapchat.com/add/elevationtech0';
+      document.getElementById('social-linkedin').value = settings.social?.linkedin || '';
+
+      document.getElementById('tracking-gtm').value = settings.tracking?.googleTagManagerId || '';
+      document.getElementById('tracking-ga').value = settings.tracking?.googleAnalyticsId || '';
+      document.getElementById('tracking-ads').value = settings.tracking?.googleAdsId || '';
+      document.getElementById('tracking-ads-label').value = settings.tracking?.googleAdsConversionLabel || '';
+      document.getElementById('tracking-meta').value = settings.tracking?.metaPixelId || '';
+      document.getElementById('tracking-clarity').value = settings.tracking?.microsoftClarityId || '';
+
+      loadSeoForm();
+    }
+
+    document.getElementById('general-settings').addEventListener('submit', function(e) {
+      e.preventDefault();
+      saveSiteSettings({
+        companyName: document.getElementById('company-name').value,
+        companyEmail: document.getElementById('company-email').value,
+        companyPhone: document.getElementById('company-phone').value,
+        companyPhoneAlt: document.getElementById('company-phone-alt').value
+      });
+      alert('تم حفظ الإعدادات العامة بنجاح!');
+    });
+
+    document.getElementById('home-settings').addEventListener('submit', function(e) {
+      e.preventDefault();
+      saveSiteSettings({
+        homeOrder: {
+          hero: parseInt(document.getElementById('order-hero').value) || 1,
+          services: parseInt(document.getElementById('order-services').value) || 2,
+          products: parseInt(document.getElementById('order-products').value) || 3,
+          partners: parseInt(document.getElementById('order-partners').value) || 4,
+          projects: parseInt(document.getElementById('order-projects').value) || 5,
+          testimonials: parseInt(document.getElementById('order-testimonials').value) || 6
+        },
+        homeShow: {
+          hero: document.getElementById('show-hero').checked,
+          services: document.getElementById('show-services').checked,
+          products: document.getElementById('show-products').checked,
+          partners: document.getElementById('show-partners').checked,
+          projects: document.getElementById('show-projects').checked,
+          testimonials: document.getElementById('show-testimonials').checked
+        },
+        sectionTitles: {
+          services: document.getElementById('title-services').value,
+          products: document.getElementById('title-products').value
+        }
+      });
+      alert('تم حفظ إعدادات الصفحة الرئيسية بنجاح!');
+    });
+
+    document.getElementById('header-footer-settings').addEventListener('submit', function(e) {
+      e.preventDefault();
+      saveSiteSettings({
+        headerTitle: document.getElementById('header-title').value,
+        headerSubtitle: document.getElementById('header-subtitle').value,
+        headerButtonText: document.getElementById('header-button-text').value,
+        headerButtonUrl: document.getElementById('header-button-url').value,
+        footerCopy: document.getElementById('footer-copy').value,
+        footerAddress: document.getElementById('footer-address').value
+      });
+      alert('تم حفظ إعدادات الرأس والتذييل بنجاح!');
+    });
+
+    document.getElementById('social-settings').addEventListener('submit', function(e) {
+      e.preventDefault();
+      saveSiteSettings({
+        social: {
+          instagram: document.getElementById('social-instagram').value,
+          tiktok: document.getElementById('social-tiktok').value,
+          snapchat: document.getElementById('social-snapchat').value,
+          linkedin: document.getElementById('social-linkedin').value
+        }
+      });
+      alert('تم حفظ إعدادات وسائل التواصل بنجاح!');
+    });
+
+    document.getElementById('tracking-settings').addEventListener('submit', function(e) {
+      e.preventDefault();
+      saveSiteSettings({
+        tracking: {
+          googleTagManagerId: document.getElementById('tracking-gtm').value.trim(),
+          googleAnalyticsId: document.getElementById('tracking-ga').value.trim(),
+          googleAdsId: document.getElementById('tracking-ads').value.trim(),
+          googleAdsConversionLabel: document.getElementById('tracking-ads-label').value.trim(),
+          metaPixelId: document.getElementById('tracking-meta').value.trim(),
+          microsoftClarityId: document.getElementById('tracking-clarity').value.trim()
+        }
+      });
+      alert('Tracking settings saved successfully!');
+    });
+
+    document.getElementById('seo-page').addEventListener('change', function() {
+      loadSeoForm(this.value);
+    });
+
+    document.getElementById('seo-settings').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const pageKey = document.getElementById('seo-page').value;
+      const schemaJson = document.getElementById('seo-schema-json').value.trim();
+
+      if (schemaJson) {
+        try {
+          JSON.parse(schemaJson);
+        } catch (error) {
+          alert('Custom JSON-LD is not valid JSON. Please fix it before saving.');
+          return;
+        }
+      }
+
+      saveSiteSettings({
+        seo: {
+          pages: {
+            [pageKey]: {
+              title: document.getElementById('seo-title').value.trim(),
+              description: document.getElementById('seo-description').value.trim(),
+              keywords: document.getElementById('seo-keywords').value.trim(),
+              canonical: document.getElementById('seo-canonical').value.trim(),
+              image: document.getElementById('seo-image').value.trim(),
+              imageAlt: document.getElementById('seo-image-alt').value.trim(),
+              robots: document.getElementById('seo-robots').value.trim(),
+              schemaType: document.getElementById('seo-schema-type').value,
+              schemaJson: schemaJson
+            }
+          }
+        },
+        pages: {
+          [pageKey]: {
+            heading: document.getElementById('page-heading').value.trim(),
+            subtitle: document.getElementById('page-subtitle').value.trim()
+          }
+        }
+      });
+      alert('SEO settings saved successfully!');
+    });
+
+    document.getElementById('security-settings').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (newPassword !== confirmPassword) {
+        alert('كلمات المرور غير متطابقة!');
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        alert('كلمة المرور يجب أن تكون 6 أحرف على الأقل!');
+        return;
+      }
+
+      // In production, this should be server-side
+      localStorage.setItem('admin_password', newPassword);
+      alert('تم تغيير كلمة المرور بنجاح!');
+      document.getElementById('security-settings').reset();
+    });
+
+    // Initialize
+    checkLogin();
+  </script>
+</body>
+
+</html>

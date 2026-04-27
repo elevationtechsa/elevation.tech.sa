@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" class="w-full h-full">
+  <defs>
+    <linearGradient id="ifeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ea580c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f97316;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="200" height="80" fill="url(#ifeGradient)" rx="8"/>
+
+  <!-- Logo Text -->
+  <text x="100" y="25" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="white">IFE</text>
+  <text x="100" y="45" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#fed7aa">ELEVATORS</text>
+
+  <!-- Decorative elements - Circuit pattern -->
+  <path d="M25 30 L35 30 L35 25 L45 25" fill="none" stroke="white" stroke-width="2"/>
+  <circle cx="35" cy="35" r="3" fill="white"/>
+  <path d="M45 35 L55 35" fill="none" stroke="white" stroke-width="2"/>
+  <circle cx="55" cy="35" r="3" fill="white"/>
+
+  <path d="M145 30 L155 30 L155 25 L165 25" fill="none" stroke="white" stroke-width="2"/>
+  <circle cx="155" cy="35" r="3" fill="white"/>
+  <path d="M165 35 L175 35" fill="none" stroke="white" stroke-width="2"/>
+  <circle cx="175" cy="35" r="3" fill="white"/>
+</svg>

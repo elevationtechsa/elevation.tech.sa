@@ -1,0 +1,5 @@
+<svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="60" fill="#004d40" rx="8"/>
+  <text x="60" y="35" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">HITACHI</text>
+  <text x="60" y="50" text-anchor="middle" fill="#b8952b" font-family="Arial, sans-serif" font-size="10">CHINA</text>
+</svg>

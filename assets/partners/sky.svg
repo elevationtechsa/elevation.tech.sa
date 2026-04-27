@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" class="w-full h-full">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="200" height="80" fill="url(#skyGradient)" rx="8"/>
+
+  <!-- Logo Text -->
+  <text x="100" y="25" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="white">SKY</text>
+  <text x="100" y="45" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#dbeafe">ELEVATOR</text>
+
+  <!-- Decorative elements - Cloud shapes -->
+  <path d="M25 55 Q25 45 35 45 Q45 35 55 45 Q65 45 65 55 Q65 65 55 65 Q45 75 35 65 Q25 65 25 55" fill="white"/>
+  <path d="M135 55 Q135 45 145 45 Q155 35 165 45 Q175 45 175 55 Q175 65 165 65 Q155 75 145 65 Q135 65 135 55" fill="white"/>
+
+  <!-- Small stars -->
+  <polygon points="20,25 22,30 27,30 23,33 25,38 20,35 15,38 17,33 13,30 18,30" fill="white"/>
+  <polygon points="180,25 182,30 187,30 183,33 185,38 180,35 175,38 177,33 173,30 178,30" fill="white"/>
+</svg>
