@@ -106,6 +106,10 @@
 
           <!-- User Menu -->
           <div class="flex items-center gap-4">
+            <a href="index.html" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-[#004d40] bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors">
+              <i class="fas fa-external-link-alt"></i>
+              <span>View Site</span>
+            </a>
             <span class="text-sm text-gray-600">مرحباً، المدير</span>
             <button id="logoutBtn" class="px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors">
               <i class="fas fa-sign-out-alt ml-1"></i> خروج
@@ -129,6 +133,12 @@
               <button data-section="dashboard" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-right rounded-lg hover:bg-gray-50 transition-colors active">
                 <i class="fas fa-tachometer-alt text-gray-500 w-5"></i>
                 <span class="text-sm font-medium">لوحة المعلومات</span>
+              </button>
+            </li>
+            <li>
+              <button data-section="hero-slides" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-right rounded-lg hover:bg-gray-50 transition-colors">
+                <i class="fas fa-images text-gray-500 w-5"></i>
+                <span class="text-sm font-medium">Hero Slider</span>
               </button>
             </li>
             <li>
@@ -269,6 +279,27 @@
           </div>
         </div>
 
+        <!-- Hero Slider Section -->
+        <div id="hero-slides-section" class="section hidden">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">Hero Slider</h2>
+              <p class="text-gray-600">Add, edit, and delete homepage hero slides</p>
+            </div>
+            <button onclick="openHeroSlideModal()" class="bg-gradient-to-r from-[#004d40] to-[#00332a] text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+              <i class="fas fa-plus ml-2"></i> Add Slide
+            </button>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-6">
+              <div id="hero-slides-list" class="space-y-4">
+                <!-- Hero slides will be loaded here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Services Section -->
         <div id="services-section" class="section hidden">
           <div class="flex items-center justify-between mb-6">
@@ -399,6 +430,7 @@
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">التصنيف</label>
                   <select id="media-category" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input">
+                    <option value="hero">Hero Slider</option>
                     <option value="products">منتجات</option>
                     <option value="projects">مشاريع</option>
                     <option value="services">خدمات</option>
@@ -419,6 +451,7 @@
               <div class="mb-4">
                 <select id="media-filter" class="px-4 py-2 border border-gray-300 rounded-lg form-input">
                   <option value="all">جميع الصور</option>
+                  <option value="hero">Hero Slider</option>
                   <option value="products">منتجات</option>
                   <option value="projects">مشاريع</option>
                   <option value="services">خدمات</option>
@@ -724,6 +757,87 @@
   </div>
 
   <!-- Modals -->
+  <!-- Hero Slide Modal -->
+  <div id="heroSlideModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold text-gray-900">Add/Edit Hero Slide</h3>
+          <button onclick="closeModal('heroSlideModal')" class="text-gray-400 hover:text-gray-600">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <form id="heroSlideForm" class="p-6 space-y-4">
+        <input type="hidden" id="hero-slide-id" />
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Badge text</label>
+          <input type="text" id="hero-slide-badge" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Title before highlight</label>
+          <input type="text" id="hero-slide-title" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Highlighted title text</label>
+          <input type="text" id="hero-slide-highlight" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+          <textarea id="hero-slide-description" required rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"></textarea>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Primary button text</label>
+            <input type="text" id="hero-slide-primary-text" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Primary button URL</label>
+            <input type="text" id="hero-slide-primary-url" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Secondary button text</label>
+            <input type="text" id="hero-slide-secondary-text" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Secondary button URL</label>
+            <input type="text" id="hero-slide-secondary-url" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Hero image</label>
+          <div class="space-y-3">
+            <div class="flex gap-3">
+              <input type="text" id="hero-slide-image" required class="flex-1 px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="Image path or choose from media" />
+              <button type="button" onclick="openMediaSelector('hero-slide')" class="px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                <i class="fas fa-images"></i>
+              </button>
+              <button type="button" onclick="uploadImageForTarget('hero-slide', 'hero')" class="px-4 py-3 bg-[#004d40] text-white rounded-lg hover:bg-[#00332a] transition-colors">
+                <i class="fas fa-upload"></i>
+              </button>
+            </div>
+            <div id="hero-slide-image-preview" class="hidden">
+              <img id="hero-slide-image-thumb" src="" alt="Preview" class="w-28 h-20 object-cover rounded-lg border border-gray-200" />
+            </div>
+          </div>
+        </div>
+        <label class="inline-flex items-center gap-2 text-sm text-gray-700">
+          <input type="checkbox" id="hero-slide-active" class="form-checkbox rounded text-[#004d40]" checked>
+          Active slide
+        </label>
+        <div class="flex gap-4">
+          <button type="submit" class="flex-1 bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+            <i class="fas fa-save ml-2"></i> Save
+          </button>
+          <button type="button" onclick="closeModal('heroSlideModal')" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Service Modal -->
   <div id="serviceModal" class="fixed inset-0 bg-black bg-opacity-50 modal-overlay z-50 flex items-center justify-center hidden">
     <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
@@ -1013,10 +1127,6 @@
           <input type="text" id="partner-name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">&#1575;&#1604;&#1583;&#1608;&#1604;&#1577; / &#1575;&#1604;&#1608;&#1589;&#1601;</label>
-          <input type="text" id="partner-country" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="&#1605;&#1579;&#1575;&#1604;: &#1573;&#1610;&#1591;&#1575;&#1604;&#1610;&#1575;" />
-        </div>
-        <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">&#1588;&#1593;&#1575;&#1585; &#1575;&#1604;&#1588;&#1585;&#1610;&#1603;</label>
           <div class="space-y-3">
             <div class="flex gap-3">
@@ -1163,6 +1273,7 @@
         <div class="mb-4">
           <select id="selector-category-filter" class="px-4 py-2 border border-gray-300 rounded-lg form-input">
             <option value="all">جميع الصور</option>
+            <option value="hero">Hero Slider</option>
             <option value="products">منتجات</option>
             <option value="projects">مشاريع</option>
             <option value="services">خدمات</option>
@@ -1253,6 +1364,9 @@
 
       // Load section data
       switch(sectionName) {
+        case 'hero-slides':
+          loadHeroSlides();
+          break;
         case 'services':
           loadServices();
           break;
@@ -1331,24 +1445,22 @@
       const media = getData('media') || [];
 
       Array.from(files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
+        preparePartnerLogoFile(file, function(imageUrl, imageType) {
           const mediaItem = {
             id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
             name: file.name,
-            url: e.target.result,
+            url: imageUrl,
             category: category,
             description: '',
             size: file.size,
-            type: file.type || 'application/octet-stream',
+            type: imageType || file.type || 'application/octet-stream',
             uploadedAt: new Date().toISOString()
           };
 
           media.push(mediaItem);
           saveData('media', media);
           loadMedia(document.getElementById('media-filter').value);
-        };
-        reader.readAsDataURL(file);
+        });
       });
 
       document.getElementById('mediaUploadForm').reset();
@@ -1445,10 +1557,43 @@
       closeModal('mediaSelectorModal');
     }
 
+    function preparePartnerLogoFile(file, callback) {
+      if (!/^image\/(png|jpe?g|webp|avif)$/i.test(file.type || '')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          callback(e.target.result, file.type);
+        };
+        reader.readAsDataURL(file);
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const maxSize = 700;
+          const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(img.width * scale));
+          canvas.height = Math.max(1, Math.round(img.height * scale));
+          const ctx = canvas.getContext('2d');
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const outputType = file.type === 'image/jpeg' ? 'image/jpeg' : 'image/png';
+          callback(canvas.toDataURL(outputType, 0.86), outputType);
+        };
+        img.onerror = function() {
+          callback(e.target.result, file.type);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
     function uploadImageForTarget(target, category) {
       const input = document.createElement('input');
       input.type = 'file';
-      input.accept = 'image/*';
+      input.accept = target === 'partner' ? '.png,.jpg,.jpeg,.webp,.avif,.svg,image/png,image/jpeg,image/webp,image/avif,image/svg+xml' : 'image/*';
       input.multiple = ['product', 'project'].includes(target);
       input.onchange = function() {
         const files = Array.from(input.files || []);
@@ -1456,16 +1601,15 @@
 
         let completed = 0;
         files.forEach(file => {
-          const reader = new FileReader();
-          reader.onload = function(e) {
+          const savePreparedImage = function(imageUrl, imageType) {
           const media = getData('media') || [];
           const mediaItem = {
             id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
             name: file.name,
-            url: e.target.result,
+            url: imageUrl,
             category: category || 'services',
             size: file.size,
-            type: file.type,
+            type: imageType || file.type,
             uploadedAt: new Date().toISOString()
           };
 
@@ -1477,7 +1621,8 @@
             alert(files.length > 1 ? 'تم رفع الصور بنجاح!' : 'تم رفع الصورة بنجاح!');
           }
           };
-          reader.readAsDataURL(file);
+
+          preparePartnerLogoFile(file, savePreparedImage);
         });
       };
       input.click();
@@ -1582,7 +1727,7 @@
     }
 
     function isImageValue(value) {
-      return /^data:image\//.test(value || '') || /\.(png|jpe?g|webp|gif|svg|jfif)(\?.*)?$/i.test(value || '') || /^https?:\/\//i.test(value || '');
+      return /^data:image\//.test(value || '') || /\.(png|jpe?g|webp|avif|gif|svg|jfif)(\?.*)?$/i.test(value || '') || /^https?:\/\//i.test(value || '');
     }
 
     function renderServiceIcon(icon) {
@@ -1658,6 +1803,38 @@
     });
 
     // Modal functions
+    function openHeroSlideModal(slide = null) {
+      const modal = document.getElementById('heroSlideModal');
+      const form = document.getElementById('heroSlideForm');
+
+      if (slide) {
+        document.getElementById('hero-slide-id').value = slide.id;
+        document.getElementById('hero-slide-badge').value = slide.badge || '';
+        document.getElementById('hero-slide-title').value = slide.title || '';
+        document.getElementById('hero-slide-highlight').value = slide.highlight || '';
+        document.getElementById('hero-slide-description').value = slide.description || '';
+        document.getElementById('hero-slide-primary-text').value = slide.primaryText || '';
+        document.getElementById('hero-slide-primary-url').value = slide.primaryUrl || '';
+        document.getElementById('hero-slide-secondary-text').value = slide.secondaryText || '';
+        document.getElementById('hero-slide-secondary-url').value = slide.secondaryUrl || '';
+        document.getElementById('hero-slide-image').value = slide.image || '';
+        document.getElementById('hero-slide-active').checked = slide.active !== false;
+        if (slide.image) {
+          document.getElementById('hero-slide-image-thumb').src = slide.image;
+          document.getElementById('hero-slide-image-preview').classList.remove('hidden');
+        } else {
+          document.getElementById('hero-slide-image-preview').classList.add('hidden');
+        }
+      } else {
+        form.reset();
+        document.getElementById('hero-slide-id').value = '';
+        document.getElementById('hero-slide-active').checked = true;
+        document.getElementById('hero-slide-image-preview').classList.add('hidden');
+      }
+
+      modal.classList.remove('hidden');
+    }
+
     function openServiceModal(service = null) {
       const modal = document.getElementById('serviceModal');
       const form = document.getElementById('serviceForm');
@@ -1766,7 +1943,6 @@
       if (partner) {
         document.getElementById('partner-id').value = partner.id;
         document.getElementById('partner-name').value = partner.name;
-        document.getElementById('partner-country').value = partner.country || '';
         document.getElementById('partner-image').value = partner.image || '';
         if (partner.image) {
           document.getElementById('partner-image-thumb').src = partner.image;
@@ -1788,6 +1964,21 @@
     }
 
     const DEFAULT_DATA = {
+      heroSlides: [
+        {
+          id: 'default-hero-slide-1',
+          badge: 'خبرة تمتد لأكثر من 15 عاماً في المملكة',
+          title: 'نرتقي بك إلى',
+          highlight: 'أعلى المستويات',
+          description: 'شركة تقنية الارتفاع الرائدة في توريد وتركيب وصيانة المصاعد والسلالم المتحركة في المملكة العربية السعودية. نقدم حلولاً متكاملة بأحدث التقنيات وأعلى معايير الأمان.',
+          primaryText: 'تصفح منتجاتنا',
+          primaryUrl: '#products',
+          secondaryText: 'طلب صيانة',
+          secondaryUrl: '#contact',
+          image: 'assets/hero-img.jpeg',
+          active: true
+        }
+      ],
       services: [
         { id: 'default-service-1', title: 'توريد وتركيب المصاعد', description: 'توريد وتركيب أحدث أنواع المصاعد من أفضل الماركات العالمية', icon: 'fas fa-building', features: ['تصميم حسب الطلب', 'تركيب احترافي', 'ضمان شامل'] },
         { id: 'default-service-2', title: 'الصيانة الدورية', description: 'برامج صيانة دورية شاملة لضمان عمل المصاعد بكفاءة عالية', icon: 'fas fa-tools', features: ['صيانة وقائية شهرية', 'فحص دوري شامل', 'تقارير فنية مفصلة'] },
@@ -1837,21 +2028,16 @@
         }
       ],
       partners: [
-        { id: 'default-partner-1', name: 'Otis', country: 'إيطاليا', image: 'assets/partners/otis.svg' },
-        { id: 'default-partner-2', name: 'Schindler', country: 'إيطاليا', image: 'assets/partners/schindler.svg' },
-        { id: 'default-partner-3', name: 'KONE', country: 'تركيا', image: 'assets/partners/kone.svg' },
-        { id: 'default-partner-4', name: 'ThyssenKrupp', country: 'تركيا', image: 'assets/partners/thyssenkrupp.svg' },
-        { id: 'default-partner-5', name: 'Hitachi', country: 'الصين', image: 'assets/partners/hitachi.svg' },
-        { id: 'default-partner-6', name: 'Mitsubishi', country: 'الصين', image: 'assets/partners/mitsubishi.svg' },
-        { id: 'default-partner-7', name: 'Siemens', country: 'إيطاليا', image: 'assets/partners/siemens.svg' },
-        { id: 'default-partner-8', name: 'Bosch', country: 'تركيا', image: 'assets/partners/bosch.svg' },
-        { id: 'default-partner-9', name: 'Montanari', country: 'إيطاليا', image: 'assets/partners/montanari.svg' },
-        { id: 'default-partner-10', name: 'Sicor', country: 'إيطاليا', image: 'assets/partners/sicor.svg' },
-        { id: 'default-partner-11', name: 'Vega', country: 'إيطاليا', image: 'assets/partners/vega.svg' },
-        { id: 'default-partner-12', name: 'Sky', country: 'إيطاليا', image: 'assets/partners/sky.svg' },
-        { id: 'default-partner-13', name: 'Wittur', country: 'النمسا', image: 'assets/partners/wittur.svg' },
-        { id: 'default-partner-14', name: 'IFE', country: 'النمسا', image: 'assets/partners/ife.svg' },
-        { id: 'default-partner-15', name: 'Cedes', country: 'سويسرا', image: 'assets/partners/cedes.svg' }
+        { id: 'default-partner-1', name: 'Otis', image: 'assets/partners/Otis-Logo.png' },
+        { id: 'default-partner-2', name: 'Schindler', image: 'assets/partners/Logo-schindler.png' },
+        { id: 'default-partner-3', name: 'KONE', image: 'assets/partners/KONE.svg.png' },
+        { id: 'default-partner-4', name: 'ThyssenKrupp', image: 'assets/partners/Thyssenkrupp_AG_Logo_2015.svg.png' },
+        { id: 'default-partner-5', name: 'Wittur', image: 'assets/partners/footer-logo.png' },
+        { id: 'default-partner-6', name: 'Mitsubishi', image: 'assets/partners/mitsubishi-elevator-india-p-ltd-bhubaneshwar-kl2iv.avif' },
+        { id: 'default-partner-7', name: 'Montanari', image: 'assets/partners/Logo-Montanari.png' },
+        { id: 'default-partner-8', name: 'Sicor', image: 'assets/partners/logo-sicor-1-Modificata.png' },
+        { id: 'default-partner-9', name: 'Vega', image: 'assets/partners/vega-logo-w.png' },
+        { id: 'default-partner-10', name: 'Sky Elevator', image: 'assets/partners/sky-elevator-logo-png_seeklogo-430463.png' }
       ]
     };
 
@@ -1863,12 +2049,21 @@
       const defaults = DEFAULT_DATA[type] || [];
       const fallback = defaults.find(defaultItem =>
         defaultItem.id === item.id ||
-        defaultItem.icon === item.icon ||
+        (type === 'services' && defaultItem.icon === item.icon) ||
         (type === 'services' && defaultItem.title === item.title) ||
-        (type === 'products' && defaultItem.name === item.name)
+        (type === 'products' && defaultItem.name === item.name) ||
+        (type === 'partners' && defaultItem.name === item.name)
       );
 
       if (!fallback) return item;
+
+      if (type === 'partners') {
+        return {
+          id: item.id,
+          name: fallback.name || item.name,
+          image: fallback.image || item.image
+        };
+      }
 
       return {
         ...item,
@@ -1889,6 +2084,11 @@
         if (Array.isArray(data) && data.length === 0 && ['services', 'products', 'projects', 'testimonials'].includes(type)) {
           return getDefaultData(type);
         }
+        if (Array.isArray(data) && type === 'partners') {
+          return data
+            .map(item => hydrateDefaultDetails(type, item))
+            .filter(item => !/^default-partner-(1[1-5])$/.test(item.id || ''));
+        }
         return Array.isArray(data) ? data.map(item => hydrateDefaultDetails(type, item)) : getDefaultData(type);
       } catch (error) {
         console.warn(`Unable to parse ${type}`, error);
@@ -1897,8 +2097,40 @@
     }
 
     function saveData(type, data) {
+      const value = JSON.stringify(data);
       localStorage.setItem(`${type}_managed`, 'true');
-      localStorage.setItem(type, JSON.stringify(data));
+
+      try {
+        localStorage.setItem(type, value);
+      } catch (error) {
+        const isQuotaError = error && (error.name === 'QuotaExceededError' || error.code === 22);
+        if (!isQuotaError) throw error;
+
+        if (type === 'media') {
+          const mediaItems = Array.isArray(data) ? data : [];
+          for (const limit of [12, 6, 3, 1, 0]) {
+            try {
+              const compactMedia = limit > 0 ? mediaItems.slice(-limit) : [];
+              localStorage.setItem(type, JSON.stringify(compactMedia));
+              alert(limit > 0
+                ? `Storage was full, so the media library was trimmed to the newest ${limit} file(s). Existing content was kept.`
+                : 'Storage was full, so the media library cache was cleared. Existing saved content was kept.');
+              return;
+            } catch (compactError) {
+              if (limit === 0) throw compactError;
+            }
+          }
+        }
+
+        localStorage.removeItem('media');
+        try {
+          localStorage.setItem(type, value);
+          alert('Storage was full, so the media library cache was cleared. Please use smaller/compressed images for future uploads.');
+        } catch (retryError) {
+          alert('Storage is still full. Please remove some uploaded images from the media library, then try saving again.');
+          throw retryError;
+        }
+      }
     }
 
     // Load dashboard
@@ -1915,6 +2147,91 @@
       document.getElementById('testimonials-count').textContent = testimonials.length;
       document.getElementById('partners-count').textContent = partners.length;
       loadSettings();
+    }
+
+    // Hero slider management
+    function loadHeroSlides() {
+      const slides = getData('heroSlides');
+      const container = document.getElementById('hero-slides-list');
+
+      if (slides.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-center py-8">No hero slides added yet</p>';
+        return;
+      }
+
+      container.innerHTML = slides.map(slide => `
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              ${slide.image ? `<img src="${slide.image}" alt="${slide.title}" class="w-24 h-16 rounded object-cover bg-gray-50 border border-gray-100">` : '<div class="w-24 h-16 bg-gray-100 rounded flex items-center justify-center"><i class="fas fa-image text-gray-400"></i></div>'}
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="font-bold text-gray-900">${slide.title || ''} ${slide.highlight || ''}</h4>
+                  ${slide.active === false ? '<span class="px-2 py-1 text-xs rounded bg-gray-100 text-gray-500">Hidden</span>' : '<span class="px-2 py-1 text-xs rounded bg-emerald-100 text-emerald-700">Active</span>'}
+                </div>
+                <p class="text-sm text-gray-600 mt-1">${(slide.description || '').substring(0, 120)}...</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="editHeroSlide('${slide.id}')" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button onclick="deleteHeroSlide('${slide.id}')" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('heroSlideForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const id = document.getElementById('hero-slide-id').value || Date.now().toString();
+      const slide = {
+        id: id,
+        badge: document.getElementById('hero-slide-badge').value,
+        title: document.getElementById('hero-slide-title').value,
+        highlight: document.getElementById('hero-slide-highlight').value,
+        description: document.getElementById('hero-slide-description').value,
+        primaryText: document.getElementById('hero-slide-primary-text').value,
+        primaryUrl: document.getElementById('hero-slide-primary-url').value,
+        secondaryText: document.getElementById('hero-slide-secondary-text').value,
+        secondaryUrl: document.getElementById('hero-slide-secondary-url').value,
+        image: document.getElementById('hero-slide-image').value,
+        active: document.getElementById('hero-slide-active').checked
+      };
+
+      const slides = getData('heroSlides');
+      const existingIndex = slides.findIndex(item => item.id === id);
+
+      if (existingIndex >= 0) {
+        slides[existingIndex] = slide;
+      } else {
+        slides.push(slide);
+      }
+
+      saveData('heroSlides', slides);
+      closeModal('heroSlideModal');
+      loadHeroSlides();
+      loadDashboard();
+    });
+
+    function editHeroSlide(id) {
+      const slide = getData('heroSlides').find(item => item.id === id);
+      if (slide) {
+        openHeroSlideModal(slide);
+      }
+    }
+
+    function deleteHeroSlide(id) {
+      if (confirm('Delete this hero slide?')) {
+        const slides = getData('heroSlides').filter(item => item.id !== id);
+        saveData('heroSlides', slides);
+        loadHeroSlides();
+        loadDashboard();
+      }
     }
 
     // Services management
@@ -2296,7 +2613,6 @@
               ${partner.image ? `<img src="${partner.image}" alt="${partner.name}" class="w-16 h-12 rounded object-contain bg-gray-50 border border-gray-100 p-1">` : '<div class="w-16 h-12 bg-gray-100 rounded flex items-center justify-center"><i class="fas fa-image text-gray-400"></i></div>'}
               <div>
                 <h4 class="font-bold text-gray-900">${partner.name}</h4>
-                <p class="text-sm text-gray-600">${partner.country || ''}</p>
               </div>
             </div>
             <div class="flex gap-2">
@@ -2319,7 +2635,6 @@
       const partner = {
         id: id,
         name: document.getElementById('partner-name').value,
-        country: document.getElementById('partner-country').value,
         image: document.getElementById('partner-image').value
       };
 
@@ -2660,6 +2975,14 @@
 
     // Initialize
     checkLogin();
+  </script>
+  <script>
+    document.addEventListener('error', function(event) {
+      const image = event.target;
+      if (!image || image.tagName !== 'IMG' || image.dataset.fallbackApplied) return;
+      image.dataset.fallbackApplied = 'true';
+      image.src = 'assets/logo.png';
+    }, true);
   </script>
 </body>
 

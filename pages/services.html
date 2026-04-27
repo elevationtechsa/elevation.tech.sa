@@ -9,6 +9,23 @@
   <meta name="keywords" content="elevator services, elevator maintenance, elevator installation, elevator modernization, emergency elevator service, escalator maintenance" />
 
   <!-- SEO Meta Tags -->
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2141069283121151');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2141069283121151&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <meta property="og:title" content="Elevator Services | Installation, Maintenance and Modernization" />
   <meta property="og:description" content="Elevation Tech services include elevator installation, preventive maintenance, emergency support, elevator modernization, technical consultation, and escalator solutions." />
 
@@ -564,6 +581,67 @@
     backToTopBtn.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
+  </script>
+  <script>
+    function escapeSavedHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getSavedPageItems(type) {
+      try {
+        const items = JSON.parse(localStorage.getItem(type) || "[]");
+        return Array.isArray(items) ? items : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function isSavedImage(value) {
+      return /^data:image\//.test(value || "") || /\.(png|jpe?g|webp|gif|svg|jfif)(\?.*)?$/i.test(value || "") || /^https?:\/\//i.test(value || "");
+    }
+
+    function renderSavedServiceIcon(icon) {
+      const safeIcon = escapeSavedHtml(icon || "fas fa-cog");
+      return isSavedImage(icon)
+        ? `<img src="${safeIcon}" alt="" class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 object-contain" />`
+        : `<i class="${safeIcon} text-lg sm:text-xl lg:text-2xl text-white"></i>`;
+    }
+
+    function renderAllSavedServices() {
+      const grid = document.getElementById("services-page-list");
+      const services = getSavedPageItems("services");
+      if (!grid || services.length === 0) return;
+
+      grid.innerHTML = services.map((service, index) => {
+        const isGold = index % 2 === 1;
+        const features = Array.isArray(service.features) ? service.features : [];
+        return `
+          <div class="bg-gradient-to-br ${isGold ? "from-yellow-50 border-yellow-100" : "from-green-50 border-green-100"} to-white p-6 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl border card-hover">
+            <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-r ${isGold ? "from-[#b8952b] to-[#d4af37]" : "from-[#004d40] to-[#00332a]"} rounded-lg sm:rounded-xl flex items-center justify-center mb-4 sm:mb-5 lg:mb-6">
+              ${renderSavedServiceIcon(service.icon)}
+            </div>
+            <h3 class="text-lg sm:text-lg lg:text-xl font-bold text-gray-900 mb-3 lg:mb-4">${escapeSavedHtml(service.title)}</h3>
+            <p class="text-sm sm:text-base text-gray-600 mb-3 lg:mb-4 leading-relaxed">${escapeSavedHtml(service.description)}</p>
+            ${features.length ? `<ul class="text-xs sm:text-sm text-gray-600 space-y-1.5 sm:space-y-2">${features.map((feature) => `<li class="flex items-start"><i class="fas fa-check ${isGold ? "text-[#b8952b]" : "text-[#004d40]"} ml-1.5 sm:ml-2 mt-0.5"></i><span>${escapeSavedHtml(feature)}</span></li>`).join("")}</ul>` : ""}
+          </div>
+        `;
+      }).join("");
+    }
+
+    renderAllSavedServices();
+  </script>
+  <script>
+    document.addEventListener('error', function(event) {
+      const image = event.target;
+      if (!image || image.tagName !== 'IMG' || image.dataset.fallbackApplied) return;
+      image.dataset.fallbackApplied = 'true';
+      image.src = '../assets/logo.png';
+    }, true);
   </script>
 </body>
 

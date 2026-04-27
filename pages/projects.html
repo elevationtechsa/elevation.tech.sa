@@ -9,6 +9,23 @@
   <meta name="keywords" content="elevator projects, completed elevator projects, elevator contractor projects, Saudi elevator projects, Riyadh elevator installation" />
 
   <!-- SEO Meta Tags -->
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2141069283121151');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2141069283121151&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <meta property="og:title" content="Elevator Projects | Elevation Tech Completed Projects" />
   <meta property="og:description" content="View Elevation Tech completed elevator projects for residential towers, commercial complexes, healthcare facilities, and hotel projects in Saudi Arabia." />
 
@@ -901,6 +918,71 @@
       }
     });
 
+  </script>
+  <script>
+    function escapeSavedHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getSavedPageItems(type) {
+      try {
+        const items = JSON.parse(localStorage.getItem(type) || "[]");
+        return Array.isArray(items) ? items : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function renderAllSavedProjects() {
+      const grid = document.getElementById("projects-page-list");
+      const projects = getSavedPageItems("projects");
+      if (!grid || projects.length === 0) return;
+
+      grid.innerHTML = projects.map((project, index) => {
+        const isGold = index % 2 === 1;
+        return `
+          <div class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-xl card-hover">
+            <div class="h-36 sm:h-44 lg:h-48 bg-gradient-to-r ${isGold ? "from-[#b8952b] to-[#d4af37]" : "from-[#004d40] to-[#00332a]"} p-4 sm:p-6 lg:p-8 text-white">
+              <div class="flex items-start justify-between mb-3 sm:mb-4">
+                <h3 class="text-lg sm:text-xl lg:text-2xl font-bold leading-tight">${escapeSavedHtml(project.title)}</h3>
+                <i class="fas fa-building text-xl sm:text-2xl lg:text-3xl opacity-50 mr-2 sm:mr-0"></i>
+              </div>
+              <p class="text-xs sm:text-sm lg:text-base ${isGold ? "text-yellow-100" : "text-green-100"}">${escapeSavedHtml(project.type || project.location || project.year)}</p>
+            </div>
+            <div class="p-4 sm:p-6 lg:p-8">
+              <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">${escapeSavedHtml(project.description)}</p>
+              <div class="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div class="text-center p-3 sm:p-4 bg-gray-50 rounded-lg">
+                  <i class="fas fa-elevator text-lg sm:text-xl lg:text-2xl ${isGold ? "text-[#b8952b]" : "text-[#004d40]"} mb-1 sm:mb-2"></i>
+                  <div class="text-xl sm:text-2xl font-bold">${escapeSavedHtml(project.elevators || "-")}</div>
+                  <div class="text-xs sm:text-sm text-gray-600">مصعد</div>
+                </div>
+                <div class="text-center p-3 sm:p-4 bg-gray-50 rounded-lg">
+                  <i class="fas fa-map-marker-alt text-lg sm:text-xl lg:text-2xl ${isGold ? "text-[#b8952b]" : "text-[#004d40]"} mb-1 sm:mb-2"></i>
+                  <div class="text-sm sm:text-base font-bold">${escapeSavedHtml(project.location || project.year || "-")}</div>
+                  <div class="text-xs sm:text-sm text-gray-600">الموقع</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    renderAllSavedProjects();
+  </script>
+  <script>
+    document.addEventListener('error', function(event) {
+      const image = event.target;
+      if (!image || image.tagName !== 'IMG' || image.dataset.fallbackApplied) return;
+      image.dataset.fallbackApplied = 'true';
+      image.src = '../assets/logo.png';
+    }, true);
   </script>
 </body>
 

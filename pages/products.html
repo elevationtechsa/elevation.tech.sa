@@ -9,6 +9,23 @@
   <meta name="keywords" content="passenger elevators, freight elevators, hospital elevators, panoramic elevators, home elevators, escalators, elevator products Saudi Arabia" />
 
   <!-- SEO Meta Tags -->
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2141069283121151');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2141069283121151&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <meta property="og:title" content="Elevator Products | Passenger, Home, Freight and Hospital Elevators" />
   <meta property="og:description" content="Explore Elevation Tech elevator products including passenger elevators, freight elevators, hospital elevators, panoramic elevators, home elevators, and escalators." />
 
@@ -868,6 +885,67 @@
       </div>
     </div>
   </div>
+  <script>
+    function escapeSavedHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getSavedPageItems(type) {
+      try {
+        const items = JSON.parse(localStorage.getItem(type) || "[]");
+        return Array.isArray(items) ? items : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function getSavedPageImages(item) {
+      if (Array.isArray(item.images) && item.images.length > 0) {
+        return item.images.map((image) => typeof image === "string" ? { src: image } : { src: image.src || image.url || "" }).filter((image) => image.src);
+      }
+      return item.image ? [{ src: item.image }] : [];
+    }
+
+    function renderAllSavedProducts() {
+      const grid = document.getElementById("products-page-list");
+      const products = getSavedPageItems("products");
+      if (!grid || products.length === 0) return;
+
+      grid.innerHTML = products.map((product, index) => {
+        const isGold = index % 2 === 1;
+        const image = escapeSavedHtml(getSavedPageImages(product)[0]?.src || product.image || "../assets/hero-img.jpeg");
+        const features = Array.isArray(product.features) ? product.features : [];
+        return `
+          <div class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-xl card-hover">
+            <div class="h-40 sm:h-44 lg:h-48 relative overflow-hidden">
+              <img src="${image}" alt="${escapeSavedHtml(product.name)}" class="w-full h-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <h3 class="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 text-lg sm:text-xl lg:text-2xl font-bold text-white">${escapeSavedHtml(product.name)}</h3>
+            </div>
+            <div class="p-4 sm:p-5 lg:p-6">
+              <p class="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">${escapeSavedHtml(product.description)}</p>
+              ${features.length ? `<ul class="text-xs sm:text-sm text-gray-600 space-y-1.5 sm:space-y-2 mb-4">${features.map((feature) => `<li class="flex items-start"><i class="fas fa-check ${isGold ? "text-[#b8952b]" : "text-[#004d40]"} ml-1.5 sm:ml-2 mt-0.5"></i><span>${escapeSavedHtml(feature)}</span></li>`).join("")}</ul>` : ""}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    renderAllSavedProducts();
+  </script>
+  <script>
+    document.addEventListener('error', function(event) {
+      const image = event.target;
+      if (!image || image.tagName !== 'IMG' || image.dataset.fallbackApplied) return;
+      image.dataset.fallbackApplied = 'true';
+      image.src = '../assets/logo.png';
+    }, true);
+  </script>
 </body>
 
 </html>

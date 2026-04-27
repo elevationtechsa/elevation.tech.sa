@@ -9,6 +9,23 @@
   <meta name="keywords" content="about Elevation Tech, elevator company Saudi Arabia, elevator contractor Riyadh, lift company, escalator company" />
 
   <!-- SEO Meta Tags -->
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2141069283121151');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2141069283121151&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <meta property="og:title" content="About Elevation Tech | Elevator Company in Saudi Arabia" />
   <meta property="og:description" content="Learn about Elevation Tech, a Saudi elevator company providing installation, maintenance, modernization, and escalator solutions for residential and commercial projects." />
 
@@ -502,6 +519,14 @@
     backToTopBtn.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
+  </script>
+  <script>
+    document.addEventListener('error', function(event) {
+      const image = event.target;
+      if (!image || image.tagName !== 'IMG' || image.dataset.fallbackApplied) return;
+      image.dataset.fallbackApplied = 'true';
+      image.src = '../assets/logo.png';
+    }, true);
   </script>
 </body>
 

@@ -12,7 +12,23 @@
   <meta property="og:title" content="Elevation Tech | Elevator Installation and Maintenance in Saudi Arabia" />
   <meta property="og:description" content="Elevation Tech provides elevator installation, maintenance, modernization, escalators, home elevators, freight elevators, and hospital elevator solutions in Riyadh and Saudi Arabia." />
   <meta property="og:url" content="https://elevation-tech.sa/" />
-
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2141069283121151');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2141069283121151&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <!-- Enhanced SEO -->
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Elevation Tech" />
@@ -181,6 +197,34 @@
       animation: float 6s ease-in-out infinite;
     }
 
+    .hero-copy,
+    .hero-image-wrap {
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .hero-changing .hero-copy {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+
+    .hero-changing .hero-image-wrap {
+      opacity: 0;
+      transform: translateX(-18px);
+    }
+
+    .hero-dot {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 9999px;
+      background: rgba(0, 77, 64, 0.25);
+      transition: width 0.25s ease, background-color 0.25s ease;
+    }
+
+    .hero-dot.is-active {
+      width: 2rem;
+      background: #004d40;
+    }
+
     /* Pulse Animation */
     @keyframes pulse {
       0% {
@@ -230,29 +274,47 @@
 
     .partners-slider {
       display: flex;
-      transition: none;
+      direction: rtl;
       width: 100%;
     }
 
     .partner-slide {
-      flex: 0 0 calc(25% - 1rem); /* 4 slides visible */
+      display: none;
+      flex: 0 0 calc(25% - 1rem);
       margin: 0 0.5rem;
       min-width: 0;
+      will-change: opacity, transform;
+    }
+
+    .partner-slide.is-active {
+      display: block;
+    }
+
+    .partner-slide.is-entering {
+      animation: partnerSlideInRight 0.55s ease both;
     }
 
     @media (max-width: 768px) {
       .partner-slide {
-        flex: 0 0 calc(50% - 1rem); /* 2 slides visible on mobile */
+        flex: 0 0 calc(50% - 1rem);
+      }
+    }
+
+    @keyframes partnerSlideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
       }
     }
 
     /* Remove old animation */
     .animate-slide {
       animation: none;
-    }
-
-    .partners-slider:hover {
-      animation-play-state: paused;
     }
   </style>
 </head>
@@ -283,7 +345,7 @@
           <a href="pages/about.html" class="text-gray-700 hover:text-[#b8952b] transition-colors font-medium">من نحن</a>
           <a href="pages/services.html" class="text-gray-700 hover:text-[#b8952b] transition-colors font-medium">خدماتنا</a>
           <a href="pages/products.html" class="text-gray-700 hover:text-[#b8952b] transition-colors font-medium">منتجاتنا</a>
-          <a href="pages/projects" class="text-gray-700 hover:text-[#b8952b] transition-colors font-medium">مشاريعنا</a>
+          <a href="pages/projects.html" class="text-gray-700 hover:text-[#b8952b] transition-colors font-medium">مشاريعنا</a>
           <a href="pages/contact.html" class="text-gray-700 hover:text-[#b8952b] transition-colors font-medium">تواصل معنا</a>
           <a href="tel:+966531154551"
             class="bg-gradient-to-r from-[#b8952b] to-[#d4af37] text-white px-6 py-2.5 rounded-full font-medium hover:shadow-lg transition-all">
@@ -329,7 +391,7 @@
             <i class="fas fa-box ml-3 text-gray-500 w-5"></i>
             منتجاتنا
           </a>
-          <a href="pages/projects"
+          <a href="pages/projects.html"
             class="p-3 text-sm sm:text-base rounded-lg hover:bg-gray-100 transition-colors font-medium">
             <i class="fas fa-briefcase ml-3 text-gray-500 w-5"></i>
             مشاريعنا
@@ -373,7 +435,7 @@
     class="min-h-screen flex items-center pt-14 sm:pt-16 bg-gradient-to-br from-green-50 via-white to-yellow-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
-        <div class="order-2 lg:order-1">
+        <div class="order-2 lg:order-1 hero-copy">
           <div
             class="inline-flex items-center gap-2 bg-[#004d40]/10 text-[#004d40] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6">
             <i class="fas fa-award text-sm"></i>
@@ -432,7 +494,7 @@
           </div>
         </div>
         <!-- Hero Image -->
-        <div class="relative order-1 lg:order-2 mb-6 sm:mb-0">
+        <div class="relative order-1 lg:order-2 mb-6 sm:mb-0 hero-image-wrap">
           <div
             class="absolute inset-0 bg-gradient-to-r from-[#004d40] to-[#b8952b] rounded-2xl sm:rounded-3xl transform rotate-3 sm:rotate-6 opacity-20">
           </div>
@@ -1098,11 +1160,10 @@
             <div class="partner-slide">
               <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/otis.svg" alt="Otis - Italy" class="max-h-full max-w-full object-contain">
+                  <img src="assets/partners/Otis-Logo.png" alt="Otis" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='assets/logo.png';">
                 </div>
                 <div class="text-center mt-3">
                   <h4 class="text-sm font-semibold text-gray-800">Otis</h4>
-                  <p class="text-xs text-gray-600">إيطاليا</p>
                 </div>
               </div>
             </div>
@@ -1111,11 +1172,10 @@
             <div class="partner-slide">
               <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/schindler.svg" alt="Schindler - Italy" class="max-h-full max-w-full object-contain">
+                  <img src="assets/partners/Logo-schindler.png" alt="Schindler" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='assets/logo.png';">
                 </div>
                 <div class="text-center mt-3">
                   <h4 class="text-sm font-semibold text-gray-800">Schindler</h4>
-                  <p class="text-xs text-gray-600">إيطاليا</p>
                 </div>
               </div>
             </div>
@@ -1124,11 +1184,10 @@
             <div class="partner-slide">
               <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/kone.svg" alt="KONE - Turkey" class="max-h-full max-w-full object-contain">
+                  <img src="assets/partners/KONE.svg.png" alt="KONE" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='assets/logo.png';">
                 </div>
                 <div class="text-center mt-3">
                   <h4 class="text-sm font-semibold text-gray-800">KONE</h4>
-                  <p class="text-xs text-gray-600">تركيا</p>
                 </div>
               </div>
             </div>
@@ -1137,11 +1196,10 @@
             <div class="partner-slide">
               <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/thyssenkrupp.svg" alt="ThyssenKrupp - Turkey" class="max-h-full max-w-full object-contain">
+                  <img src="assets/partners/Thyssenkrupp_AG_Logo_2015.svg.png" alt="ThyssenKrupp" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='assets/logo.png';">
                 </div>
                 <div class="text-center mt-3">
                   <h4 class="text-sm font-semibold text-gray-800">ThyssenKrupp</h4>
-                  <p class="text-xs text-gray-600">تركيا</p>
                 </div>
               </div>
             </div>
@@ -1150,11 +1208,10 @@
             <div class="partner-slide">
               <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/hitachi.svg" alt="Hitachi - China" class="max-h-full max-w-full object-contain">
+                  <img src="assets/partners/footer-logo.png" alt="Wittur" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='assets/logo.png';">
                 </div>
                 <div class="text-center mt-3">
-                  <h4 class="text-sm font-semibold text-gray-800">Hitachi</h4>
-                  <p class="text-xs text-gray-600">الصين</p>
+                  <h4 class="text-sm font-semibold text-gray-800">Wittur</h4>
                 </div>
               </div>
             </div>
@@ -1163,11 +1220,10 @@
             <div class="partner-slide">
               <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/mitsubishi.svg" alt="Mitsubishi - China" class="max-h-full max-w-full object-contain">
+                  <img src="assets/partners/mitsubishi-elevator-india-p-ltd-bhubaneshwar-kl2iv.avif" alt="Mitsubishi" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='assets/logo.png';">
                 </div>
                 <div class="text-center mt-3">
                   <h4 class="text-sm font-semibold text-gray-800">Mitsubishi</h4>
-                  <p class="text-xs text-gray-600">الصين</p>
                 </div>
               </div>
             </div>
@@ -1176,11 +1232,10 @@
             <div class="partner-slide">
               <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/siemens.svg" alt="Siemens - Italy" class="max-h-full max-w-full object-contain">
+                  <img src="assets/partners/Logo-Montanari.png" alt="Montanari" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='assets/logo.png';">
                 </div>
                 <div class="text-center mt-3">
-                  <h4 class="text-sm font-semibold text-gray-800">Siemens</h4>
-                  <p class="text-xs text-gray-600">إيطاليا</p>
+                  <h4 class="text-sm font-semibold text-gray-800">Montanari</h4>
                 </div>
               </div>
             </div>
@@ -1189,11 +1244,10 @@
             <div class="partner-slide">
               <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/bosch.svg" alt="Bosch - Turkey" class="max-h-full max-w-full object-contain">
+                  <img src="assets/partners/logo-sicor-1-Modificata.png" alt="Sicor" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='assets/logo.png';">
                 </div>
                 <div class="text-center mt-3">
-                  <h4 class="text-sm font-semibold text-gray-800">Bosch</h4>
-                  <p class="text-xs text-gray-600">تركيا</p>
+                  <h4 class="text-sm font-semibold text-gray-800">Sicor</h4>
                 </div>
               </div>
             </div>
@@ -1202,11 +1256,10 @@
             <div class="partner-slide">
               <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/montanari.svg" alt="Montanari - Italy" class="max-h-full max-w-full object-contain">
+                  <img src="assets/partners/vega-logo-w.png" alt="Vega" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='assets/logo.png';">
                 </div>
                 <div class="text-center mt-3">
-                  <h4 class="text-sm font-semibold text-gray-800">Montanari</h4>
-                  <p class="text-xs text-gray-600">إيطاليا</p>
+                  <h4 class="text-sm font-semibold text-gray-800">Vega</h4>
                 </div>
               </div>
             </div>
@@ -1215,76 +1268,10 @@
             <div class="partner-slide">
               <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/sicor.svg" alt="Sicor - Italy" class="max-h-full max-w-full object-contain">
+                  <img src="assets/partners/sky-elevator-logo-png_seeklogo-430463.png" alt="Sky Elevator" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='assets/logo.png';">
                 </div>
                 <div class="text-center mt-3">
-                  <h4 class="text-sm font-semibold text-gray-800">Sicor</h4>
-                  <p class="text-xs text-gray-600">إيطاليا</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Partner 11 - Italy -->
-            <div class="partner-slide">
-              <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-                <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/vega.svg" alt="Vega - Italy" class="max-h-full max-w-full object-contain">
-                </div>
-                <div class="text-center mt-3">
-                  <h4 class="text-sm font-semibold text-gray-800">Vega</h4>
-                  <p class="text-xs text-gray-600">إيطاليا</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Partner 12 - Italy -->
-            <div class="partner-slide">
-              <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-                <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/sky.svg" alt="Sky - Italy" class="max-h-full max-w-full object-contain">
-                </div>
-                <div class="text-center mt-3">
-                  <h4 class="text-sm font-semibold text-gray-800">Sky</h4>
-                  <p class="text-xs text-gray-600">إيطاليا</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Partner 13 - Austria -->
-            <div class="partner-slide">
-              <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-                <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/wittur.svg" alt="Wittur - Austria" class="max-h-full max-w-full object-contain">
-                </div>
-                <div class="text-center mt-3">
-                  <h4 class="text-sm font-semibold text-gray-800">Wittur</h4>
-                  <p class="text-xs text-gray-600">النمسا</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Partner 14 - Austria -->
-            <div class="partner-slide">
-              <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-                <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/ife.svg" alt="IFE - Austria" class="max-h-full max-w-full object-contain">
-                </div>
-                <div class="text-center mt-3">
-                  <h4 class="text-sm font-semibold text-gray-800">IFE</h4>
-                  <p class="text-xs text-gray-600">النمسا</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Partner 15 - Switzerland -->
-            <div class="partner-slide">
-              <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-                <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                  <img src="assets/partners/cedes.svg" alt="Cedes - Switzerland" class="max-h-full max-w-full object-contain">
-                </div>
-                <div class="text-center mt-3">
-                  <h4 class="text-sm font-semibold text-gray-800">Cedes</h4>
-                  <p class="text-xs text-gray-600">سويسرا</p>
+                  <h4 class="text-sm font-semibold text-gray-800">Sky Elevator</h4>
                 </div>
               </div>
             </div>
@@ -1318,7 +1305,7 @@
         <div class="overflow-hidden">
           <div id="testimonialsTrack" class="flex transition-transform duration-500 ease-out" dir="rtl">
         <!-- Testimonial 1 -->
-        <div class="testimonial-slide w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-3" dir="rtl">
+        <div class="testimonial-slide w-full md:w-1/2 lg:w-1/2 flex-shrink-0 px-2 sm:px-3" dir="rtl">
         <div class="h-full bg-white p-5 sm:p-6 lg:p-7 rounded-xl sm:rounded-2xl shadow-lg">
           <div class="flex items-center mb-4 sm:mb-6">
             <img src="https://i.pravatar.cc/60?img=1" alt="Client"
@@ -1347,7 +1334,7 @@
         </div>
 
         <!-- Testimonial 2 -->
-        <div class="testimonial-slide w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-3" dir="rtl">
+        <div class="testimonial-slide w-full md:w-1/2 lg:w-1/2 flex-shrink-0 px-2 sm:px-3" dir="rtl">
         <div class="h-full bg-white p-5 sm:p-6 lg:p-7 rounded-xl sm:rounded-2xl shadow-lg">
           <div class="flex items-center mb-4 sm:mb-6">
             <img src="https://i.pravatar.cc/60?img=2" alt="Client"
@@ -1376,7 +1363,7 @@
         </div>
 
         <!-- Testimonial 3 -->
-        <div class="testimonial-slide w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-3" dir="rtl">
+        <div class="testimonial-slide w-full md:w-1/2 lg:w-1/2 flex-shrink-0 px-2 sm:px-3" dir="rtl">
         <div class="h-full bg-white p-5 sm:p-6 lg:p-7 rounded-xl sm:rounded-2xl shadow-lg">
           <div class="flex items-center mb-4 sm:mb-6">
             <img src="https://i.pravatar.cc/60?img=3" alt="Client"
@@ -1871,7 +1858,7 @@
                 class="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">منتجاتنا</a>
             </li>
             <li>
-              <a href="pages/projects"
+              <a href="/pages/projects.html"
                 class="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">مشاريعنا</a>
             </li>
           </ul>
@@ -2428,6 +2415,102 @@
       }
     }
 
+    let heroSlides = [];
+    let heroSlideIndex = 0;
+    let heroSlideTimer = null;
+    const heroSlideDelay = 5000;
+
+    function renderHeroSlide(index) {
+      if (heroSlides.length === 0) return;
+
+      const homeSection = document.getElementById("home");
+      const slide = heroSlides[index];
+      const badge = homeSection.querySelector(".inline-flex span");
+      const title = homeSection.querySelector("h2");
+      const description = homeSection.querySelector(".hero-copy p");
+      const buttons = homeSection.querySelectorAll(".hero-copy a");
+      const image = homeSection.querySelector(".hero-image-wrap img");
+      const dots = document.getElementById("heroSliderDots");
+
+      homeSection.classList.add("hero-changing");
+
+      window.setTimeout(() => {
+        if (badge) badge.textContent = slide.badge || "";
+        if (title) {
+          title.innerHTML = `${escapeHtml(slide.title || "")} ${slide.highlight ? `<span class="gradient-text">${escapeHtml(slide.highlight)}</span>` : ""}`;
+        }
+        if (description) description.textContent = slide.description || "";
+        if (buttons[0]) {
+          buttons[0].href = slide.primaryUrl || "#products";
+          buttons[0].innerHTML = `<i class="fas fa-box ml-2"></i> ${escapeHtml(slide.primaryText || "تصفح منتجاتنا")}`;
+          buttons[0].classList.toggle("hidden", !slide.primaryText && !slide.primaryUrl);
+        }
+        if (buttons[1]) {
+          buttons[1].href = slide.secondaryUrl || "#contact";
+          buttons[1].innerHTML = `<i class="fas fa-tools ml-2"></i> ${escapeHtml(slide.secondaryText || "طلب صيانة")}`;
+          buttons[1].classList.toggle("hidden", !slide.secondaryText && !slide.secondaryUrl);
+        }
+        if (image && slide.image) {
+          image.src = slide.image;
+          image.alt = slide.title || "Hero image";
+        }
+        if (dots) {
+          dots.querySelectorAll(".hero-dot").forEach((dot, dotIndex) => {
+            dot.classList.toggle("is-active", dotIndex === index);
+          });
+        }
+
+        homeSection.classList.remove("hero-changing");
+      }, 180);
+    }
+
+    function goToHeroSlide(index) {
+      heroSlideIndex = (index + heroSlides.length) % heroSlides.length;
+      renderHeroSlide(heroSlideIndex);
+    }
+
+    function startHeroSlider() {
+      clearInterval(heroSlideTimer);
+      if (heroSlides.length <= 1) return;
+
+      heroSlideTimer = setInterval(() => {
+        goToHeroSlide(heroSlideIndex + 1);
+      }, heroSlideDelay);
+    }
+
+    function renderSavedHeroSlides() {
+      if (!localStorage.getItem("heroSlides")) return;
+
+      heroSlides = getSavedItems("heroSlides").filter((slide) => slide.active !== false);
+      if (heroSlides.length === 0) return;
+
+      const homeInner = document.querySelector("#home > div");
+      if (homeInner && !document.getElementById("heroSliderControls")) {
+        homeInner.insertAdjacentHTML("beforeend", `
+          <div id="heroSliderControls" class="hidden items-center justify-center gap-3 mt-6">
+            <div id="heroSliderDots" class="flex items-center gap-2"></div>
+          </div>
+        `);
+      }
+
+      const controls = document.getElementById("heroSliderControls");
+      const dots = document.getElementById("heroSliderDots");
+      if (controls) controls.classList.toggle("hidden", heroSlides.length <= 1);
+      if (controls) controls.classList.toggle("flex", heroSlides.length > 1);
+      if (dots) {
+        dots.innerHTML = heroSlides.map((_, index) => `<button type="button" class="hero-dot${index === 0 ? " is-active" : ""}" aria-label="Hero slide ${index + 1}" data-hero-slide="${index}"></button>`).join("");
+        dots.querySelectorAll("[data-hero-slide]").forEach((dot) => {
+          dot.addEventListener("click", () => {
+            goToHeroSlide(parseInt(dot.dataset.heroSlide, 10));
+            startHeroSlider();
+          });
+        });
+      }
+
+      goToHeroSlide(0);
+      startHeroSlider();
+    }
+
     function getSavedImages(item) {
       if (Array.isArray(item.images) && item.images.length > 0) {
         return item.images
@@ -2457,7 +2540,7 @@
     };
 
     function isImageValue(value) {
-      return /^data:image\//.test(value || "") || /\.(png|jpe?g|webp|gif|svg|jfif)(\?.*)?$/i.test(value || "") || /^https?:\/\//i.test(value || "");
+      return /^data:image\//.test(value || "") || /\.(png|jpe?g|webp|avif|gif|svg|jfif)(\?.*)?$/i.test(value || "") || /^https?:\/\//i.test(value || "");
     }
 
     function renderServiceIconHtml(icon) {
@@ -2478,7 +2561,7 @@
       if (!localStorage.getItem("services")) return;
       servicesGrid.innerHTML = "";
 
-      getSavedItems("services").forEach((service, index) => {
+      getSavedItems("services").slice(0, 6).forEach((service, index) => {
         const isGold = index % 2 === 1;
         const icon = service.icon || "fas fa-cog";
         const title = escapeHtml(service.title);
@@ -2511,7 +2594,7 @@
       if (!localStorage.getItem("products")) return;
       productsGrid.innerHTML = "";
 
-      getSavedItems("products").forEach((product) => {
+      getSavedItems("products").slice(0, 6).forEach((product) => {
         const name = escapeHtml(product.name);
         const description = escapeHtml(product.description);
         const productImages = getSavedImages(product);
@@ -2560,7 +2643,7 @@
       if (!localStorage.getItem("projects")) return;
       projectsGrid.innerHTML = "";
 
-      getSavedItems("projects").forEach((project, index) => {
+      getSavedItems("projects").slice(0, 4).forEach((project, index) => {
         const id = `saved-${project.id || Date.now()}-${index}`;
         const isGold = index % 2 === 1;
         const title = escapeHtml(project.title);
@@ -2630,11 +2713,52 @@
       const slider = document.querySelector("#partners .partners-slider");
       if (!slider || !localStorage.getItem("partners")) return;
 
-      const partners = getSavedItems("partners");
+      const partnerLogoOverrides = {
+        "default-partner-1": "assets/partners/Otis-Logo.png",
+        "default-partner-2": "assets/partners/Logo-schindler.png",
+        "default-partner-3": "assets/partners/KONE.svg.png",
+        "default-partner-4": "assets/partners/Thyssenkrupp_AG_Logo_2015.svg.png",
+        "default-partner-5": "assets/partners/footer-logo.png",
+        "default-partner-6": "assets/partners/mitsubishi-elevator-india-p-ltd-bhubaneshwar-kl2iv.avif",
+        "default-partner-7": "assets/partners/Logo-Montanari.png",
+        "default-partner-8": "assets/partners/logo-sicor-1-Modificata.png",
+        "default-partner-9": "assets/partners/vega-logo-w.png",
+        "default-partner-10": "assets/partners/sky-elevator-logo-png_seeklogo-430463.png",
+        Otis: "assets/partners/Otis-Logo.png",
+        Schindler: "assets/partners/Logo-schindler.png",
+        KONE: "assets/partners/KONE.svg.png",
+        ThyssenKrupp: "assets/partners/Thyssenkrupp_AG_Logo_2015.svg.png",
+        Hitachi: "assets/partners/footer-logo.png",
+        Wittur: "assets/partners/footer-logo.png",
+        Mitsubishi: "assets/partners/mitsubishi-elevator-india-p-ltd-bhubaneshwar-kl2iv.avif",
+        Siemens: "assets/partners/Logo-Montanari.png",
+        Montanari: "assets/partners/Logo-Montanari.png",
+        Bosch: "assets/partners/logo-sicor-1-Modificata.png",
+        Sicor: "assets/partners/logo-sicor-1-Modificata.png",
+        Vega: "assets/partners/vega-logo-w.png",
+        Sky: "assets/partners/sky-elevator-logo-png_seeklogo-430463.png",
+        "assets/partners/siemens.jpg": "assets/partners/Logo-Montanari.png",
+        "assets/partners/siemens.svg": "assets/partners/Logo-Montanari.png",
+        "assets/partners/montanari.svg": "assets/partners/Logo-Montanari.png",
+        "assets/partners/sicor.svg": "assets/partners/logo-sicor-1-Modificata.png",
+        "assets/partners/vega.svg": "assets/partners/vega-logo-w.png",
+        "assets/partners/sky.svg": "assets/partners/sky-elevator-logo-png_seeklogo-430463.png",
+        "assets/partners/otis.svg": "assets/partners/Otis-Logo.png",
+        "assets/partners/schindler.svg": "assets/partners/Logo-schindler.png",
+        "assets/partners/kone.svg": "assets/partners/KONE.svg.png",
+        "assets/partners/thyssenkrupp.svg": "assets/partners/Thyssenkrupp_AG_Logo_2015.svg.png",
+        "assets/partners/mitsubishi.svg": "assets/partners/mitsubishi-elevator-india-p-ltd-bhubaneshwar-kl2iv.avif"
+      };
+      const partnerNameOverrides = {
+        "default-partner-5": "Wittur",
+        "default-partner-7": "Montanari",
+        "default-partner-8": "Sicor",
+        "default-partner-10": "Sky Elevator"
+      };
+      const partners = getSavedItems("partners").filter((partner) => !/^default-partner-(1[1-5])$/.test(partner.id || ""));
       slider.innerHTML = partners.map((partner) => {
-        const name = escapeHtml(partner.name);
-        const country = escapeHtml(partner.country);
-        const image = escapeHtml(partner.image || "assets/logo.png");
+        const name = escapeHtml(partnerNameOverrides[partner.id] || partner.name);
+        const image = escapeHtml(partnerLogoOverrides[partner.id] || partnerLogoOverrides[partner.name] || partnerLogoOverrides[partner.image] || partner.image || "assets/logo.png");
 
         if (!name && !image) return "";
 
@@ -2642,11 +2766,10 @@
           <div class="partner-slide">
             <div class="bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
               <div class="h-16 sm:h-20 lg:h-24 flex items-center justify-center">
-                <img src="${image}" alt="${name}" class="max-h-full max-w-full object-contain">
+                <img src="${image}" alt="${name}" class="max-h-full max-w-full object-contain" onerror="this.onerror=null;this.src='assets/logo.png';">
               </div>
               <div class="text-center mt-3">
                 <h4 class="text-sm font-semibold text-gray-800">${name}</h4>
-                ${country ? `<p class="text-xs text-gray-600">${country}</p>` : ""}
               </div>
             </div>
           </div>
@@ -2670,7 +2793,7 @@
         const stars = Array(rating).fill('<i class="fas fa-star text-yellow-400 text-sm sm:text-base"></i>').join('');
 
         return `
-          <div class="testimonial-slide w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-3" dir="rtl">
+          <div class="testimonial-slide w-full md:w-1/2 lg:w-1/2 flex-shrink-0 px-2 sm:px-3" dir="rtl">
             <div class="h-full bg-white p-5 sm:p-6 lg:p-7 rounded-xl sm:rounded-2xl shadow-lg">
               <div class="flex items-center mb-4 sm:mb-6">
                 ${image ? `<img src="${image}" alt="${name}" class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full ml-3 sm:ml-4 object-cover" />` : '<div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full ml-3 sm:ml-4 bg-gray-100 flex items-center justify-center"><i class="fas fa-user text-gray-400"></i></div>'}
@@ -2699,7 +2822,6 @@
       let autoplayId = null;
 
       function getVisibleCount() {
-        if (window.innerWidth >= 1024) return 3;
         if (window.innerWidth >= 768) return 2;
         return 1;
       }
@@ -2731,7 +2853,7 @@
         const slide = track.querySelector(".testimonial-slide");
         const slideWidth = slide ? slide.getBoundingClientRect().width : 0;
         track.style.transform = `translateX(${currentIndex * slideWidth}px)`;
-        prevBtn.classList.add("hidden");
+        prevBtn.classList.toggle("hidden", maxIndex === 0);
         nextBtn.classList.toggle("hidden", maxIndex === 0);
         renderDots();
       }
@@ -2746,7 +2868,7 @@
       function goPrev() {
         const maxIndex = getMaxIndex();
         if (maxIndex === 0) return;
-        currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+        currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
         updateCarousel();
       }
 
@@ -2773,14 +2895,13 @@
         goNext();
         restartAutoplay();
       });
-      carousel.addEventListener("mouseenter", stopAutoplay);
-      carousel.addEventListener("mouseleave", startAutoplay);
       window.addEventListener("resize", updateCarousel);
 
       updateCarousel();
       startAutoplay();
     }
 
+    renderSavedHeroSlides();
     renderSavedServices();
     renderSavedProducts();
     renderSavedProjects();
@@ -3009,127 +3130,83 @@
     document.addEventListener('DOMContentLoaded', attachEventListeners);
 
     // Partners Carousel Functionality
-    let partnerOffset = 0;
-    let partnerTrackWidth = 0;
-    let partnerAnimationFrame = null;
-    let partnerLastFrameTime = null;
-    let partnerPaused = false;
-    const partnerScrollSpeed = 45;
+    let partnerCurrentIndex = 0;
+    let partnerAutoplayTimer = null;
+    const partnerAutoplayDelay = 3000;
 
-    function removePartnerClones(slider) {
-      slider.querySelectorAll('.partner-clone').forEach((slide) => slide.remove());
+    function getPartnerSlides() {
+      return Array.from(document.querySelectorAll('.partners-slider .partner-slide'));
     }
 
-    function getPartnerSlideOuterWidth(slide) {
-      if (!slide) return 0;
-      const styles = window.getComputedStyle(slide);
-      return slide.getBoundingClientRect().width + parseFloat(styles.marginLeft) + parseFloat(styles.marginRight);
+    function getVisiblePartnerCount() {
+      return window.matchMedia('(max-width: 768px)').matches ? 2 : 4;
     }
 
-    function updatePartnerTransform() {
-      const slider = document.querySelector('.partners-slider');
-      if (slider) slider.style.transform = `translateX(-${partnerOffset}px)`;
-    }
+    function showPartnerSlide(index) {
+      const slides = getPartnerSlides();
+      if (slides.length === 0) return;
 
-    function prepareInfinitePartners() {
-      const slider = document.querySelector('.partners-slider');
-      if (!slider) return;
+      const previouslyVisibleSlides = new Set(slides.filter((slide) => slide.classList.contains('is-active')));
+      const visibleCount = Math.min(getVisiblePartnerCount(), slides.length);
+      partnerCurrentIndex = (index + slides.length) % slides.length;
 
-      cancelAnimationFrame(partnerAnimationFrame);
-      removePartnerClones(slider);
-      const originalSlides = Array.from(slider.querySelectorAll('.partner-slide'));
-      const container = document.querySelector('.partners-container');
+      slides.forEach((slide, slideIndex) => {
+        const distanceFromStart = (slideIndex - partnerCurrentIndex + slides.length) % slides.length;
+        const isActive = distanceFromStart < visibleCount;
+        const isEntering = isActive && !previouslyVisibleSlides.has(slide);
 
-      if (originalSlides.length === 0 || !container) {
-        partnerTrackWidth = 0;
-        partnerOffset = 0;
-        updatePartnerTransform();
-        return;
-      }
+        slide.classList.toggle('is-active', isActive);
+        slide.classList.toggle('is-entering', isEntering);
+        slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
 
-      partnerTrackWidth = originalSlides.reduce((total, slide) => total + getPartnerSlideOuterWidth(slide), 0);
-      let renderedTrackWidth = partnerTrackWidth;
-
-      while (renderedTrackWidth < container.clientWidth * 2 && partnerTrackWidth > 0) {
-        originalSlides.forEach((slide) => {
-          const clone = slide.cloneNode(true);
-          clone.classList.add('partner-clone');
-          slider.appendChild(clone);
-        });
-        renderedTrackWidth += partnerTrackWidth;
-      }
-
-      originalSlides.forEach((slide) => {
-        const clone = slide.cloneNode(true);
-        clone.classList.add('partner-clone');
-        slider.appendChild(clone);
+        if (isEntering) {
+          slide.style.animation = 'none';
+          slide.offsetHeight;
+          slide.style.animation = '';
+        }
       });
-
-      partnerOffset = partnerOffset % partnerTrackWidth;
-      partnerLastFrameTime = null;
-      updatePartnerTransform();
-      partnerAnimationFrame = requestAnimationFrame(animatePartnerCarousel);
     }
 
     function nextPartnerSlide() {
-      if (partnerTrackWidth <= 0) return;
-      const slideWidth = getPartnerSlideOuterWidth(document.querySelector('.partner-slide:not(.partner-clone)'));
-      partnerOffset = (partnerOffset + slideWidth) % partnerTrackWidth;
-      updatePartnerTransform();
+      showPartnerSlide(partnerCurrentIndex + 1);
     }
 
     function prevPartnerSlide() {
-      if (partnerTrackWidth <= 0) return;
-      const slideWidth = getPartnerSlideOuterWidth(document.querySelector('.partner-slide:not(.partner-clone)'));
-      partnerOffset = (partnerOffset - slideWidth + partnerTrackWidth) % partnerTrackWidth;
-      updatePartnerTransform();
+      showPartnerSlide(partnerCurrentIndex - 1);
     }
 
-    function animatePartnerCarousel(timestamp) {
-      if (partnerLastFrameTime === null) partnerLastFrameTime = timestamp;
-      const elapsed = timestamp - partnerLastFrameTime;
-      partnerLastFrameTime = timestamp;
+    function startPartnerAutoplay() {
+      clearInterval(partnerAutoplayTimer);
 
-      if (!partnerPaused && partnerTrackWidth > 0) {
-        partnerOffset = (partnerOffset + (partnerScrollSpeed * elapsed / 1000)) % partnerTrackWidth;
-        updatePartnerTransform();
-      }
-
-      partnerAnimationFrame = requestAnimationFrame(animatePartnerCarousel);
+      partnerAutoplayTimer = setInterval(() => {
+        nextPartnerSlide();
+      }, partnerAutoplayDelay);
     }
 
     // Attach partner carousel event listeners
     function attachPartnerEventListeners() {
-      const slider = document.querySelector('.partners-slider');
       const prevBtn = document.getElementById('prevPartner');
       const nextBtn = document.getElementById('nextPartner');
-      const partnersContainer = document.querySelector('.partners-container');
 
-      prepareInfinitePartners();
+      showPartnerSlide(partnerCurrentIndex);
+      startPartnerAutoplay();
 
       if (prevBtn) {
-        prevBtn.addEventListener('click', prevPartnerSlide);
+        prevBtn.addEventListener('click', () => {
+          prevPartnerSlide();
+          startPartnerAutoplay();
+        });
       }
 
       if (nextBtn) {
-        nextBtn.addEventListener('click', nextPartnerSlide);
-      }
-
-      // Pause auto slide on hover
-      if (partnersContainer) {
-        partnersContainer.addEventListener('mouseenter', () => {
-          partnerPaused = true;
-        });
-
-        partnersContainer.addEventListener('mouseleave', () => {
-          partnerPaused = false;
-          partnerLastFrameTime = null;
+        nextBtn.addEventListener('click', () => {
+          nextPartnerSlide();
+          startPartnerAutoplay();
         });
       }
 
-      // Update on window resize
       window.addEventListener('resize', () => {
-        prepareInfinitePartners();
+        showPartnerSlide(partnerCurrentIndex);
       });
     }
 
@@ -3267,6 +3344,14 @@
       </div>
     </div>
   </div>
+  <script>
+    document.addEventListener('error', function(event) {
+      const image = event.target;
+      if (!image || image.tagName !== 'IMG' || image.dataset.fallbackApplied) return;
+      image.dataset.fallbackApplied = 'true';
+      image.src = 'assets/logo.png';
+    }, true);
+  </script>
 </body>
 
 </html>
