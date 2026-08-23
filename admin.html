@@ -35,6 +35,10 @@
       scroll-behavior: smooth;
     }
 
+    body {
+      overflow: hidden;
+    }
+
     .gradient-text {
       background: linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 100%);
       -webkit-background-clip: text;
@@ -57,6 +61,11 @@
     .form-input:focus {
       border-color: var(--primary-green);
       box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.1);
+    }
+
+    main {
+      height: calc(100vh - 65px);
+      overflow-y: auto;
     }
   </style>
 </head>
@@ -91,10 +100,10 @@
   </div>
 
   <!-- Main Admin Interface -->
-  <div id="adminInterface" class="hidden min-h-screen bg-gray-50">
+  <div id="adminInterface" class="hidden h-screen bg-gray-50 flex flex-col">
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="bg-white shadow-sm border-b border-gray-200 flex-shrink-0">
+      <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <!-- Logo and Title -->
           <div class="flex items-center gap-3">
@@ -119,9 +128,9 @@
       </div>
     </header>
 
-    <div class="flex">
+    <div class="flex flex-1 overflow-hidden">
       <!-- Sidebar -->
-      <aside id="sidebar" class="w-64 bg-white shadow-sm border-r border-gray-200 min-h-screen">
+      <aside id="sidebar" class="w-64 bg-white shadow-sm border-r border-gray-200 overflow-y-auto flex-shrink-0">
         <nav class="p-4">
           <div class="mb-6 border-b border-gray-100 pb-5">
             <a href="index.html" class="flex items-center justify-center rounded-lg p-2 hover:bg-gray-50 transition-colors" aria-label="تقنية الارتفاع">
@@ -188,223 +197,225 @@
       </aside>
 
       <!-- Main Content -->
-      <main class="flex-1 p-6 overflow-y-auto">
-        <!-- Dashboard Section -->
-        <div id="dashboard-section" class="section">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">لوحة المعلومات</h2>
-            <p class="text-gray-600">نظرة عامة على الموقع والمحتوى</p>
-          </div>
-
-          <!-- Quick Actions -->
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <h3 class="text-lg font-bold text-gray-900 mb-4">إجراءات سريعة</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <button onclick="showSection('services')" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-right">
-                <i class="fas fa-plus text-green-600 mb-2 block"></i>
-                <span class="text-sm font-medium">إضافة خدمة جديدة</span>
-              </button>
-              <button onclick="showSection('products')" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-right">
-                <i class="fas fa-plus text-blue-600 mb-2 block"></i>
-                <span class="text-sm font-medium">إضافة منتج جديد</span>
-              </button>
-              <button onclick="showSection('projects')" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-right">
-                <i class="fas fa-plus text-yellow-600 mb-2 block"></i>
-                <span class="text-sm font-medium">إضافة مشروع جديد</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Services Section -->
-        <div id="services-section" class="section hidden">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة الخدمات</h2>
-            <p class="text-gray-600">إضافة وتعديل وحذف الخدمات</p>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <p class="text-gray-600">محتوى قسم إدارة الخدمات</p>
-          </div>
-        </div>
-
-        <!-- Products Section -->
-        <div id="products-section" class="section hidden">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة المنتجات</h2>
-            <p class="text-gray-600">إضافة وتعديل وحذف المنتجات</p>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <p class="text-gray-600">محتوى قسم إدارة المنتجات</p>
-          </div>
-        </div>
-
-        <!-- Projects Section -->
-        <div id="projects-section" class="section hidden">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة المشاريع</h2>
-            <p class="text-gray-600">إضافة وتعديل وحذف المشاريع</p>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <p class="text-gray-600">محتوى قسم إدارة المشاريع</p>
-          </div>
-        </div>
-
-        <!-- Testimonials Section -->
-        <div id="testimonials-section" class="section hidden">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة التقييمات</h2>
-            <p class="text-gray-600">إضافة وتعديل وحذف التقييمات</p>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <p class="text-gray-600">محتوى قسم إدارة التقييمات</p>
-          </div>
-        </div>
-
-        <!-- Partners Section -->
-        <div id="partners-section" class="section hidden">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة شركاء النجاح</h2>
-            <p class="text-gray-600">إضافة وتعديل وحذف الشركاء</p>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <p class="text-gray-600">محتوى قسم إدارة شركاء النجاح</p>
-          </div>
-        </div>
-
-        <!-- Media Section -->
-        <div id="media-section" class="section hidden">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة الوسائط</h2>
-            <p class="text-gray-600">إدارة الصور والملفات</p>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <p class="text-gray-600">محتوى قسم إدارة الوسائط</p>
-          </div>
-        </div>
-
-        <!-- Hero Slides Section -->
-        <div id="hero-slides-section" class="section hidden">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">Hero Slider</h2>
-            <p class="text-gray-600">إضافة وتعديل وحذف شرائح البطل</p>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <p class="text-gray-600">محتوى قسم Hero Slider</p>
-          </div>
-        </div>
-
-        <!-- Settings Section -->
-        <div id="settings-section" class="section hidden">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">الإعدادات</h2>
-            <p class="text-gray-600">إعدادات الموقع والنظام</p>
-          </div>
-
-          <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-            <!-- General Settings -->
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <h3 class="text-lg font-bold text-gray-900 mb-4">الإعدادات العامة</h3>
-              <form id="general-settings" class="space-y-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">اسم الشركة</label>
-                  <input type="text" id="company-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="تقنية الارتفاع" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني</label>
-                  <input type="email" id="company-email" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="sales@elevation-tech.sa" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف الأساسي</label>
-                  <input type="tel" id="company-phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="+966531154551" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف الثانوي</label>
-                  <input type="tel" id="company-phone-alt" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="+966544925287" />
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
-                  <i class="fas fa-save ml-2"></i> حفظ التغييرات
-                </button>
-              </form>
+      <main class="flex-1 overflow-y-auto bg-gray-50">
+        <div class="p-6">
+          <!-- Dashboard Section -->
+          <div id="dashboard-section" class="section">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">لوحة المعلومات</h2>
+              <p class="text-gray-600">نظرة عامة على الموقع والمحتوى</p>
             </div>
 
-            <!-- Security Settings -->
+            <!-- Quick Actions -->
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات الأمان</h3>
-              <form id="security-settings" class="space-y-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">كلمة المرور الجديدة</label>
-                  <input type="password" id="new-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="أدخل كلمة مرور جديدة" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">تأكيد كلمة المرور</label>
-                  <input type="password" id="confirm-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="أعد إدخال كلمة المرور" />
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-[#b8952b] to-[#d4af37] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
-                  <i class="fas fa-key ml-2"></i> تغيير كلمة المرور
+              <h3 class="text-lg font-bold text-gray-900 mb-4">إجراءات سريعة</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <button onclick="showSection('services')" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-right">
+                  <i class="fas fa-plus text-green-600 mb-2 block"></i>
+                  <span class="text-sm font-medium">إضافة خدمة جديدة</span>
                 </button>
-              </form>
+                <button onclick="showSection('products')" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-right">
+                  <i class="fas fa-plus text-blue-600 mb-2 block"></i>
+                  <span class="text-sm font-medium">إضافة منتج جديد</span>
+                </button>
+                <button onclick="showSection('projects')" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-right">
+                  <i class="fas fa-plus text-yellow-600 mb-2 block"></i>
+                  <span class="text-sm font-medium">إضافة مشروع جديد</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Services Section -->
+          <div id="services-section" class="section hidden">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة الخدمات</h2>
+              <p class="text-gray-600">إضافة وتعديل وحذف الخدمات</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <p class="text-gray-600">محتوى قسم إدارة الخدمات</p>
+            </div>
+          </div>
+
+          <!-- Products Section -->
+          <div id="products-section" class="section hidden">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة المنتجات</h2>
+              <p class="text-gray-600">إضافة وتعديل وحذف المنتجات</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <p class="text-gray-600">محتوى قسم إدارة المنتجات</p>
+            </div>
+          </div>
+
+          <!-- Projects Section -->
+          <div id="projects-section" class="section hidden">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة المشاريع</h2>
+              <p class="text-gray-600">إضافة وتعديل وحذف المشاريع</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <p class="text-gray-600">محتوى قسم إدارة المشاريع</p>
+            </div>
+          </div>
+
+          <!-- Testimonials Section -->
+          <div id="testimonials-section" class="section hidden">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة التقييمات</h2>
+              <p class="text-gray-600">إضافة وتعديل وحذف التقييمات</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <p class="text-gray-600">محتوى قسم إدارة التقييمات</p>
+            </div>
+          </div>
+
+          <!-- Partners Section -->
+          <div id="partners-section" class="section hidden">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة شركاء النجاح</h2>
+              <p class="text-gray-600">إضافة وتعديل وحذف الشركاء</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <p class="text-gray-600">محتوى قسم إدارة شركاء النجاح</p>
+            </div>
+          </div>
+
+          <!-- Media Section -->
+          <div id="media-section" class="section hidden">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">إدارة الوسائط</h2>
+              <p class="text-gray-600">إدارة الصور والملفات</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <p class="text-gray-600">محتوى قسم إدارة الوسائط</p>
+            </div>
+          </div>
+
+          <!-- Hero Slides Section -->
+          <div id="hero-slides-section" class="section hidden">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">Hero Slider</h2>
+              <p class="text-gray-600">إضافة وتعديل وحذف شرائح البطل</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <p class="text-gray-600">محتوى قسم Hero Slider</p>
+            </div>
+          </div>
+
+          <!-- Settings Section -->
+          <div id="settings-section" class="section hidden">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">الإعدادات</h2>
+              <p class="text-gray-600">إعدادات الموقع والنظام</p>
             </div>
 
-            <!-- Header & Footer Settings -->
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات الرأس والتذييل</h3>
-              <form id="header-footer-settings" class="space-y-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الرأس</label>
-                  <input type="text" id="header-title" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: حلول المصاعد الذكية" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">وصف الرأس</label>
-                  <input type="text" id="header-subtitle" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: أفضل نظام تحكم للمصاعد" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">نص التذييل</label>
-                  <textarea id="footer-copy" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: © 2026 تقنية الارتفاع"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
-                  <i class="fas fa-save ml-2"></i> حفظ الإعدادات
-                </button>
-              </form>
-            </div>
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 pb-6">
+              <!-- General Settings -->
+              <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">الإعدادات العامة</h3>
+                <form id="general-settings" class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">اسم الشركة</label>
+                    <input type="text" id="company-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="تقنية الارتفاع" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني</label>
+                    <input type="email" id="company-email" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="sales@elevation-tech.sa" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف الأساسي</label>
+                    <input type="tel" id="company-phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="+966531154551" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف الثانوي</label>
+                    <input type="tel" id="company-phone-alt" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" value="+966544925287" />
+                  </div>
+                  <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <i class="fas fa-save ml-2"></i> حفظ التغييرات
+                  </button>
+                </form>
+              </div>
 
-            <!-- Social Media Settings -->
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات وسائل التواصل</h3>
-              <form id="social-settings" class="space-y-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">إنستجرام</label>
-                  <input type="text" id="social-instagram" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="https://www.instagram.com/..." />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">تيك توك</label>
-                  <input type="text" id="social-tiktok" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="https://www.tiktok.com/@..." />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">لينكد إن</label>
-                  <input type="text" id="social-linkedin" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="https://www.linkedin.com/..." />
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
-                  <i class="fas fa-save ml-2"></i> حفظ إعدادات التواصل
-                </button>
-              </form>
-            </div>
+              <!-- Security Settings -->
+              <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات الأمان</h3>
+                <form id="security-settings" class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">كلمة المرور الجديدة</label>
+                    <input type="password" id="new-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="أدخل كلمة مرور جديدة" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">تأكيد كلمة المرور</label>
+                    <input type="password" id="confirm-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="أعد إدخال كلمة المرور" />
+                  </div>
+                  <button type="submit" class="w-full bg-gradient-to-r from-[#b8952b] to-[#d4af37] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <i class="fas fa-key ml-2"></i> تغيير كلمة المرور
+                  </button>
+                </form>
+              </div>
 
-            <!-- Page Settings -->
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات الصفحات</h3>
-              <form id="page-settings" class="space-y-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">عنوان قسم الخدمات</label>
-                  <input type="text" id="title-services" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="عنوان قسم الخدمات" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">عنوان قسم المنتجات</label>
-                  <input type="text" id="title-products" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="عنوان قسم المنتجات" />
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
-                  <i class="fas fa-save ml-2"></i> حفظ إعدادات الصفحات
-                </button>
-              </form>
+              <!-- Header & Footer Settings -->
+              <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات الرأس والتذييل</h3>
+                <form id="header-footer-settings" class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الرأس</label>
+                    <input type="text" id="header-title" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: حلول المصاعد الذكية" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">وصف الرأس</label>
+                    <input type="text" id="header-subtitle" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: أفضل نظام تحكم للمصاعد" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">نص التذييل</label>
+                    <textarea id="footer-copy" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="مثال: © 2026 تقنية الارتفاع"></textarea>
+                  </div>
+                  <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <i class="fas fa-save ml-2"></i> حفظ الإعدادات
+                  </button>
+                </form>
+              </div>
+
+              <!-- Social Media Settings -->
+              <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات وسائل التواصل</h3>
+                <form id="social-settings" class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">إنستجرام</label>
+                    <input type="text" id="social-instagram" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="https://www.instagram.com/..." />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">تيك توك</label>
+                    <input type="text" id="social-tiktok" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="https://www.tiktok.com/@..." />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">لينكد إن</label>
+                    <input type="text" id="social-linkedin" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="https://www.linkedin.com/..." />
+                  </div>
+                  <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <i class="fas fa-save ml-2"></i> حفظ إعدادات التواصل
+                  </button>
+                </form>
+              </div>
+
+              <!-- Page Settings -->
+              <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">إعدادات الصفحات</h3>
+                <form id="page-settings" class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">عنوان قسم الخدمات</label>
+                    <input type="text" id="title-services" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="عنوان قسم الخدمات" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">عنوان قسم المنتجات</label>
+                    <input type="text" id="title-products" class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input" placeholder="عنوان قسم المنتجات" />
+                  </div>
+                  <button type="submit" class="w-full bg-gradient-to-r from-[#004d40] to-[#00332a] text-white py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <i class="fas fa-save ml-2"></i> حفظ إعدادات الصفحات
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
