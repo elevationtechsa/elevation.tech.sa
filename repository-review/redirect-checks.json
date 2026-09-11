@@ -1,0 +1,30 @@
+[
+    {
+        "URL":  "https://www.elevation-tech.sa/",
+        "Status":  301,
+        "Location":  "https://elevation-tech.sa/",
+        "Server":  "cloudflare",
+        "CfRay":  "a39a68b3eac1e286-MRS"
+    },
+    {
+        "URL":  "https://www.elevation-tech.sa/pages/services.html?utm_source=domain-check",
+        "Status":  301,
+        "Location":  "https://elevation-tech.sa/pages/services.html?utm_source=domain-check",
+        "Server":  "cloudflare",
+        "CfRay":  "a39a68b4bc6be286-MRS"
+    },
+    {
+        "URL":  "http://www.elevation-tech.sa/pages/products.html?utm_source=domain-check",
+        "Status":  301,
+        "Location":  "https://elevation-tech.sa/pages/products.html?utm_source=domain-check",
+        "Server":  "cloudflare",
+        "CfRay":  "a39a68b5ffda1d81-MRS"
+    },
+    {
+        "URL":  "https://elevation-tech.sa/",
+        "Status":  200,
+        "Location":  null,
+        "Server":  "Vercel",
+        "CfRay":  null
+    }
+]

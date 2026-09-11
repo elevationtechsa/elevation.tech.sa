@@ -1,0 +1,38 @@
+[
+    {
+        "URL":  "https://www.elevation-tech.sa/?utm_source=domain-check",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/?utm_source=domain-check",
+        "Title":  "Elevation Tech | Elevator Installation and Maintenance in Saudi Arabia"
+    },
+    {
+        "URL":  "https://www.elevation-tech.sa/pages/about.html?utm_source=domain-check",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/pages/about.html?utm_source=domain-check",
+        "Title":  "About Elevation Tech | Elevator Company in Saudi Arabia"
+    },
+    {
+        "URL":  "https://www.elevation-tech.sa/pages/services.html?utm_source=domain-check",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/pages/services.html?utm_source=domain-check",
+        "Title":  "Elevator Services | Installation, Maintenance and Modernization"
+    },
+    {
+        "URL":  "https://www.elevation-tech.sa/pages/products.html?utm_source=domain-check",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/pages/products.html?utm_source=domain-check",
+        "Title":  "Elevator Products | Passenger, Home, Freight and Hospital Elevators"
+    },
+    {
+        "URL":  "https://www.elevation-tech.sa/pages/projects.html?utm_source=domain-check",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/pages/projects.html?utm_source=domain-check",
+        "Title":  "Elevator Projects | Elevation Tech Completed Projects"
+    },
+    {
+        "URL":  "https://www.elevation-tech.sa/pages/contact.html?utm_source=domain-check",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/pages/contact.html?utm_source=domain-check",
+        "Title":  "Contact Elevation Tech | Elevator Consultation and Quotation"
+    }
+]

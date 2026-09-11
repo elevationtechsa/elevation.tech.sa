@@ -1,0 +1,47 @@
+[
+    {
+        "Name":  "elevation-tech.sa",
+        "Type":  "NS",
+        "Status":  0,
+        "Answers":  [
+                        {
+                            "name":  "elevation-tech.sa.",
+                            "type":  2,
+                            "TTL":  21600,
+                            "data":  "aarav.ns.cloudflare.com."
+                        },
+                        {
+                            "name":  "elevation-tech.sa.",
+                            "type":  2,
+                            "TTL":  21600,
+                            "data":  "jocelyn.ns.cloudflare.com."
+                        }
+                    ]
+    },
+    {
+        "Name":  "elevation-tech.sa",
+        "Type":  "A",
+        "Status":  0,
+        "Answers":  [
+                        {
+                            "name":  "elevation-tech.sa.",
+                            "type":  1,
+                            "TTL":  238,
+                            "data":  "216.198.79.1"
+                        }
+                    ]
+    },
+    {
+        "Name":  "www.elevation-tech.sa",
+        "Type":  "CNAME",
+        "Status":  0,
+        "Answers":  [
+                        {
+                            "name":  "www.elevation-tech.sa.",
+                            "type":  5,
+                            "TTL":  239,
+                            "data":  "9940ff590fbc250d.vercel-dns-017.com."
+                        }
+                    ]
+    }
+]

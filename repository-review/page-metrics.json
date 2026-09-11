@@ -1,0 +1,149 @@
+[
+    {
+        "Page":  "admin.html",
+        "Bytes":  25131,
+        "H1":  [
+                   "لوحة التحكم"
+               ],
+        "H2":  10,
+        "Images":  1,
+        "LazyImages":  0,
+        "SizedImages":  0,
+        "BrokenLocalLinks":  [
+
+                             ],
+        "PlaceholderLinks":  0,
+        "HasMain":  true,
+        "InlineScriptCharacters":  2474,
+        "DuplicateIds":  [
+
+                         ]
+    },
+    {
+        "Page":  "index.html",
+        "Bytes":  160104,
+        "H1":  [
+                   "تقنية الارتفاع"
+               ],
+        "H2":  2,
+        "Images":  27,
+        "LazyImages":  0,
+        "SizedImages":  1,
+        "BrokenLocalLinks":  [
+                                 "pages/about",
+                                 "pages/products",
+                                 "pages/services"
+                             ],
+        "PlaceholderLinks":  9,
+        "HasMain":  false,
+        "InlineScriptCharacters":  54449,
+        "DuplicateIds":  [
+
+                         ]
+    },
+    {
+        "Page":  "pages\\about.html",
+        "Bytes":  28110,
+        "H1":  [
+                   "تقنية الارتفاع",
+                   "من نحن"
+               ],
+        "H2":  4,
+        "Images":  5,
+        "LazyImages":  0,
+        "SizedImages":  1,
+        "BrokenLocalLinks":  [
+
+                             ],
+        "PlaceholderLinks":  8,
+        "HasMain":  false,
+        "InlineScriptCharacters":  2983,
+        "DuplicateIds":  [
+
+                         ]
+    },
+    {
+        "Page":  "pages\\contact.html",
+        "Bytes":  36375,
+        "H1":  [
+                   "تقنية الارتفاع",
+                   "تواصل معنا"
+               ],
+        "H2":  1,
+        "Images":  4,
+        "LazyImages":  0,
+        "SizedImages":  1,
+        "BrokenLocalLinks":  [
+
+                             ],
+        "PlaceholderLinks":  9,
+        "HasMain":  false,
+        "InlineScriptCharacters":  4168,
+        "DuplicateIds":  [
+
+                         ]
+    },
+    {
+        "Page":  "pages\\products.html",
+        "Bytes":  48335,
+        "H1":  [
+                   "تقنية الارتفاع",
+                   "منتجاتنا المتميزة"
+               ],
+        "H2":  2,
+        "Images":  11,
+        "LazyImages":  0,
+        "SizedImages":  1,
+        "BrokenLocalLinks":  [
+
+                             ],
+        "PlaceholderLinks":  8,
+        "HasMain":  false,
+        "InlineScriptCharacters":  14004,
+        "DuplicateIds":  [
+
+                         ]
+    },
+    {
+        "Page":  "pages\\projects.html",
+        "Bytes":  51197,
+        "H1":  [
+                   "تقنية الارتفاع",
+                   "مشاريعنا المنجزة"
+               ],
+        "H2":  2,
+        "Images":  5,
+        "LazyImages":  0,
+        "SizedImages":  1,
+        "BrokenLocalLinks":  [
+
+                             ],
+        "PlaceholderLinks":  8,
+        "HasMain":  false,
+        "InlineScriptCharacters":  15436,
+        "DuplicateIds":  [
+
+                         ]
+    },
+    {
+        "Page":  "pages\\services.html",
+        "Bytes":  34045,
+        "H1":  [
+                   "تقنية الارتفاع",
+                   "خدماتنا المتكاملة"
+               ],
+        "H2":  2,
+        "Images":  4,
+        "LazyImages":  0,
+        "SizedImages":  1,
+        "BrokenLocalLinks":  [
+
+                             ],
+        "PlaceholderLinks":  8,
+        "HasMain":  false,
+        "InlineScriptCharacters":  5356,
+        "DuplicateIds":  [
+
+                         ]
+    }
+]

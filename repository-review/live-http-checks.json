@@ -1,0 +1,94 @@
+[
+    {
+        "URL":  "https://elevation-tech.sa/",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/",
+        "Server":  "Vercel",
+        "Bytes":  160104,
+        "Canonical":  "\u003clink rel=\"canonical\" href=\"https://elevation-tech.sa/\" /\u003e"
+    },
+    {
+        "URL":  "https://elevation-tech.sa/index.html",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/index.html",
+        "Server":  "Vercel",
+        "Bytes":  160104,
+        "Canonical":  "\u003clink rel=\"canonical\" href=\"https://elevation-tech.sa/\" /\u003e"
+    },
+    {
+        "URL":  "https://elevation-tech.sa/pages/about.html",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/pages/about.html",
+        "Server":  "Vercel",
+        "Bytes":  28110,
+        "Canonical":  "\u003clink rel=\"canonical\" href=\"https://elevation-tech.sa/pages/about.html\" /\u003e"
+    },
+    {
+        "URL":  "https://elevation-tech.sa/pages/services.html",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/pages/services.html",
+        "Server":  "Vercel",
+        "Bytes":  34045,
+        "Canonical":  "\u003clink rel=\"canonical\" href=\"https://elevation-tech.sa/pages/services.html\" /\u003e"
+    },
+    {
+        "URL":  "https://elevation-tech.sa/pages/products.html",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/pages/products.html",
+        "Server":  "Vercel",
+        "Bytes":  48335,
+        "Canonical":  "\u003clink rel=\"canonical\" href=\"https://elevation-tech.sa/pages/products.html\" /\u003e"
+    },
+    {
+        "URL":  "https://elevation-tech.sa/pages/projects.html",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/pages/projects.html",
+        "Server":  "Vercel",
+        "Bytes":  51197,
+        "Canonical":  "\u003clink rel=\"canonical\" href=\"https://elevation-tech.sa/pages/projects.html\" /\u003e"
+    },
+    {
+        "URL":  "https://elevation-tech.sa/pages/contact.html",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/pages/contact.html",
+        "Server":  "Vercel",
+        "Bytes":  36375,
+        "Canonical":  "\u003clink rel=\"canonical\" href=\"https://elevation-tech.sa/pages/contact.html\" /\u003e"
+    },
+    {
+        "URL":  "https://elevation-tech.sa/pages/about",
+        "Status":  404,
+        "Error":  "أرجع الملقم البعيد الخطأ: (404) لم يتم العثور عليه."
+    },
+    {
+        "URL":  "https://elevation-tech.sa/pages/services",
+        "Status":  404,
+        "Error":  "أرجع الملقم البعيد الخطأ: (404) لم يتم العثور عليه."
+    },
+    {
+        "URL":  "https://elevation-tech.sa/pages/products",
+        "Status":  404,
+        "Error":  "أرجع الملقم البعيد الخطأ: (404) لم يتم العثور عليه."
+    },
+    {
+        "URL":  "https://elevation-tech.sa/robots.txt",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/robots.txt",
+        "Server":  "Vercel",
+        "Bytes":  142,
+        "Canonical":  ""
+    },
+    {
+        "URL":  "https://elevation-tech.sa/sitemap.xml",
+        "Status":  200,
+        "FinalURL":  "https://elevation-tech.sa/sitemap.xml",
+        "Server":  "Vercel",
+        "Bytes":  1154,
+        "Canonical":  ""
+    },
+    {
+        "URL":  "https://elevation-tech.sa/not-a-real-page-seo-review",
+        "Status":  404,
+        "Error":  "أرجع الملقم البعيد الخطأ: (404) لم يتم العثور عليه."
+    }
+]
