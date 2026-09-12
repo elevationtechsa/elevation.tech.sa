@@ -1,0 +1,49 @@
+{
+  "date": "2026-09-11",
+  "environment": "Cloudflare Browser Rendering, local release sources with a read-only snapshot of published content",
+  "timing": {
+    "heroSeconds": 6,
+    "partnerDelaySeconds": 3.5
+  },
+  "reproducedBug": {
+    "playRequested": true,
+    "stillFocused": true,
+    "before": "0",
+    "after": "0",
+    "stalled": true
+  },
+  "mobile": {
+    "heroCount": 5,
+    "heroAutoplay": true,
+    "heroPause": true,
+    "heroImagesAndText": true,
+    "heroSelectedState": true,
+    "heroImageHeightStable": true,
+    "heroLayoutStable": true,
+    "heroWrap": true,
+    "heroKeyboard": true,
+    "partnerLoop": true,
+    "partnerReverseWrap": true,
+    "partnerSwipe": true,
+    "keyboardPauses": true,
+    "partnerPlayWhileFocused": true,
+    "mouseHoverPauses": true,
+    "mouseLeaveResumes": true,
+    "partnerResize": true,
+    "partnerResizeRestores": true,
+    "noHorizontalOverflow": true,
+    "viewport": 390,
+    "errors": []
+  },
+  "desktop": {
+    "autoplay": true,
+    "stableHeroLayout": true,
+    "resizedWithoutErrors": true,
+    "noHorizontalOverflow": true,
+    "errors": [],
+    "heroImageHeight": 560,
+    "heroHeight": 1000
+  },
+  "visualReview": "Homepage layout inspected at desktop width; hero text and image occupy stable areas.",
+  "contentModified": false
+}

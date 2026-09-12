@@ -29,10 +29,6 @@
       document.querySelectorAll("#products .gallery-btn").forEach(button=>button.textContent="عرض المعرض");
       document.querySelectorAll("#products .gallery-btn").forEach(button=>button.addEventListener("click",()=>window.openGallery(button.dataset.product,document.getElementById("galleryModal"),document.getElementById("galleryTitle"),document.getElementById("galleryGrid"))));
 
-      // A selectable hero avoids automatic motion and remains keyboard accessible.
-      const slides=data.heroSlides, host=document.querySelector("#home .hero-copy");
-      function showSlide(slide){const title=host?.querySelector("h1,h2"),description=host?.querySelector("h1 + p,h2 + p"),image=document.querySelector("#home .hero-image-wrap img");if(title)title.textContent=slide.title;if(description)description.textContent=slide.description;if(image){image.src=slide.image||"/assets/hero-img.jpeg";image.alt=slide.title;}}
-      if(slides.length){showSlide(slides[0]);if(slides.length>1 && host){const controls=document.createElement("div");controls.className="cms-hero-controls";slides.forEach((slide,index)=>{const button=document.createElement("button");button.type="button";button.textContent=String(index+1);button.setAttribute("aria-label",slide.title);button.addEventListener("click",()=>showSlide(slide));controls.append(button);});host.append(controls);}}
       window.dispatchEvent(new Event("resize"));
     }
     const settings=data.settings;

@@ -20,7 +20,11 @@ All public pages and blog articles share cms/header.js and assets/site-header.cs
 
 The homepage, static pages, blog index and all articles share the footer from cms/footer.js and assets/site-footer.css. After changing the shared footer template, run `node cms/sync-footers.mjs` to regenerate static footers and deploy the Worker for blog footers.
 
-The partner carousel uses assets/partner-slider.js and assets/partner-slider.css. It animates the full row in RTL, resets cloned slides after looping, rebuilds after published content loads, and supports pause, keyboard navigation, reduced motion and viewport resizing.
+The hero carousel uses assets/hero-slider.js and advances every six seconds, with previous/next buttons, numbered slide selection, and a pause/play control. It reserves the tallest slide text and a consistent image area to keep the page stable during rotation.
+
+Both carousels use assets/carousel-playback.js. They pause offscreen, in hidden tabs, on mouse hover, and when keyboard focus enters. Explicit Play restarts rotation while the control is focused; touch interactions do not leave autoplay stuck. Reduced-motion preferences disable automatic movement by default.
+
+The partner carousel uses assets/partner-slider.js and assets/partner-slider.css. It advances after a 3.5-second delay, loops through cloned slides without a reverse transition, and sizes the visible cards from the container width. Touch swiping, keyboard arrows, pause/play, content refreshes, and resizing are supported.
 Static site and admin: Vercel, connected to GitHub main.
 Shared API and server-rendered blog: Cloudflare Worker `elevation-content-api`.
 D1: `elevation-site-content`, binding `DB`.

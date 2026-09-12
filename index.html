@@ -273,7 +273,7 @@
       animation: none;
     }
   </style>
-<link rel="stylesheet" href="/assets/site-content.css"><script defer src="/assets/site-content.js"></script><link rel="stylesheet" href="/assets/site-footer.css"><link rel="stylesheet" href="/assets/partner-slider.css"><script defer src="/assets/partner-slider.js"></script><link rel="stylesheet" href="/assets/site-header.css"><script defer src="/assets/site-header.js"></script><link rel="stylesheet" href="/assets/project-gallery.css"><script defer src="/assets/project-gallery.js"></script></head>
+<link rel="stylesheet" href="/assets/site-content.css"><script defer src="/assets/carousel-playback.js"></script><script defer src="/assets/hero-slider.js"></script><script defer src="/assets/site-content.js"></script><link rel="stylesheet" href="/assets/site-footer.css"><link rel="stylesheet" href="/assets/partner-slider.css"><script defer src="/assets/partner-slider.js"></script><link rel="stylesheet" href="/assets/site-header.css"><script defer src="/assets/site-header.js"></script><link rel="stylesheet" href="/assets/project-gallery.css"><script defer src="/assets/project-gallery.js"></script></head>
 
 <body class="bg-gray-50 text-gray-800 overflow-x-hidden">
   <!-- Navbar -->
@@ -2112,102 +2112,6 @@
         console.warn(`Unable to load saved ${type}`, error);
         return [];
       }
-    }
-
-    let heroSlides = [];
-    let heroSlideIndex = 0;
-    let heroSlideTimer = null;
-    const heroSlideDelay = 5000;
-
-    function renderHeroSlide(index) {
-      if (heroSlides.length === 0) return;
-
-      const homeSection = document.getElementById("home");
-      const slide = heroSlides[index];
-      const badge = homeSection.querySelector(".inline-flex span");
-      const title = homeSection.querySelector("h2");
-      const description = homeSection.querySelector(".hero-copy p");
-      const buttons = homeSection.querySelectorAll(".hero-copy a");
-      const image = homeSection.querySelector(".hero-image-wrap img");
-      const dots = document.getElementById("heroSliderDots");
-
-      homeSection.classList.add("hero-changing");
-
-      window.setTimeout(() => {
-        if (badge) badge.textContent = slide.badge || "";
-        if (title) {
-          title.innerHTML = `${escapeHtml(slide.title || "")} ${slide.highlight ? `<span class="gradient-text">${escapeHtml(slide.highlight)}</span>` : ""}`;
-        }
-        if (description) description.textContent = slide.description || "";
-        if (buttons[0]) {
-          buttons[0].href = slide.primaryUrl || "#products";
-          buttons[0].innerHTML = `<i class="fas fa-box ml-2"></i> ${escapeHtml(slide.primaryText || "تصفح منتجاتنا")}`;
-          buttons[0].classList.toggle("hidden", !slide.primaryText && !slide.primaryUrl);
-        }
-        if (buttons[1]) {
-          buttons[1].href = slide.secondaryUrl || "#contact";
-          buttons[1].innerHTML = `<i class="fas fa-tools ml-2"></i> ${escapeHtml(slide.secondaryText || "طلب صيانة")}`;
-          buttons[1].classList.toggle("hidden", !slide.secondaryText && !slide.secondaryUrl);
-        }
-        if (image && slide.image) {
-          image.src = slide.image;
-          image.alt = slide.title || "Hero image";
-        }
-        if (dots) {
-          dots.querySelectorAll(".hero-dot").forEach((dot, dotIndex) => {
-            dot.classList.toggle("is-active", dotIndex === index);
-          });
-        }
-
-        homeSection.classList.remove("hero-changing");
-      }, 180);
-    }
-
-    function goToHeroSlide(index) {
-      heroSlideIndex = (index + heroSlides.length) % heroSlides.length;
-      renderHeroSlide(heroSlideIndex);
-    }
-
-    function startHeroSlider() {
-      clearInterval(heroSlideTimer);
-      if (heroSlides.length <= 1) return;
-
-      heroSlideTimer = setInterval(() => {
-        goToHeroSlide(heroSlideIndex + 1);
-      }, heroSlideDelay);
-    }
-
-    function renderSavedHeroSlides() {
-      if (!window.ELEVATION_CONTENT?.heroSlides) return;
-
-      heroSlides = getSavedItems("heroSlides").filter((slide) => slide.active !== false);
-      if (heroSlides.length === 0) return;
-
-      const homeInner = document.querySelector("#home > div");
-      if (homeInner && !document.getElementById("heroSliderControls")) {
-        homeInner.insertAdjacentHTML("beforeend", `
-          <div id="heroSliderControls" class="hidden items-center justify-center gap-3 mt-6">
-            <div id="heroSliderDots" class="flex items-center gap-2"></div>
-          </div>
-        `);
-      }
-
-      const controls = document.getElementById("heroSliderControls");
-      const dots = document.getElementById("heroSliderDots");
-      if (controls) controls.classList.toggle("hidden", heroSlides.length <= 1);
-      if (controls) controls.classList.toggle("flex", heroSlides.length > 1);
-      if (dots) {
-        dots.innerHTML = heroSlides.map((_, index) => `<button type="button" class="hero-dot${index === 0 ? " is-active" : ""}" aria-label="Hero slide ${index + 1}" data-hero-slide="${index}"></button>`).join("");
-        dots.querySelectorAll("[data-hero-slide]").forEach((dot) => {
-          dot.addEventListener("click", () => {
-            goToHeroSlide(parseInt(dot.dataset.heroSlide, 10));
-            startHeroSlider();
-          });
-        });
-      }
-
-      goToHeroSlide(0);
-      startHeroSlider();
     }
 
     function getSavedImages(item) {
