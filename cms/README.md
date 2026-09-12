@@ -10,6 +10,7 @@ Open https://elevation-tech.sa/admin.html. The private initial password is deliv
 - Media accepts PNG, JPEG and WebP up to 512 KB. Upload, then copy the image URL into an item or article.
 - Service editors include a direct photo upload and image description. Project editors accept multiple photos, up to 20, with descriptions, captions, cover selection, ordering and removal. These uploads accept JPG, PNG or WebP up to 15 MB per source image and optimize the image for the existing media service. Save the item after uploading. Uploads that finish before cancellation remain available in Media.
 - Project galleries appear on the homepage and projects page, with thumbnails, keyboard navigation and captions. Existing single project images remain supported; the first gallery image is the cover.
+- Homepage slides are managed under صور الواجهة. Three additional slides for home elevators, panoramic elevators and escalators were published from content/home-slides-sep2026.json. This file records the additions; live slide edits are stored in D1. The sitemap reads the current slides and includes their images automatically.
 - Save persists to shared Cloudflare D1. Reopen any page to see updates. Conflicting saves return an error instead of overwriting newer content.
 - Export downloads a content backup. Old browser storage, if found, has a separate backup download.
 

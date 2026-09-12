@@ -1,0 +1,258 @@
+{
+  "date": "2026-09-11",
+  "environment": "Production: https://elevation-tech.sa",
+  "publishedAdditions": [
+    "hero-home-elevators-sep2026",
+    "hero-panoramic-elevators-sep2026",
+    "hero-escalators-sep2026"
+  ],
+  "existingSlidesPreserved": true,
+  "repositoryPublicPages": [
+    "/",
+    "/pages/about.html",
+    "/pages/contact.html",
+    "/pages/products.html",
+    "/pages/projects.html",
+    "/pages/services.html"
+  ],
+  "desktop": {
+    "slides": [
+      {
+        "id": "hero-1",
+        "titleMatches": true,
+        "descriptionMatches": true,
+        "imageMatches": true,
+        "imageLoaded": true,
+        "altMatches": true
+      },
+      {
+        "id": "131f24cd-8f4e-44d4-bbd4-41aa4ab3cee4",
+        "titleMatches": true,
+        "descriptionMatches": true,
+        "imageMatches": true,
+        "imageLoaded": true,
+        "altMatches": true
+      },
+      {
+        "id": "hero-home-elevators-sep2026",
+        "titleMatches": true,
+        "descriptionMatches": true,
+        "imageMatches": true,
+        "imageLoaded": true,
+        "altMatches": true
+      },
+      {
+        "id": "hero-panoramic-elevators-sep2026",
+        "titleMatches": true,
+        "descriptionMatches": true,
+        "imageMatches": true,
+        "imageLoaded": true,
+        "altMatches": true
+      },
+      {
+        "id": "hero-escalators-sep2026",
+        "titleMatches": true,
+        "descriptionMatches": true,
+        "imageMatches": true,
+        "imageLoaded": true,
+        "altMatches": true
+      }
+    ],
+    "totalSlides": 5,
+    "noHorizontalOverflow": true,
+    "viewport": 1440,
+    "sitemap": {
+      "status": 200,
+      "validXML": true,
+      "urlCount": 15,
+      "pages": 7,
+      "posts": 8,
+      "missing": [],
+      "duplicates": 0,
+      "adminExcluded": true,
+      "allSlideImagesIncluded": true,
+      "pagesReachable": [
+        {
+          "url": "https://elevation-tech.sa/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/pages/about.html",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/pages/services.html",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/pages/products.html",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/pages/projects.html",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/pages/contact.html",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/home-elevator-planning-saudi-arabia/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/panoramic-elevator-design-planning/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/elevator-modernization-planning/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/escalator-planning-commercial-buildings/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/elevator-maintenance-contract-checklist/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/passenger-and-goods-elevator-selection/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/prepare-elevator-quotation/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/welcome-to-elevation-tech/",
+          "status": 200
+        }
+      ]
+    }
+  },
+  "mobile": {
+    "slides": [
+      {
+        "id": "hero-1",
+        "titleMatches": true,
+        "descriptionMatches": true,
+        "imageMatches": true,
+        "imageLoaded": true,
+        "altMatches": true
+      },
+      {
+        "id": "131f24cd-8f4e-44d4-bbd4-41aa4ab3cee4",
+        "titleMatches": true,
+        "descriptionMatches": true,
+        "imageMatches": true,
+        "imageLoaded": true,
+        "altMatches": true
+      },
+      {
+        "id": "hero-home-elevators-sep2026",
+        "titleMatches": true,
+        "descriptionMatches": true,
+        "imageMatches": true,
+        "imageLoaded": true,
+        "altMatches": true
+      },
+      {
+        "id": "hero-panoramic-elevators-sep2026",
+        "titleMatches": true,
+        "descriptionMatches": true,
+        "imageMatches": true,
+        "imageLoaded": true,
+        "altMatches": true
+      },
+      {
+        "id": "hero-escalators-sep2026",
+        "titleMatches": true,
+        "descriptionMatches": true,
+        "imageMatches": true,
+        "imageLoaded": true,
+        "altMatches": true
+      }
+    ],
+    "totalSlides": 5,
+    "noHorizontalOverflow": true,
+    "viewport": 390,
+    "sitemap": {
+      "status": 200,
+      "validXML": true,
+      "urlCount": 15,
+      "pages": 7,
+      "posts": 8,
+      "missing": [],
+      "duplicates": 0,
+      "adminExcluded": true,
+      "allSlideImagesIncluded": true,
+      "pagesReachable": [
+        {
+          "url": "https://elevation-tech.sa/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/pages/about.html",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/pages/services.html",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/pages/products.html",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/pages/projects.html",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/pages/contact.html",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/home-elevator-planning-saudi-arabia/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/panoramic-elevator-design-planning/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/elevator-modernization-planning/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/escalator-planning-commercial-buildings/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/elevator-maintenance-contract-checklist/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/passenger-and-goods-elevator-selection/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/prepare-elevator-quotation/",
+          "status": 200
+        },
+        {
+          "url": "https://elevation-tech.sa/blog/welcome-to-elevation-tech/",
+          "status": 200
+        }
+      ]
+    }
+  }
+}
