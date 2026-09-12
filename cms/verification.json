@@ -1,0 +1,45 @@
+{
+  "verifiedAt": "2026-09-12",
+  "site": "https://elevation-tech.sa",
+  "syntax": {
+    "checked": 32,
+    "failures": []
+  },
+  "ui": {
+    "login": true,
+    "counts": [
+      "2",
+      "6",
+      "6",
+      "4",
+      "10"
+    ],
+    "pages": 6,
+    "pageHeading": "من نحن",
+    "existingPosts": 2,
+    "draftSaved": true,
+    "saveMessage": "تم حفظ المقال كمسودة",
+    "draftHidden": true,
+    "draft404": true,
+    "csrf403": true,
+    "published": true,
+    "conflict409": true,
+    "invalidImage400": true,
+    "cleanup": true,
+    "media": "لا توجد صور مرفوعة بعد.",
+    "mobileFits": true
+  },
+  "authAndMedia": {
+    "mediaCreated": true,
+    "mediaServed": true,
+    "passwordChanged": true,
+    "oldSessionRevoked": true,
+    "newLogin": true,
+    "logout": true
+  },
+  "notes": [
+    "Temporary article and image removed after verification.",
+    "Password rotation, new login, revoked sessions and logout verified.",
+    "Private admin credential delivered outside the repository."
+  ]
+}
