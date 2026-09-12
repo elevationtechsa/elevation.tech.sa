@@ -141,86 +141,12 @@
       color: var(--primary-gold);
     }
   </style>
-<link rel="stylesheet" href="/assets/site-content.css"><script defer src="/assets/site-content.js"></script><link rel="stylesheet" href="/assets/site-footer.css"></head>
+<link rel="stylesheet" href="/assets/site-content.css"><script defer src="/assets/site-content.js"></script><link rel="stylesheet" href="/assets/site-footer.css"><link rel="stylesheet" href="/assets/site-header.css"><script defer src="/assets/site-header.js"></script></head>
 
 <body class="bg-gray-50 text-gray-800">
   <!-- Navbar -->
-  <header class="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm z-50">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-14 sm:h-16">
-        <!-- Logo -->
-        <div class="flex items-center gap-2 sm:gap-3">
-          <div class="h-10 sm:h-12">
-            <img src="../assets/logo.png" alt="تقنية الارتفاع" class="h-full" />
-          </div>
-          <div>
-            <div data-company-name class="text-base sm:text-xl font-bold gradient-text">
-              تقنية الارتفاع
-            </div>
-            <p class="text-[10px] sm:text-xs text-gray-500 hidden sm:block">
-              للمصاعد والسلالم المتحركة
-            </p>
-          </div>
-        </div>
-
-        <!-- Desktop Menu -->
-        <nav class="hidden md:flex items-center gap-8">
-          <a href="../index.html" class="text-gray-700 hover:text-[#b8952b] transition-colors font-medium">الرئيسية</a>
-          <a href="about.html" class="text-gray-700 hover:text-[#b8952b] transition-colors font-medium">من نحن</a>
-          <a href="services.html" class="text-gray-700 hover:text-[#b8952b] transition-colors font-medium">خدماتنا</a>
-          <a href="products.html" class="text-gray-700 hover:text-[#b8952b] transition-colors font-medium">منتجاتنا</a>
-          <a href="projects.html" class="text-gray-700 hover:text-[#b8952b] transition-colors font-medium">مشاريعنا</a>
-          <a href="contact.html" class="text-[#b8952b] font-medium">تواصل معنا</a>
-          <a href="tel:+966531154551" class="bg-gradient-to-r from-[#b8952b] to-[#d4af37] text-white px-6 py-2.5 rounded-full font-medium hover:shadow-lg transition-all">
-            <i class="fas fa-phone ml-2"></i> اتصل بنا
-          </a>
-        <a href="/blog/" class="text-gray-700 hover:text-[#004d40] font-medium p-2">المدونة</a></nav>
-
-        <!-- Mobile Menu Button -->
-        <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
-          <i class="fas fa-bars text-lg sm:text-xl text-gray-700"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-72 sm:w-80 h-full bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
-      <div class="p-4 sm:p-6 bg-white min-h-screen">
-        <div class="flex justify-between items-center mb-6 sm:mb-8">
-          <div class="flex items-center gap-2">
-            <img src="../assets/logo.png" alt="تقنية الارتفاع" class="h-7 sm:h-8" />
-            <h2 class="text-lg sm:text-xl font-bold">القائمة</h2>
-          </div>
-          <button id="closeMenu" class="p-1.5 sm:p-2 rounded-lg bg-gray-100 hover:bg-gray-200">
-            <i class="fas fa-times text-lg sm:text-xl"></i>
-          </button>
-        </div>
-        <nav class="flex flex-col gap-2 sm:gap-4">
-          <a href="../index.html" class="p-3 text-sm sm:text-base rounded-lg hover:bg-gray-100 transition-colors font-medium">
-            <i class="fas fa-home ml-3 text-gray-500 w-5"></i> الرئيسية
-          </a>
-          <a href="about.html" class="p-3 text-sm sm:text-base rounded-lg hover:bg-gray-100 transition-colors font-medium">
-            <i class="fas fa-info-circle ml-3 text-gray-500 w-5"></i> من نحن
-          </a>
-          <a href="services.html" class="p-3 text-sm sm:text-base rounded-lg hover:bg-gray-100 transition-colors font-medium">
-            <i class="fas fa-cogs ml-3 text-gray-500 w-5"></i> خدماتنا
-          </a>
-          <a href="products.html" class="p-3 text-sm sm:text-base rounded-lg hover:bg-gray-100 transition-colors font-medium">
-            <i class="fas fa-box ml-3 text-gray-500 w-5"></i> منتجاتنا
-          </a>
-          <a href="projects.html" class="p-3 text-sm sm:text-base rounded-lg hover:bg-gray-100 transition-colors font-medium">
-            <i class="fas fa-briefcase ml-3 text-gray-500 w-5"></i> مشاريعنا
-          </a>
-          <a href="contact.html" class="p-3 text-sm sm:text-base rounded-lg bg-[#b8952b]/10 text-[#b8952b] transition-colors font-medium">
-            <i class="fas fa-phone ml-3 text-gray-500 w-5"></i> تواصل معنا
-          </a>
-          <a href="tel:+966531154551" class="p-3 text-sm sm:text-base bg-gradient-to-r from-[#b8952b] to-[#d4af37] text-white rounded-lg text-center font-medium mt-4">
-            <i class="fas fa-phone ml-2"></i> اتصل بنا
-          </a>
-        <a href="/blog/" class="text-gray-700 hover:text-[#004d40] font-medium p-2">المدونة</a></nav>
-      </div>
-    </div>
-  </header>
+  <header class="site-header" id="site-header"><div class="site-header-row"><a class="site-header-brand" href="/" aria-label="الصفحة الرئيسية"><img src="/assets/logo.png" alt="" width="48" height="48"><span><strong data-company-name>تقنية الارتفاع</strong><small>للمصاعد والسلالم المتحركة</small></span></a><nav class="site-nav-links" aria-label="القائمة الرئيسية"><a href="/">الرئيسية</a><a href="/pages/about.html">من نحن</a><a href="/pages/services.html">خدماتنا</a><a href="/pages/products.html">منتجاتنا</a><a href="/pages/projects.html">مشاريعنا</a><a href="/blog/">المدونة</a><a href="/pages/contact.html" aria-current="page">تواصل معنا</a><a class="site-call" href="tel:+966531154551"><i class="fas fa-phone" aria-hidden="true"></i> اتصل بنا</a></nav><button type="button" class="site-menu-toggle" data-open-navigation aria-label="فتح القائمة" aria-controls="site-mobile-menu" aria-expanded="false"><i class="fas fa-bars" aria-hidden="true"></i></button></div>
+<dialog class="site-mobile-menu" id="site-mobile-menu" aria-labelledby="site-menu-title"><div class="site-menu-heading"><h2 id="site-menu-title">القائمة</h2><button type="button" data-close-navigation aria-label="إغلاق القائمة">×</button></div><nav aria-label="قائمة الجوال"><a href="/"><i class="fas fa-home" aria-hidden="true"></i>الرئيسية</a><a href="/pages/about.html"><i class="fas fa-info-circle" aria-hidden="true"></i>من نحن</a><a href="/pages/services.html"><i class="fas fa-cogs" aria-hidden="true"></i>خدماتنا</a><a href="/pages/products.html"><i class="fas fa-box" aria-hidden="true"></i>منتجاتنا</a><a href="/pages/projects.html"><i class="fas fa-briefcase" aria-hidden="true"></i>مشاريعنا</a><a href="/blog/"><i class="fas fa-book-open" aria-hidden="true"></i>المدونة</a><a href="/pages/contact.html" aria-current="page"><i class="fas fa-phone" aria-hidden="true"></i>تواصل معنا</a><a class="site-call" href="tel:+966531154551"><i class="fas fa-phone" aria-hidden="true"></i> اتصل بنا</a></nav><div class="site-menu-social"><p>تابعنا على:</p><a href="https://www.instagram.com/elevationtech0" target="_blank" rel="noopener noreferrer" aria-label="إنستغرام"><i class="fab fa-instagram" aria-hidden="true"></i></a><a href="https://www.tiktok.com/@elevationtech0" target="_blank" rel="noopener noreferrer" aria-label="تيك توك"><i class="fab fa-tiktok" aria-hidden="true"></i></a><a href="https://www.snapchat.com/add/elevationtech0" target="_blank" rel="noopener noreferrer" aria-label="سناب شات"><i class="fab fa-snapchat-ghost" aria-hidden="true"></i></a></div></dialog></header>
 
   <!-- Hero Section -->
   <section class="pt-14 sm:pt-16 bg-gradient-to-br from-green-50 via-white to-yellow-50">
@@ -493,7 +419,7 @@
 <section><h4>روابط سريعة</h4><ul><li><a href="/">الرئيسية</a></li><li><a href="/pages/about.html">من نحن</a></li><li><a href="/pages/services.html">خدماتنا</a></li><li><a href="/pages/products.html">منتجاتنا</a></li><li><a href="/pages/projects.html">مشاريعنا</a></li><li><a href="/blog/">المدونة</a></li></ul></section>
 <section><h4>خدماتنا</h4><ul><li><a href="/pages/products.html">توريد المصاعد</a></li><li><a href="/pages/services.html">الصيانة الدورية</a></li><li><a href="/pages/services.html">التحديث والتطوير</a></li><li><a href="tel:+966544925287" data-emergency-phone>خدمة الطوارئ</a></li><li><a href="/pages/products.html">السلالم المتحركة</a></li></ul></section>
 <section><h4>تواصل معنا</h4><ul class="site-footer-contact"><li><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span data-company-address>الرياض، المملكة العربية السعودية</span></li><li><i class="fas fa-phone" aria-hidden="true"></i><div><a href="tel:+966531154551" dir="ltr">+966531154551</a><a href="tel:+966544925287" data-emergency-phone dir="ltr">+966544925287</a></div></li><li><i class="fas fa-envelope" aria-hidden="true"></i><a href="mailto:sales@elevation-tech.sa">sales@elevation-tech.sa</a></li><li><i class="fas fa-clock" aria-hidden="true"></i><span>الأحد - الخميس: 8:00 - 17:00</span></li></ul></section>
-</div><div class="site-footer-bottom"><p><span data-footer-text>تقنية الارتفاع للمصاعد والسلالم المتحركة</span> · © <span id="year">2026</span></p><div><a href="/blog/">المدونة</a><a href="/pages/contact.html">تواصل معنا</a><a href="/sitemap.xml">خريطة الموقع</a></div></div></div></footer>
+</div><div class="site-footer-bottom"><p><span data-footer-text>تقنية الارتفاع للمصاعد والسلالم المتحركة</span> · © <span id="year">2026</span></p><div><a href="/blog/">المدونة</a><a href="/pages/contact.html">تواصل معنا</a><a href="/sitemap.xml">خريطة الموقع</a></div></div><div class="site-footer-credit" lang="en" dir="ltr">Powered by <span>Twins Technology</span></div></div></footer>
 
   <!-- Back to Top Button -->
   <button id="backToTop" class="fixed bottom-6 sm:bottom-8 left-4 sm:left-6 lg:left-8 w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-gradient-to-r from-[#004d40] to-[#00332a] text-white rounded-full shadow-lg opacity-0 invisible transition-all hover:shadow-xl">
@@ -514,18 +440,9 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Mobile Menu
-    const menuBtn = document.getElementById("menuBtn");
-    const closeMenu = document.getElementById("closeMenu");
-    const mobileMenu = document.getElementById("mobileMenu");
+    // Shared navigation is handled by assets/site-header.js.
 
-    menuBtn.addEventListener("click", () => {
-      mobileMenu.classList.remove("translate-x-full");
-    });
 
-    closeMenu.addEventListener("click", () => {
-      mobileMenu.classList.add("translate-x-full");
-    });
 
     // Form Submission
     const contactForm = document.getElementById("contactForm");

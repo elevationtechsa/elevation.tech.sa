@@ -32,7 +32,7 @@ export function validateState(data, previous) {
     for (const field of ["heading","subtitle","title","description"]) clean.pages[key][field] = text(data.pages?.[key]?.[field] ?? "", field === "subtitle" ? 3000 : 600);
   }
   const fields = {
-    services:["title","description","icon"], products:["name","description","image"], projects:["title","description","type","image","location","year","elevators"],
+    services:["title","description","icon","image","imageAlt"], products:["name","description","image"], projects:["title","description","type","image","location","year","elevators"],
     partners:["name","image"], testimonials:["name","position","content","image"], heroSlides:["title","description","image"],
     posts:["title","slug","excerpt","category","author","image","imageAlt","body","status","publishedAt","updatedAt"]
   };
@@ -52,6 +52,17 @@ export function validateState(data, previous) {
       if (["services","products"].includes(key)) {
         if (!Array.isArray(item.features) || item.features.length > 30) fail(400, "قائمة المزايا غير صالحة");
         out.features = item.features.map(v => text(v, 400)).filter(Boolean);
+      }
+      if (key === "projects") {
+        const raw=item.images===undefined?(out.image?[{src:out.image,alt:out.title,caption:""}]:[]):item.images;
+        if(!Array.isArray(raw)||raw.length>20)fail(400,"يمكن إضافة 20 صورة كحد أقصى للمشروع");
+        out.images=raw.map(image=>{
+          if(!image||typeof image!=="object"||Array.isArray(image))fail(400,"بيانات الصورة غير صالحة");
+          const src=safeURL(image.src);if(!src)fail(400,"رابط الصورة مطلوب");
+          return {src,alt:text(image.alt??"",1000),caption:text(image.caption??"",1000)};
+        });
+        if(new Set(out.images.map(image=>image.src)).size!==out.images.length)fail(400,"لا تكرر الصورة في معرض المشروع");
+        out.image=out.images[0]?.src||"";
       }
       if (key === "testimonials") { out.rating = Number(item.rating); if (!Number.isInteger(out.rating) || out.rating < 1 || out.rating > 5) fail(400, "التقييم من 1 إلى 5"); }
       if (key === "posts") {

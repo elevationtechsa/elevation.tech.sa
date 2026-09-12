@@ -3,18 +3,19 @@
 const $=id=>document.getElementById(id);
 const labels={dashboard:"نظرة عامة",posts:"المدونة",pages:"الصفحات",services:"الخدمات",products:"المنتجات",projects:"المشاريع",testimonials:"آراء العملاء",partners:"الشركاء",heroSlides:"صور الواجهة",media:"الوسائط",settings:"الإعدادات"};
 const fields={title:"العنوان",name:"الاسم",description:"الوصف",icon:"رمز الخدمة",features:"المزايا — سطر لكل ميزة",image:"رابط الصورة",location:"الموقع",year:"السنة",elevators:"عدد المصاعد",type:"نوع المشروع",position:"الصفة / الجهة",content:"نص التقييم",rating:"التقييم",slug:"رابط المقال",excerpt:"الملخص",category:"التصنيف",author:"الكاتب",imageAlt:"وصف الصورة",body:"نص المقال",status:"حالة المقال",publishedAt:"تاريخ النشر",heading:"عنوان الصفحة",subtitle:"النص التعريفي",companyName:"اسم الشركة",companyPhone:"هاتف المبيعات",emergencyPhone:"هاتف الطوارئ",companyEmail:"البريد الإلكتروني",companyAddress:"العنوان",footerText:"نص تذييل الموقع"};
-const schemas={services:["title","description","icon","features"],products:["name","description","image","features"],projects:["title","description","type","image","location","year","elevators"],testimonials:["name","position","content","rating","image"],partners:["name","image"],heroSlides:["title","description","image"],posts:["title","slug","excerpt","category","author","image","imageAlt","body","status","publishedAt"]};
+const schemas={services:["title","description","image","imageAlt","icon","features"],products:["name","description","image","features"],projects:["title","description","type","images","location","year","elevators"],testimonials:["name","position","content","rating","image"],partners:["name","image"],heroSlides:["title","description","image"],posts:["title","slug","excerpt","category","author","image","imageAlt","body","status","publishedAt"]};
 const pageLabels={home:"الرئيسية",about:"من نحن",services:"الخدمات",products:"المنتجات",projects:"المشاريع",contact:"تواصل معنا"};
 let state=null,revision=0,csrf="",active="dashboard",editing=null,saving=false;
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function notify(message,error=false){$("notice").textContent=message;$("notice").className=error?"error":"";}
 async function api(path,options={}) {
   if(options.method && !["GET","HEAD"].includes(options.method) && path!=="login") {const fresh=await fetch("/api/session",{credentials:"same-origin",cache:"no-store"}).then(r=>r.json());if(fresh.authenticated)csrf=fresh.csrf;}
-  const response=await fetch("/api/"+path,{credentials:"same-origin",cache:"no-store",...options,headers:{...(options.body&&!(options.body instanceof File)?{"Content-Type":"application/json"}:{}),...(csrf?{"X-CSRF-Token":csrf}:{}),...options.headers}});
+  const response=await fetch("/api/"+path,{credentials:"same-origin",cache:"no-store",...options,headers:{...(options.body&&!(options.body instanceof Blob)?{"Content-Type":"application/json"}:{}),...(csrf?{"X-CSRF-Token":csrf}:{}),...options.headers}});
   let result;try{result=await response.json();}catch{throw new Error("تعذر الاتصال بخدمة المحتوى. أعد المحاولة.");}
   if(!response.ok){if(response.status===401&&!path.startsWith("login"))notify("انتهت الجلسة. سجّل الدخول مجدداً في تبويب آخر ثم أعد المحاولة.",true);throw Object.assign(new Error(result.error||"تعذر إكمال الطلب"),{status:response.status});}
   return result;
 }
+AdminPhotos.init({api,setBusy:busy=>{$("save-item").disabled=saving||busy;},error:message=>{$("editor-error").textContent=message;}});
 function download(value,name){const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:"application/json"}));const a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
 async function loadContent(){const result=await api("admin/content");state=result.data;revision=result.revision;$("revision").textContent="نسخة المحتوى: "+revision;}
 async function openApp(){await loadContent();$("login-view").hidden=true;$("app").hidden=false;$("logout").hidden=false;render();let legacy={};for(const key of Object.keys(schemas)){try{const value=localStorage.getItem(key);if(value)legacy[key]=JSON.parse(value);}catch{}}if(Object.keys(legacy).length){$("legacy").hidden=false;$("legacy").onclick=()=>download(legacy,"legacy-browser-content.json");}notify("تم تحميل محتوى الموقع. التغييرات المحفوظة تظهر لجميع الزوار.");}
@@ -31,6 +32,8 @@ function render(){
   container.innerHTML=(active==="posts"?'<div class="toolbar"><input id="post-search" type="search" placeholder="البحث في المقالات" aria-label="البحث في المقالات"></div>':"")+'<div class="item-list">'+(items.length?items.map(item=>'<article class="item" data-search="'+esc((item.title||item.name||"").toLowerCase())+'">'+(item.image?'<img src="'+esc(item.image)+'" alt="" loading="lazy">':"")+'<div class="item-content"><h3>'+esc(item.title||item.name)+'</h3><p class="muted">'+esc((item.excerpt||item.description||item.position||"").slice(0,160))+'</p>'+(active==="posts"?'<span class="badge '+(item.status==="draft"?"draft":"")+'">'+(item.status==="draft"?"مسودة":"منشور")+'</span>':"")+'</div><div class="item-actions">'+(active==="posts"&&item.status==="published"?'<a class="quiet" href="/blog/'+esc(item.slug)+'/" target="_blank" rel="noopener">عرض ↗</a>':"")+'<button class="quiet" data-edit="'+esc(item.id)+'">تعديل</button><button class="danger" data-delete="'+esc(item.id)+'">حذف</button></div></article>').join(""):'<div class="empty">لا يوجد محتوى بعد. اضغط «إضافة جديد» للبدء.</div>')+"</div>";
 }
 function fieldHTML(key,value,isPost=false){
+  if(key==="image")return AdminPhotos.single(value);
+  if(key==="images")return AdminPhotos.gallery();
   const wide=["body","description","content","features","subtitle","excerpt","image"].includes(key);
   let input;if(key==="status")input='<select name="status" id="field-status"><option value="draft"'+(value==="draft"?" selected":"")+'>مسودة</option><option value="published"'+(value==="published"?" selected":"")+'>منشور</option></select>';
   else if(wide&&key!=="image")input='<textarea id="field-'+key+'" name="'+key+'"'+(key==="body"?' maxlength="60000"':' maxlength="6000"')+'>'+esc(Array.isArray(value)?value.join("\n"):value)+'</textarea>';
@@ -39,16 +42,17 @@ function fieldHTML(key,value,isPost=false){
 }
 function editItem(id=null,type=active){
   const item=id?state[type].find(x=>x.id===id):{id:crypto.randomUUID(),features:[],rating:5,status:"draft",author:state.settings.companyName,publishedAt:new Date().toISOString().slice(0,10)};
-  editing={type,id:id||null,item:structuredClone(item),fields:schemas[type]};
-  $("editor-title").textContent=(id?"تعديل ":"إضافة ")+labels[type];$("editor-fields").innerHTML=schemas[type].map(key=>fieldHTML(key,item[key]??"")).join("");$("editor-error").textContent="";$("editor").showModal();$("editor").querySelector("input,textarea,select")?.focus();
+  editing={type,id:id||null,item:structuredClone(item),fields:schemas[type]};AdminPhotos.open(item);
+  $("editor-title").textContent=(id?"تعديل ":"إضافة ")+labels[type];$("editor-fields").innerHTML=schemas[type].map(key=>fieldHTML(key,item[key]??"")).join("");$("editor-error").textContent="";AdminPhotos.render();$("editor").showModal();$("editor").querySelector("input,textarea,select")?.focus();
 }
 function editPage(key){editing={type:"pages",key,fields:["heading","subtitle","title","description"]};$("editor-title").textContent="تعديل "+pageLabels[key];$("editor-fields").innerHTML=editing.fields.map(f=>fieldHTML(f,state.pages[key][f])).join("");$("editor-error").textContent="";$("editor").showModal();}
 function editSettings(){editing={type:"settings",fields:Object.keys(state.settings)};$("editor-title").textContent="بيانات الشركة";$("editor-fields").innerHTML=editing.fields.map(f=>fieldHTML(f,state.settings[f])).join("");$("editor-error").textContent="";$("editor").showModal();}
 async function persist(next){const result=await api("admin/content",{method:"PUT",body:JSON.stringify({revision,data:next})});state=result.data;revision=result.revision;$("revision").textContent="نسخة المحتوى: "+revision;}
 $("editor-form").addEventListener("submit",async e=>{
-  e.preventDefault();if(saving)return;saving=true;$("save-item").disabled=true;$("editor-error").textContent="";
+  e.preventDefault();if(saving||AdminPhotos.isUploading())return;saving=true;$("save-item").disabled=true;$("editor-error").textContent="";
   try{
     const values=Object.fromEntries(new FormData(e.target));const next=structuredClone(state);
+    if(editing.type==="projects"){values.images=AdminPhotos.getImages();values.image=values.images[0]?.src||"";}
     for(const key of editing.fields){if(key==="features")values[key]=values[key].split("\n").map(s=>s.trim()).filter(Boolean);if(key==="rating")values[key]=Number(values[key]);}
     if(editing.type==="pages"){next.pages[editing.key]={...next.pages[editing.key],...values};if(editing.key==="home"&&next.heroSlides[0]){next.heroSlides[0].title=values.heading;next.heroSlides[0].description=values.subtitle;}}
     else if(editing.type==="settings")next.settings={...next.settings,...values};
@@ -57,8 +61,8 @@ $("editor-form").addEventListener("submit",async e=>{
     await persist(next);$("editor").close();render();notify(editing.type==="posts"&&values.status==="draft"?"تم حفظ المقال كمسودة":"تم حفظ التغييرات بنجاح");
   }catch(error){$("editor-error").textContent=error.message;}finally{saving=false;$("save-item").disabled=false;}
 });
-function closeEditor(){if(!saving)$("editor").close();}
-$("close-editor").onclick=closeEditor;$("cancel-editor").onclick=closeEditor;$("editor").addEventListener("cancel",e=>{if(saving)e.preventDefault();});
+function closeEditor(){if(!saving){AdminPhotos.cancel();$("editor").close();}}
+$("close-editor").onclick=closeEditor;$("cancel-editor").onclick=closeEditor;$("editor").addEventListener("cancel",e=>{if(saving)e.preventDefault();else AdminPhotos.cancel();});
 $("add-item").onclick=()=>editItem();
 $("section-body").addEventListener("click",async e=>{
   const edit=e.target.closest("[data-edit]"),remove=e.target.closest("[data-delete]"),page=e.target.closest("[data-page]");

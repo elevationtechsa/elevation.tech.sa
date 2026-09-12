@@ -8,10 +8,14 @@ Open https://elevation-tech.sa/admin.html. The private initial password is deliv
 - Blog supports creating, editing, deleting, drafting and publishing articles. A saved slug is permanent to preserve links.
 - Article body supports paragraphs, `##` headings, `- ` lists and `[label](https://example.com)` links. Site-relative links are supported; unsafe URL schemes and raw HTML are escaped.
 - Media accepts PNG, JPEG and WebP up to 512 KB. Upload, then copy the image URL into an item or article.
+- Service editors include a direct photo upload and image description. Project editors accept multiple photos, up to 20, with descriptions, captions, cover selection, ordering and removal. These uploads accept JPG, PNG or WebP up to 15 MB per source image and optimize the image for the existing media service. Save the item after uploading. Uploads that finish before cancellation remain available in Media.
+- Project galleries appear on the homepage and projects page, with thumbnails, keyboard navigation and captions. Existing single project images remain supported; the first gallery image is the cover.
 - Save persists to shared Cloudflare D1. Reopen any page to see updates. Conflicting saves return an error instead of overwriting newer content.
 - Export downloads a content backup. Old browser storage, if found, has a separate backup download.
 
 ## Hosting
+
+All public pages and blog articles share cms/header.js and assets/site-header.css/js. Links use root paths, and mobile navigation uses an accessible modal drawer. After editing the template, run `node cms/sync-header.mjs` to regenerate static headers and deploy the Worker to update blog headers.
 
 The homepage, static pages, blog index and all articles share the footer from cms/footer.js and assets/site-footer.css. After changing the shared footer template, run `node cms/sync-footers.mjs` to regenerate static footers and deploy the Worker for blog footers.
 

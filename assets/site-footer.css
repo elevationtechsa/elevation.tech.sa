@@ -3,3 +3,4 @@
 @media(min-width:768px){.site-footer-bottom{flex-direction:row;justify-content:space-between}}
 @media(min-width:1024px){.site-footer-inner{padding:0 32px}.site-footer-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.site-footer-brand img{height:48px}}
 @media(prefers-reduced-motion:reduce){.site-footer a{transition:none}}
+.site-footer-credit{padding-top:20px;text-align:center;font-size:12px;color:#9ca3af}.site-footer-credit span{color:#d4af37;font-weight:700}

@@ -21,10 +21,14 @@
     for(const name of isHome?["renderSavedServices","renderSavedProducts","renderSavedProjects","renderSavedPartners","renderSavedTestimonials"]:["renderAllSavedServices","renderAllSavedProducts","renderAllSavedProjects"]) {
       if(typeof window[name]==="function")window[name]();
     }
+    const serviceGrid=document.querySelector(isHome?"#services .grid":"#services-page-list");
+    if(serviceGrid)data.services.forEach((service,index)=>{const card=serviceGrid.children[index];if(card&&service.image){const image=document.createElement("img");image.src=service.image;image.alt=service.imageAlt||service.title;image.loading="lazy";image.className="cms-service-photo";card.prepend(image);}});
+    const projectGrid=document.querySelector(isHome?"#projects .grid":"#projects-page-list");
+    if(projectGrid)data.projects.forEach((project,index)=>{const card=projectGrid.children[index];if(!card)return;const images=Array.isArray(project.images)?project.images:project.image?[{src:project.image}]:[];let button=card.querySelector(".project-details-btn");if(!images.length){button?.remove();return;}if(!button){button=document.createElement("button");button.type="button";button.className="cms-project-photos";card.lastElementChild.append(button);}button.dataset.cmsProject=project.id;button.textContent="عرض صور المشروع ("+images.length+")";});
     if(isHome){
       document.querySelectorAll("#products .gallery-btn").forEach(button=>button.textContent="عرض المعرض");
       document.querySelectorAll("#products .gallery-btn").forEach(button=>button.addEventListener("click",()=>window.openGallery(button.dataset.product,document.getElementById("galleryModal"),document.getElementById("galleryTitle"),document.getElementById("galleryGrid"))));
-      document.querySelectorAll("#projects .project-details-btn").forEach(button=>button.addEventListener("click",()=>window.openProjectDetails(button.dataset.project)));
+
       // A selectable hero avoids automatic motion and remains keyboard accessible.
       const slides=data.heroSlides, host=document.querySelector("#home .hero-copy");
       function showSlide(slide){const title=host?.querySelector("h1,h2"),description=host?.querySelector("h1 + p,h2 + p"),image=document.querySelector("#home .hero-image-wrap img");if(title)title.textContent=slide.title;if(description)description.textContent=slide.description;if(image){image.src=slide.image||"/assets/hero-img.jpeg";image.alt=slide.title;}}

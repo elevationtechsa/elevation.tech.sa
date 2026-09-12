@@ -1,0 +1,76 @@
+{
+  "date": "2026-09-11",
+  "scope": "Service image uploads, project photo galleries, shared navigation, and Twins Technology footer credits",
+  "environment": "Cloudflare Browser Rendering with local sources and mock API using the production state validator",
+  "admin": {
+    "serviceUploadVisible": true,
+    "preparedImage": true,
+    "serviceSaved": true,
+    "legacyCoverLoaded": true,
+    "multipleAllowed": true,
+    "threePhotos": true,
+    "gallerySaved": true,
+    "galleryReloaded": true,
+    "unrelatedSaveKeepsGallery": true,
+    "invalidRejected": true,
+    "limitEnforced": true,
+    "mobileFits": true
+  },
+  "mobile": {
+    "navLinks": [
+      "/",
+      "/pages/about.html",
+      "/pages/services.html",
+      "/pages/products.html",
+      "/pages/projects.html",
+      "/blog/",
+      "/pages/contact.html",
+      "tel:+966531154551"
+    ],
+    "rootLinks": true,
+    "navHeight": 56,
+    "mobileToggle": true,
+    "menuOpened": true,
+    "drawerFits": true,
+    "menuClosed": true,
+    "focusRestored": true,
+    "serviceImage": true,
+    "galleryOpened": true,
+    "photoCount": "1 / 2",
+    "secondImage": true,
+    "caption": "تفاصيل المقصورة",
+    "keyboardPrevious": true,
+    "galleryClosed": true,
+    "fits": true
+  },
+  "desktop": {
+    "navLinks": [
+      "/",
+      "/pages/about.html",
+      "/pages/services.html",
+      "/pages/products.html",
+      "/pages/projects.html",
+      "/blog/",
+      "/pages/contact.html",
+      "tel:+966531154551"
+    ],
+    "rootLinks": true,
+    "navHeight": 64,
+    "mobileToggle": false,
+    "serviceImage": true,
+    "galleryOpened": true,
+    "photoCount": "1 / 2",
+    "secondImage": true,
+    "caption": "تفاصيل المقصورة",
+    "keyboardPrevious": true,
+    "galleryClosed": true,
+    "fits": true
+  },
+  "staticChecks": {
+    "javascriptSyntax": true,
+    "allPublicPagesAndAdminHaveFooterCredit": true
+  },
+  "limitations": [
+    "The browser checks in this file use isolated predeployment content. Production verification is performed separately after release."
+  ]
+}
