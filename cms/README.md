@@ -20,9 +20,9 @@ All public pages and blog articles share cms/header.js and assets/site-header.cs
 
 The homepage, static pages, blog index and all articles share the footer from cms/footer.js and assets/site-footer.css. After changing the shared footer template, run `node cms/sync-footers.mjs` to regenerate static footers and deploy the Worker for blog footers.
 
-The hero carousel uses assets/hero-slider.js and advances every six seconds, with previous/next buttons, numbered slide selection, and a pause/play control. It reserves the tallest slide text and a consistent image area to keep the page stable during rotation.
+The hero carousel uses assets/hero-slider.js and advances every six seconds. The control rows below the hero and partner sliders are hidden: slide numbers, playback buttons, navigation beneath the hero, and status text take up no space. Partner arrows within the slider and touch swiping remain available. The hero reserves the tallest slide text and a consistent image area to keep the page stable during rotation.
 
-Both carousels use assets/carousel-playback.js. They pause offscreen, in hidden tabs, on mouse hover, and when keyboard focus enters. Explicit Play restarts rotation while the control is focused; touch interactions do not leave autoplay stuck. Reduced-motion preferences disable automatic movement by default.
+Both carousels use assets/carousel-playback.js. They pause offscreen, in hidden tabs, on mouse hover, and when keyboard focus enters. Touch interactions do not leave autoplay stuck. Reduced-motion preferences disable automatic movement by default.
 
 The partner carousel uses assets/partner-slider.js and assets/partner-slider.css. It advances after a 3.5-second delay, loops through cloned slides without a reverse transition, and sizes the visible cards from the container width. Touch swiping, keyboard arrows, pause/play, content refreshes, and resizing are supported.
 Static site and admin: Vercel, connected to GitHub main.
