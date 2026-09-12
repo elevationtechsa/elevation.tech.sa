@@ -24,7 +24,7 @@ window.SITE_TRACKING_CONFIG = {
     }
   }
 
-  var config = Object.assign({}, window.SITE_TRACKING_CONFIG || {}, getStoredTrackingConfig());
+  var config = Object.assign({}, window.SITE_TRACKING_CONFIG || {});
 
   function loadScript(src, async) {
     var script = document.createElement("script");

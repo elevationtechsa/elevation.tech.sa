@@ -1,0 +1,342 @@
+{
+  "settings": {
+    "companyName": "تقنية الارتفاع",
+    "companyPhone": "+966531154551",
+    "emergencyPhone": "+966544925287",
+    "companyEmail": "sales@elevation-tech.sa",
+    "companyAddress": "الرياض، المملكة العربية السعودية",
+    "footerText": "تقنية الارتفاع للمصاعد والسلالم المتحركة"
+  },
+  "pages": {
+    "home": {
+      "heading": "نرتقي بك إلى أعلى المستويات",
+      "subtitle": "شركة تقنية الارتفاع الرائدة في توريد وتركيب وصيانة المصاعد والسلالم المتحركة في المملكة العربية السعودية. نقدم حلولاً متكاملة بأحدث التقنيات وأعلى معايير الأمان.",
+      "title": "Elevation Tech | Elevator Installation and Maintenance in Saudi Arabia",
+      "description": "Elevation Tech provides elevator installation, maintenance, modernization, escalators, home elevators, freight elevators, and hospital elevator solutions in Riyadh and Saudi Arabia."
+    },
+    "about": {
+      "heading": "من نحن",
+      "subtitle": "تعرف على رحلتنا وخبرتنا في صناعة المصاعد والسلالم المتحركة",
+      "title": "About Elevation Tech | Elevator Company in Saudi Arabia",
+      "description": "Learn about Elevation Tech, a Saudi elevator company providing installation, maintenance, modernization, and escalator solutions for residential and commercial projects."
+    },
+    "services": {
+      "heading": "خدماتنا المتكاملة",
+      "subtitle": "نقدم حلولاً شاملة للمصاعد والسلالم المتحركة من التوريد حتى الصيانة",
+      "title": "Elevator Services | Installation, Maintenance and Modernization",
+      "description": "Elevation Tech services include elevator installation, preventive maintenance, emergency support, elevator modernization, technical consultation, and escalator solutions."
+    },
+    "products": {
+      "heading": "منتجاتنا المتميزة",
+      "subtitle": "نوفر مجموعة واسعة من المصاعد بأحدث التقنيات العالمية",
+      "title": "Elevator Products | Passenger, Home, Freight and Hospital Elevators",
+      "description": "Explore Elevation Tech elevator products including passenger elevators, freight elevators, hospital elevators, panoramic elevators, home elevators, and escalators."
+    },
+    "projects": {
+      "heading": "مشاريعنا المنجزة",
+      "subtitle": "نفخر بثقة عملائنا وإنجازاتنا في أرقى المشاريع",
+      "title": "Elevator Projects | Elevation Tech Completed Projects",
+      "description": "View Elevation Tech completed elevator projects for residential towers, commercial complexes, healthcare facilities, and hotel projects in Saudi Arabia."
+    },
+    "contact": {
+      "heading": "تواصل معنا",
+      "subtitle": "نحن هنا لخدمتك ومساعدتك في اختيار الحل الأمثل",
+      "title": "Contact Elevation Tech | Elevator Consultation and Quotation",
+      "description": "Contact Elevation Tech for elevator consultation, quotation, installation, maintenance, modernization, and escalator services in Riyadh and Saudi Arabia."
+    }
+  },
+  "services": [
+    {
+      "id": "service-1",
+      "title": "توريد وتركيب المصاعد",
+      "description": "توريد وتركيب أحدث أنواع المصاعد من أفضل الماركات العالمية",
+      "icon": "fas fa-building",
+      "features": [
+        "مصاعد الركاب",
+        "مصاعد البضائع",
+        "مصاعد المستشفيات"
+      ]
+    },
+    {
+      "id": "service-2",
+      "title": "الصيانة الدورية",
+      "description": "برامج صيانة دورية شاملة لضمان عمل المصاعد بكفاءة عالية",
+      "icon": "fas fa-tools",
+      "features": [
+        "صيانة وقائية شهرية",
+        "فحص دوري شامل",
+        "تقارير فنية مفصلة"
+      ]
+    },
+    {
+      "id": "service-3",
+      "title": "التحديث والتطوير",
+      "description": "تحديث المصاعد القديمة بأحدث التقنيات والأنظمة الذكية",
+      "icon": "fas fa-sync-alt",
+      "features": [
+        "أنظمة تحكم حديثة",
+        "تحسين كفاءة الطاقة",
+        "تقنيات الأمان المتطورة"
+      ]
+    },
+    {
+      "id": "service-4",
+      "title": "خدمة الطوارئ 24/7",
+      "description": "فريق طوارئ متخصص متاح على مدار الساعة لحل أي مشكلة طارئة",
+      "icon": "fas fa-phone-alt",
+      "features": [
+        "استجابة سريعة",
+        "فنيون مؤهلون",
+        "قطع غيار أصلية"
+      ]
+    },
+    {
+      "id": "service-5",
+      "title": "السلالم المتحركة",
+      "description": "توريد وتركيب وصيانة السلالم المتحركة للمراكز التجارية",
+      "icon": "fas fa-stairs",
+      "features": [
+        "سلالم متحركة داخلية",
+        "سلالم متحركة خارجية",
+        "ممرات متحركة"
+      ]
+    },
+    {
+      "id": "service-6",
+      "title": "الاستشارات الفنية",
+      "description": "استشارات متخصصة لاختيار الحلول المثالية لمشروعك",
+      "icon": "fas fa-clipboard-check",
+      "features": [
+        "دراسات الجدوى",
+        "التصاميم الهندسية",
+        "المواصفات الفنية"
+      ]
+    }
+  ],
+  "products": [
+    {
+      "id": "product-1",
+      "name": "مصاعد الركاب",
+      "description": "مصاعد عصرية بتصاميم أنيقة وتقنيات متطورة للمباني السكنية والتجارية",
+      "image": "/assets/passenger.jpg",
+      "features": [
+        "سعة من 4 إلى 21 راكب",
+        "سرعة حتى 4 متر/ثانية",
+        "أنظمة توفير الطاقة"
+      ]
+    },
+    {
+      "id": "product-2",
+      "name": "مصاعد البضائع",
+      "description": "مصاعد قوية مصممة لنقل البضائع الثقيلة بأمان وكفاءة عالية",
+      "image": "/assets/escalators.jpg",
+      "features": [
+        "حمولة حتى 5000 كجم",
+        "أبواب قوية ومتينة",
+        "أرضيات مقاومة للصدمات"
+      ]
+    },
+    {
+      "id": "product-3",
+      "name": "مصاعد المستشفيات",
+      "description": "مصاعد مخصصة للمستشفيات بمواصفات خاصة لنقل المرضى والأسرّة",
+      "image": "/assets/hospitals.jpeg",
+      "features": [
+        "أبعاد كبيرة للأسرّة",
+        "حركة سلسة وهادئة",
+        "أنظمة طوارئ متقدمة"
+      ]
+    },
+    {
+      "id": "product-4",
+      "name": "مصاعد بانورامية",
+      "description": "مصاعد زجاجية فاخرة توفر إطلالة مميزة وتضيف لمسة جمالية للمبنى",
+      "image": "/assets/panoramy.jpg",
+      "features": [
+        "كابينة زجاجية شفافة",
+        "إضاءة LED متطورة",
+        "تصاميم عصرية فاخرة"
+      ]
+    },
+    {
+      "id": "product-5",
+      "name": "مصاعد المنازل",
+      "description": "مصاعد منزلية أنيقة وصغيرة الحجم تناسب الفلل والمنازل الخاصة",
+      "image": "/assets/internal-home.webp",
+      "features": [
+        "تصاميم مدمجة",
+        "لا تحتاج غرفة آلات",
+        "هدوء في التشغيل"
+      ]
+    },
+    {
+      "id": "product-6",
+      "name": "السلالم المتحركة",
+      "description": "سلالم متحركة عالية الجودة للمراكز التجارية والمطارات",
+      "image": "/assets/degree_parallel.webp",
+      "features": [
+        "عرض من 600-1000 مم",
+        "زوايا ميل 30°/35°",
+        "أنظمة أمان متعددة"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "project-1",
+      "title": "شركة هدب للتطوير والاستثمار",
+      "description": "تركيب 25 مصعد عالي السرعة لأطول برج في المملكة",
+      "type": "مشروع متكامل لتوريد وتركيب المصاعد",
+      "image": "",
+      "location": "",
+      "year": "",
+      "elevators": "25"
+    },
+    {
+      "id": "project-2",
+      "title": "شركات ومجمعات تجارية",
+      "description": "توريد وتركيب وصيانة مصاعد بمواصفات خاصة",
+      "type": "تتواجد في عدد من المشاريع المتميزة، من بينها: مركز جود التجاري , مجمع الماس بلازا , شركة ميم لإدارة المرافق",
+      "image": "",
+      "location": "",
+      "year": "",
+      "elevators": "15"
+    },
+    {
+      "id": "project-3",
+      "title": "مستشفيات وعيادات",
+      "description": "توريد وتركيب مصاعد طبية بمواصفات خاصة للمستشفى",
+      "type": "تتواجد في عدد من المشاريع المتميزة، من بينها: مجمع عيادات هيلثي الطبي , مجمع اصداء الصحة , عيادات سوان الطبي , مستشفي الصفوة",
+      "image": "",
+      "location": "",
+      "year": "",
+      "elevators": "17"
+    },
+    {
+      "id": "project-4",
+      "title": "فنادق",
+      "description": "تركيب مصاعد عاليه السرعه بافضل جودة",
+      "type": "تتواجد في عدد من المشاريع المتميزة، من بينها: مجموعة فنادق 180 , شركة فنادق المربع , فندق لي بارك كونكورد",
+      "image": "",
+      "location": "",
+      "year": "",
+      "elevators": "15"
+    }
+  ],
+  "partners": [
+    {
+      "id": "partner-1",
+      "name": "Otis",
+      "image": "/assets/partners/Otis-Logo.png"
+    },
+    {
+      "id": "partner-2",
+      "name": "Schindler",
+      "image": "/assets/partners/Logo-schindler.png"
+    },
+    {
+      "id": "partner-3",
+      "name": "KONE",
+      "image": "/assets/partners/KONE.svg.png"
+    },
+    {
+      "id": "partner-4",
+      "name": "ThyssenKrupp",
+      "image": "/assets/partners/Thyssenkrupp_AG_Logo_2015.svg.png"
+    },
+    {
+      "id": "partner-5",
+      "name": "Wittur",
+      "image": "/assets/partners/footer-logo.png"
+    },
+    {
+      "id": "partner-6",
+      "name": "Mitsubishi",
+      "image": "/assets/partners/mitsubishi-elevator-india-p-ltd-bhubaneshwar-kl2iv.avif"
+    },
+    {
+      "id": "partner-7",
+      "name": "Montanari",
+      "image": "/assets/partners/Logo-Montanari.png"
+    },
+    {
+      "id": "partner-8",
+      "name": "Sicor",
+      "image": "/assets/partners/logo-sicor-1-Modificata.png"
+    },
+    {
+      "id": "partner-9",
+      "name": "Vega",
+      "image": "/assets/partners/vega-logo-w.png"
+    },
+    {
+      "id": "partner-10",
+      "name": "Sky Elevator",
+      "image": "/assets/partners/sky-elevator-logo-png_seeklogo-430463.png"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "testimonial-1",
+      "name": "م. خالد السعدي",
+      "position": "مدير مشروع - برج المملكة",
+      "content": "\"شركة تقنية الارتفاع قدمت لنا حلولاً متميزة وبجودة عالية. التزامهم بالمواعيد ودقة التنفيذ كانت استثنائية\"",
+      "image": "https://i.pravatar.cc/60?img=1",
+      "rating": 5
+    },
+    {
+      "id": "testimonial-2",
+      "name": "د. فاطمة الزهراني",
+      "position": "مديرة المشاريع - مستشفى الملك فيصل",
+      "content": "\"خدمة الصيانة الدورية ممتازة، وفريق الطوارئ متاح دائماً. المصاعد تعمل بكفاءة عالية منذ التركيب\"",
+      "image": "https://i.pravatar.cc/60?img=2",
+      "rating": 5
+    },
+    {
+      "id": "testimonial-3",
+      "name": "أ. محمد الشمري",
+      "position": "مدير عام - الرياض بارك مول",
+      "content": "\"السلالم المتحركة والمصاعد البانورامية أضافت قيمة حقيقية لمشروعنا. احترافية عالية في التعامل\"",
+      "image": "https://i.pravatar.cc/60?img=3",
+      "rating": 5
+    }
+  ],
+  "heroSlides": [
+    {
+      "id": "hero-1",
+      "title": "نرتقي بك إلى أعلى المستويات",
+      "description": "شركة تقنية الارتفاع الرائدة في توريد وتركيب وصيانة المصاعد والسلالم المتحركة في المملكة العربية السعودية. نقدم حلولاً متكاملة بأحدث التقنيات وأعلى معايير الأمان.",
+      "image": "/assets/hero-img.jpeg"
+    }
+  ],
+  "posts": [
+    {
+      "id": "post-introduction",
+      "title": "مرحباً بكم في مدونة تقنية الارتفاع",
+      "slug": "welcome-to-elevation-tech",
+      "excerpt": "مساحة للتعرف على خدماتنا ومنتجاتنا وتجهيز أسئلتك قبل بدء مشروع المصعد.",
+      "category": "أخبار الشركة",
+      "author": "تقنية الارتفاع",
+      "image": "/assets/hero-img.jpeg",
+      "imageAlt": "مصعد حديث من موقع تقنية الارتفاع",
+      "body": "مرحباً بكم في مدونة تقنية الارتفاع للمصاعد والسلالم المتحركة. جمعنا هذه المساحة لتسهيل الوصول إلى معلومات عن خدمات التوريد والتركيب والصيانة والتحديث المتاحة عبر موقعنا.\n\n## ماذا ستجد في المدونة؟\nنتناول أسئلة العملاء عند التخطيط لمشروع جديد، وطريقة تجهيز طلب الاستشارة، والتعرف على فئات المنتجات المعروضة في الموقع. ويمكنك الرجوع إلى صفحات الخدمات والمنتجات لمعرفة الخيارات والتواصل مع فريقنا بشأن احتياجك.\n\n## ابدأ من احتياج المبنى\nهل تبحث عن مصعد لمنزل، أو مبنى تجاري، أو منشأة أخرى؟ اشرح طبيعة المبنى والغرض من الاستخدام لفريق الاستشارة. اختيار الحل والمواصفات النهائية يحتاج إلى مراجعة المشروع من المختصين.\n\n## تواصل معنا\nاستخدم صفحة التواصل لشرح مشروعك، أو تواصل معنا عبر الهاتف أو واتساب. يسعدنا استقبال أسئلتك حول خدمات تقنية الارتفاع.",
+      "status": "published",
+      "publishedAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "id": "post-quote",
+      "title": "كيف تجهز طلب عرض سعر لمصعد؟",
+      "slug": "prepare-elevator-quotation",
+      "excerpt": "معلومات تساعدك على توضيح احتياج المشروع عند التواصل مع شركة المصاعد.",
+      "category": "دليل المشاريع",
+      "author": "تقنية الارتفاع",
+      "image": "/assets/passenger.jpg",
+      "imageAlt": "مصعد ركاب",
+      "body": "يساعد الطلب الواضح على بدء نقاش مفيد حول مشروع المصعد. قبل التواصل، جهز وصفاً مبسطاً للمبنى وما تريد تحقيقه من المشروع.\n\n## معلومات أساسية عن المشروع\nاذكر مدينة المشروع، ونوع المبنى، وعدد الطوابق، وما إذا كان المبنى قائماً أو قيد الإنشاء. وضح إن كان الطلب لتركيب مصعد جديد أو تحديث مصعد قائم أو الحصول على خدمة صيانة.\n\n## ما الذي تحتاجه من الخدمة؟\nاكتب أولوياتك وأسئلتك والموعد المتوقع لبدء المشروع. إذا كانت لديك مخططات أو صور ذات صلة، اسأل الفريق عن الطريقة المناسبة لمشاركتها. لا يتطلب الاستفسار الأول اتخاذ قرار نهائي بالمواصفات.\n\n## اسأل عن نطاق العرض\nاطلب توضيح ما يشمله العرض من توريد وتركيب وخدمات لاحقة، وما يحتاج إلى تنسيق مع أعمال المبنى. وقارن العروض على أساس نطاق العمل الموضح، وليس على الرقم النهائي وحده.\n\n## الخطوة التالية\nتواصل مع تقنية الارتفاع عبر صفحة التواصل، واذكر هذه المعلومات في وصف المشروع. يتولى المختصون مراجعة المتطلبات قبل تحديد الحل المناسب.",
+      "status": "published",
+      "publishedAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    }
+  ]
+}

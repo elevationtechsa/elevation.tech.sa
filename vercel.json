@@ -1,0 +1,48 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://elevation-content-api.ahmed-shaban1392.workers.dev/api/:path*"
+    },
+    {
+      "source": "/blog",
+      "destination": "https://elevation-content-api.ahmed-shaban1392.workers.dev/blog"
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "https://elevation-content-api.ahmed-shaban1392.workers.dev/blog/:path*"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "https://elevation-content-api.ahmed-shaban1392.workers.dev/sitemap.xml"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/admin.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    },
+    {
+      "source": "/assets/admin.:ext",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "elevation-content-api",
+  "main": "worker.js",
+  "compatibility_date": "2026-09-11",
+  "workers_dev": true,
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "SITE_ORIGIN": "https://elevation-tech.sa"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "elevation-site-content",
+      "database_id": "594abd79-653c-4912-b2e8-681eecb71355"
+    }
+  ]
+}

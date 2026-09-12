@@ -1,0 +1,30 @@
+# Content management and blog
+
+Open https://elevation-tech.sa/admin.html. The private initial password is delivered separately and is never stored in GitHub. Change it under Settings. Signing out and password changes invalidate server sessions.
+
+## Editing
+- Dashboard shows the existing services, products, projects, partners, testimonials, hero slides and posts.
+- Pages edits the heading, introduction, SEO title and description of the six existing pages. Other page body sections remain in their HTML files.
+- Blog supports creating, editing, deleting, drafting and publishing articles. A saved slug is permanent to preserve links.
+- Article body supports paragraphs, `##` headings and `- ` lists. Raw HTML is escaped.
+- Media accepts PNG, JPEG and WebP up to 512 KB. Upload, then copy the image URL into an item or article.
+- Save persists to shared Cloudflare D1. Reopen any page to see updates. Conflicting saves return an error instead of overwriting newer content.
+- Export downloads a content backup. Old browser storage, if found, has a separate backup download.
+
+## Hosting
+Static site and admin: Vercel, connected to GitHub main.
+Shared API and server-rendered blog: Cloudflare Worker `elevation-content-api`.
+D1: `elevation-site-content`, binding `DB`.
+The root `vercel.json` proxies /api/*, /blog/* and /sitemap.xml to the Worker, keeping browser requests on the same origin.
+
+The blog includes canonical URLs, article JSON-LD, Open Graph metadata, RSS at /blog/rss.xml and a dynamic sitemap. Drafts are excluded from public APIs, search, feeds, and sitemap. Unknown and draft article URLs return 404.
+
+## Deployment and recovery
+Worker source and configuration are in cms/. Deploy that Worker when backend code changes; a GitHub push alone deploys only Vercel. Use Cloudflare's supported deployment tooling with cms/wrangler.jsonc. Apply cms/schema.sql only for initial setup (it uses CREATE IF NOT EXISTS). content/site.json is an initial public snapshot, not the ongoing source of truth. Never reseed over live content.
+
+Back up D1 through the Cloudflare dashboard or export the current content from the admin. Authentication uses a salted PBKDF2 hash in admin_auth, HttpOnly Secure cookies, an eight-hour session, origin checks, CSRF tokens and login throttling. No public hardcoded password remains.
+
+For password recovery, an account administrator can replace the single admin_auth salt/hash with a securely generated PBKDF2-SHA256 hash (100,000 iterations, 32-byte salt and output), then delete admin_sessions. Never commit the password or exported session data.
+
+Public pages retain their original static markup if the content API is unavailable. The six static pages apply saved edits with JavaScript; blog pages render on the server. Local server.js previews static files only; use the deployed environment to exercise the API and blog routes.
+

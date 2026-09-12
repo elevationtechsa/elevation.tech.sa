@@ -82,7 +82,7 @@
   }
   </script>
 
-  <script defer src="../assets/site-seo.js"></script>
+  
   <script defer src="../assets/site-integrations.js"></script>
 
   <!-- Fonts -->
@@ -141,7 +141,7 @@
       color: var(--primary-gold);
     }
   </style>
-</head>
+<link rel="stylesheet" href="/assets/site-content.css"><script defer src="/assets/site-content.js"></script></head>
 
 <body class="bg-gray-50 text-gray-800">
   <!-- Navbar -->
@@ -154,9 +154,9 @@
             <img src="../assets/logo.png" alt="تقنية الارتفاع" class="h-full" />
           </div>
           <div>
-            <h1 class="text-base sm:text-xl font-bold gradient-text">
+            <div data-company-name class="text-base sm:text-xl font-bold gradient-text">
               تقنية الارتفاع
-            </h1>
+            </div>
             <p class="text-[10px] sm:text-xs text-gray-500 hidden sm:block">
               للمصاعد والسلالم المتحركة
             </p>
@@ -174,7 +174,7 @@
           <a href="tel:+966531154551" class="bg-gradient-to-r from-[#b8952b] to-[#d4af37] text-white px-6 py-2.5 rounded-full font-medium hover:shadow-lg transition-all">
             <i class="fas fa-phone ml-2"></i> اتصل بنا
           </a>
-        </nav>
+        <a href="/blog/" class="text-gray-700 hover:text-[#004d40] font-medium p-2">المدونة</a></nav>
 
         <!-- Mobile Menu Button -->
         <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
@@ -217,7 +217,7 @@
           <a href="tel:+966531154551" class="p-3 text-sm sm:text-base bg-gradient-to-r from-[#b8952b] to-[#d4af37] text-white rounded-lg text-center font-medium mt-4">
             <i class="fas fa-phone ml-2"></i> اتصل بنا
           </a>
-        </nav>
+        <a href="/blog/" class="text-gray-700 hover:text-[#004d40] font-medium p-2">المدونة</a></nav>
       </div>
     </div>
   </header>
@@ -257,7 +257,7 @@
                     المكتب الرئيسي
                   </h4>
                   <p class="text-xs sm:text-sm text-gray-600">
-                    الرياض، المملكة العربية السعودية
+                    <span data-company-address>الرياض، المملكة العربية السعودية</span>
                   </p>
                 </div>
               </div>
@@ -433,7 +433,7 @@
               </div>
               <div>
                 <h5 class="text-sm sm:text-base font-bold mb-0.5 sm:mb-1">العنوان</h5>
-                <p class="text-xs sm:text-sm opacity-90">الرياض، المملكة العربية السعودية</p>
+                <p class="text-xs sm:text-sm opacity-90"><span data-company-address>الرياض، المملكة العربية السعودية</span></p>
               </div>
             </div>
 
@@ -547,7 +547,7 @@
           <ul class="space-y-2 sm:space-y-3">
             <li class="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 text-gray-400">
               <i class="fas fa-map-marker-alt text-xs sm:text-sm"></i>
-              <span class="text-xs sm:text-sm">الرياض، المملكة العربية السعودية</span>
+              <span class="text-xs sm:text-sm"><span data-company-address>الرياض، المملكة العربية السعودية</span></span>
             </li>
             <li class="flex items-start justify-center sm:justify-start gap-2 sm:gap-3 text-gray-400">
               <i class="fas fa-phone text-xs sm:text-sm mt-0.5"></i>
@@ -578,7 +578,7 @@
       <div class="border-t border-gray-700 pt-6 sm:pt-8">
         <div class="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
           <p class="text-xs sm:text-sm text-gray-400 text-center md:text-right order-2 md:order-1">
-            © <span id="year"></span> تقنية الارتفاع. جميع الحقوق محفوظة
+            <span data-footer-text>تقنية الارتفاع للمصاعد والسلالم المتحركة</span> · © <span id="year"></span>
           </p>
           <div class="flex gap-4 sm:gap-6 order-1 md:order-2">
             <a href="#" class="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">سياسة الخصوصية</a>

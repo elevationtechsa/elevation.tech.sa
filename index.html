@@ -92,7 +92,7 @@
   }
   </script>
 
-  <script defer src="assets/site-seo.js"></script>
+  
   <script defer src="assets/site-integrations.js"></script>
 
   <!-- Fonts -->
@@ -317,7 +317,7 @@
       animation: none;
     }
   </style>
-</head>
+<link rel="stylesheet" href="/assets/site-content.css"><script defer src="/assets/site-content.js"></script></head>
 
 <body class="bg-gray-50 text-gray-800 overflow-x-hidden">
   <!-- Navbar -->
@@ -330,9 +330,9 @@
             <img src="assets/logo.png" alt="تقنية الارتفاع" class="h-full" />
           </div>
           <div>
-            <h1 class="text-base sm:text-xl font-bold gradient-text">
+            <div data-company-name class="text-base sm:text-xl font-bold gradient-text">
               تقنية الارتفاع
-            </h1>
+            </div>
             <p class="text-[10px] sm:text-xs text-gray-500 hidden sm:block">
               للمصاعد والسلالم المتحركة
             </p>
@@ -351,7 +351,7 @@
             class="bg-gradient-to-r from-[#b8952b] to-[#d4af37] text-white px-6 py-2.5 rounded-full font-medium hover:shadow-lg transition-all">
             <i class="fas fa-phone ml-2"></i> اتصل بنا
           </a>
-        </nav>
+        <a href="/blog/" class="text-gray-700 hover:text-[#004d40] font-medium p-2">المدونة</a></nav>
 
         <!-- Mobile Menu Button -->
         <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
@@ -406,7 +406,7 @@
             <i class="fas fa-phone ml-2"></i>
             اتصل بنا
           </a>
-        </nav>
+        <a href="/blog/" class="text-gray-700 hover:text-[#004d40] font-medium p-2">المدونة</a></nav>
 
         <!-- Social Links في القائمة الجانبية -->
         <div class="mt-8 pt-8 border-t border-gray-200">
@@ -442,9 +442,9 @@
             <span class="text-xs sm:text-sm font-medium">خبرة تمتد لأكثر من 15 عاماً في المملكة</span>
           </div>
 
-          <h2 class="text-2xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
+          <h1 class="text-2xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
             نرتقي بك إلى <span class="gradient-text">أعلى المستويات</span>
-          </h2>
+          </h1>
 
           <p class="text-base sm:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed">
             شركة تقنية الارتفاع الرائدة في توريد وتركيب وصيانة المصاعد
@@ -1522,6 +1522,7 @@
     </div>
   </section>
 
+<section id="blog" class="cms-blog-section"><div class="cms-blog-inner"><div class="cms-blog-heading"><h2>من المدونة</h2><a href="/blog/">جميع المقالات ←</a></div><div id="cms-recent-posts" class="cms-post-grid"><article class="cms-post-card"><a href="/blog/welcome-to-elevation-tech/"><div><h3>مرحباً بكم في مدونة تقنية الارتفاع</h3><p>أخبار الشركة ومقالات تساعدك على التخطيط لمشروعك.</p></div></a></article><article class="cms-post-card"><a href="/blog/prepare-elevator-quotation/"><div><h3>كيف تجهز طلب عرض سعر لمصعد؟</h3><p>معلومات تساعدك على تجهيز طلب واضح ومناقشة احتياجات مشروعك.</p></div></a></article></div></div></section>
   <!-- Contact Section -->
   <section id="contact" class="py-6 sm:py-12 lg:py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1553,7 +1554,7 @@
                     المكتب الرئيسي
                   </h5>
                   <p class="text-xs sm:text-sm text-gray-600">
-                    الرياض، المملكة العربية السعودية
+                    <span data-company-address>الرياض، المملكة العربية السعودية</span>
                   </p>
                 </div>
               </div>
@@ -1744,7 +1745,7 @@
               </div>
               <div>
                 <h5 class="text-sm sm:text-base font-bold mb-0.5 sm:mb-1">العنوان</h5>
-                <p class="text-xs sm:text-sm opacity-90">الرياض، المملكة العربية السعودية</p>
+                <p class="text-xs sm:text-sm opacity-90"><span data-company-address>الرياض، المملكة العربية السعودية</span></p>
               </div>
             </div>
 
@@ -1847,14 +1848,14 @@
               <a href="#home" class="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">الرئيسية</a>
             </li>
             <li>
-              <a href="pages/about" class="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">من نحن</a>
+              <a href="pages/about.html" class="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">من نحن</a>
             </li>
             <li>
-              <a href="pages/services"
+              <a href="pages/services.html"
                 class="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">خدماتنا</a>
             </li>
             <li>
-              <a href="pages/products"
+              <a href="pages/products.html"
                 class="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">منتجاتنا</a>
             </li>
             <li>
@@ -1897,7 +1898,7 @@
           <ul class="space-y-2 sm:space-y-3">
             <li class="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 text-gray-400">
               <i class="fas fa-map-marker-alt text-xs sm:text-sm"></i>
-              <span class="text-xs sm:text-sm">الرياض، المملكة العربية السعودية</span>
+              <span class="text-xs sm:text-sm"><span data-company-address>الرياض، المملكة العربية السعودية</span></span>
             </li>
             <li class="flex items-start justify-center sm:justify-start gap-2 sm:gap-3 text-gray-400">
               <i class="fas fa-phone text-xs sm:text-sm mt-0.5"></i>
@@ -1929,7 +1930,7 @@
       <div class="border-t border-gray-700 pt-6 sm:pt-8">
         <div class="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
           <p class="text-xs sm:text-sm text-gray-400 text-center md:text-right order-2 md:order-1">
-            © <span id="year"></span> تقنية الارتفاع. جميع الحقوق محفوظة
+            <span data-footer-text>تقنية الارتفاع للمصاعد والسلالم المتحركة</span> · © <span id="year"></span>
           </p>
           <div class="flex gap-4 sm:gap-6 order-1 md:order-2">
             <a href="#" class="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">سياسة الخصوصية</a>
@@ -2407,7 +2408,7 @@
 
     function getSavedItems(type) {
       try {
-        const items = JSON.parse(localStorage.getItem(type) || "[]");
+        const items = (window.ELEVATION_CONTENT?.[type] || []);
         return Array.isArray(items) ? items : [];
       } catch (error) {
         console.warn(`Unable to load saved ${type}`, error);
@@ -2479,7 +2480,7 @@
     }
 
     function renderSavedHeroSlides() {
-      if (!localStorage.getItem("heroSlides")) return;
+      if (!window.ELEVATION_CONTENT?.heroSlides) return;
 
       heroSlides = getSavedItems("heroSlides").filter((slide) => slide.active !== false);
       if (heroSlides.length === 0) return;
@@ -2551,14 +2552,14 @@
     }
 
     function getServiceFeatures(service) {
-      if (Array.isArray(service.features) && service.features.length > 0) return service.features;
+      if (Array.isArray(service.features)) return service.features;
       return defaultServiceFeatures[service.id] || defaultServiceFeaturesByIcon[service.icon] || [];
     }
 
     function renderSavedServices() {
       const servicesGrid = document.querySelector("#services .grid");
       if (!servicesGrid) return;
-      if (!localStorage.getItem("services")) return;
+      if (!window.ELEVATION_CONTENT?.services) return;
       servicesGrid.innerHTML = "";
 
       getSavedItems("services").slice(0, 6).forEach((service, index) => {
@@ -2591,7 +2592,7 @@
     function renderSavedProducts() {
       const productsGrid = document.querySelector("#products .grid");
       if (!productsGrid) return;
-      if (!localStorage.getItem("products")) return;
+      if (!window.ELEVATION_CONTENT?.products) return;
       productsGrid.innerHTML = "";
 
       getSavedItems("products").slice(0, 6).forEach((product) => {
@@ -2640,7 +2641,7 @@
     function renderSavedProjects() {
       const projectsGrid = document.querySelector("#projects .grid");
       if (!projectsGrid) return;
-      if (!localStorage.getItem("projects")) return;
+      if (!window.ELEVATION_CONTENT?.projects) return;
       projectsGrid.innerHTML = "";
 
       getSavedItems("projects").slice(0, 4).forEach((project, index) => {
@@ -2711,7 +2712,7 @@
 
     function renderSavedPartners() {
       const slider = document.querySelector("#partners .partners-slider");
-      if (!slider || !localStorage.getItem("partners")) return;
+      if (!slider || !window.ELEVATION_CONTENT?.partners) return;
 
       const partnerLogoOverrides = {
         "default-partner-1": "assets/partners/Otis-Logo.png",
@@ -2758,7 +2759,7 @@
       const partners = getSavedItems("partners").filter((partner) => !/^default-partner-(1[1-5])$/.test(partner.id || ""));
       slider.innerHTML = partners.map((partner) => {
         const name = escapeHtml(partnerNameOverrides[partner.id] || partner.name);
-        const image = escapeHtml(partnerLogoOverrides[partner.id] || partnerLogoOverrides[partner.name] || partnerLogoOverrides[partner.image] || partner.image || "assets/logo.png");
+        const image = escapeHtml(partner.image || "assets/logo.png");
 
         if (!name && !image) return "";
 
@@ -2779,10 +2780,10 @@
 
     function renderSavedTestimonials() {
       const track = document.getElementById("testimonialsTrack");
-      if (!track || !localStorage.getItem("testimonials")) return;
+      if (!track || !window.ELEVATION_CONTENT?.testimonials) return;
 
       const testimonials = getSavedItems("testimonials");
-      if (testimonials.length === 0) return;
+      
 
       track.innerHTML = testimonials.map((testimonial) => {
         const name = escapeHtml(testimonial.name);
@@ -2901,12 +2902,11 @@
       startAutoplay();
     }
 
-    renderSavedHeroSlides();
-    renderSavedServices();
-    renderSavedProducts();
-    renderSavedProjects();
-    renderSavedTestimonials();
-    renderSavedPartners();
+
+
+
+
+
     initializeTestimonialsCarousel();
 
     // Open project details function
