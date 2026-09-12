@@ -32,7 +32,7 @@
       window.dispatchEvent(new Event("resize"));
     }
     const settings=data.settings;
-    document.querySelectorAll("a[href^='tel:']").forEach(link=>{const old=link.getAttribute("href");const phone=old.includes("544925287")?settings.emergencyPhone:settings.companyPhone;link.href="tel:"+phone;const text=Array.from(link.childNodes).find(node=>node.nodeType===3&&/[0-9]{3}/.test(node.textContent));if(text)text.textContent=" "+phone+" ";});
+    document.querySelectorAll("a[href^='tel:']").forEach(link=>{const old=link.getAttribute("href");const phone=link.hasAttribute("data-emergency-phone")||old.includes("544925287")?settings.emergencyPhone:settings.companyPhone;link.href="tel:"+phone;const text=Array.from(link.childNodes).find(node=>node.nodeType===3&&/[0-9]{3}/.test(node.textContent));if(text)text.textContent=" "+phone+" ";});
     document.querySelectorAll("a[href^='mailto:']").forEach(link=>{link.href="mailto:"+settings.companyEmail;for(const node of link.childNodes)if(node.nodeType===3&&node.textContent.includes("@"))node.textContent=settings.companyEmail;});
     document.querySelectorAll("a[href*='wa.me/']").forEach(link=>{const url=new URL(link.href);url.pathname="/"+settings.companyPhone.replace("+","");link.href=url.href;});
     document.querySelectorAll("[data-company-name]").forEach(node=>node.textContent=settings.companyName);
@@ -41,6 +41,7 @@
     const posts=document.querySelector("#cms-recent-posts");
     if(posts){const published=data.posts.filter(p=>p.status==="published").sort((a,b)=>b.publishedAt.localeCompare(a.publishedAt)).slice(0,3);posts.innerHTML=published.length?published.map(p=>`<article class="cms-post-card"><a href="/blog/${esc(p.slug)}/">${p.image?`<img loading="lazy" width="640" height="360" src="${esc(p.image)}" alt="${esc(p.imageAlt||p.title)}">`:""}<div><small>${esc(p.category)} · ${esc(p.publishedAt)}</small><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p><span>اقرأ المقال ←</span></div></a></article>`).join(""):"<p>تابعنا للمقالات القادمة.</p>";}
     document.querySelectorAll("#services img,#products img,#projects img,#partners img,#testimonialsTrack img").forEach(img=>img.loading="lazy");
+    window.dispatchEvent(new CustomEvent("elevation:content"));
   } catch (error) {
     console.warn("Published content could not be loaded; showing the original page.",error.message);
   }

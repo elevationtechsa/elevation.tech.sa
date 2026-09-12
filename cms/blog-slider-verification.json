@@ -1,0 +1,127 @@
+{
+  "verifiedAt": "2026-09-12T00:32:12.375Z",
+  "mobile": {
+    "count": 10,
+    "cloneCount": 4,
+    "step": 179,
+    "initialAlignment": true,
+    "midAnimation": true,
+    "nextIndex": "1",
+    "previousIndex": "0",
+    "wrapBackIndex": "9",
+    "wrapNextIndex": "0",
+    "loopAlignment": true,
+    "mobileFits": true,
+    "footerColumns": "358px",
+    "footerHasBlog": true,
+    "footerBackground": "rgb(0, 51, 42)",
+    "singlePartnerNoControls": true,
+    "emptyWorks": true
+  },
+  "desktop": {
+    "count": 10,
+    "cloneCount": 8,
+    "step": 304,
+    "initialAlignment": true,
+    "midAnimation": true,
+    "nextIndex": "1",
+    "previousIndex": "0",
+    "wrapBackIndex": "9",
+    "wrapNextIndex": "0",
+    "loopAlignment": true,
+    "mobileFits": true,
+    "footerColumns": "280px 280px 280px 280px",
+    "footerHasBlog": true,
+    "footerBackground": "rgb(0, 51, 42)",
+    "singlePartnerNoControls": true,
+    "emptyWorks": true
+  },
+  "blog": {
+    "articles": [
+      {
+        "slug": "welcome-to-elevation-tech",
+        "status": 200,
+        "footerMatches": true,
+        "canonical": true,
+        "articleSchema": true,
+        "breadcrumbs": true,
+        "bodyLinks": 0,
+        "headings": 3
+      },
+      {
+        "slug": "prepare-elevator-quotation",
+        "status": 200,
+        "footerMatches": true,
+        "canonical": true,
+        "articleSchema": true,
+        "breadcrumbs": true,
+        "bodyLinks": 0,
+        "headings": 4
+      },
+      {
+        "slug": "home-elevator-planning-saudi-arabia",
+        "status": 200,
+        "footerMatches": true,
+        "canonical": true,
+        "articleSchema": true,
+        "breadcrumbs": true,
+        "bodyLinks": 4,
+        "headings": 5
+      },
+      {
+        "slug": "elevator-maintenance-contract-checklist",
+        "status": 200,
+        "footerMatches": true,
+        "canonical": true,
+        "articleSchema": true,
+        "breadcrumbs": true,
+        "bodyLinks": 4,
+        "headings": 4
+      },
+      {
+        "slug": "elevator-modernization-planning",
+        "status": 200,
+        "footerMatches": true,
+        "canonical": true,
+        "articleSchema": true,
+        "breadcrumbs": true,
+        "bodyLinks": 4,
+        "headings": 5
+      },
+      {
+        "slug": "passenger-and-goods-elevator-selection",
+        "status": 200,
+        "footerMatches": true,
+        "canonical": true,
+        "articleSchema": true,
+        "breadcrumbs": true,
+        "bodyLinks": 4,
+        "headings": 5
+      },
+      {
+        "slug": "panoramic-elevator-design-planning",
+        "status": 200,
+        "footerMatches": true,
+        "canonical": true,
+        "articleSchema": true,
+        "breadcrumbs": true,
+        "bodyLinks": 5,
+        "headings": 4
+      },
+      {
+        "slug": "escalator-planning-commercial-buildings",
+        "status": 200,
+        "footerMatches": true,
+        "canonical": true,
+        "articleSchema": true,
+        "breadcrumbs": true,
+        "bodyLinks": 6,
+        "headings": 4
+      }
+    ],
+    "sitemapURLs": 15,
+    "feedItems": 8,
+    "safeMarkdown": true
+  },
+  "method": "Chromium via Cloudflare Browser Rendering, using the exact changed sources and current site content before deployment."
+}

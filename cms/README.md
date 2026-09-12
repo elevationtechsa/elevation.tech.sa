@@ -6,12 +6,16 @@ Open https://elevation-tech.sa/admin.html. The private initial password is deliv
 - Dashboard shows the existing services, products, projects, partners, testimonials, hero slides and posts.
 - Pages edits the heading, introduction, SEO title and description of the six existing pages. Other page body sections remain in their HTML files.
 - Blog supports creating, editing, deleting, drafting and publishing articles. A saved slug is permanent to preserve links.
-- Article body supports paragraphs, `##` headings and `- ` lists. Raw HTML is escaped.
+- Article body supports paragraphs, `##` headings, `- ` lists and `[label](https://example.com)` links. Site-relative links are supported; unsafe URL schemes and raw HTML are escaped.
 - Media accepts PNG, JPEG and WebP up to 512 KB. Upload, then copy the image URL into an item or article.
 - Save persists to shared Cloudflare D1. Reopen any page to see updates. Conflicting saves return an error instead of overwriting newer content.
 - Export downloads a content backup. Old browser storage, if found, has a separate backup download.
 
 ## Hosting
+
+The homepage, static pages, blog index and all articles share the footer from cms/footer.js and assets/site-footer.css. After changing the shared footer template, run `node cms/sync-footers.mjs` to regenerate static footers and deploy the Worker for blog footers.
+
+The partner carousel uses assets/partner-slider.js and assets/partner-slider.css. It animates the full row in RTL, resets cloned slides after looping, rebuilds after published content loads, and supports pause, keyboard navigation, reduced motion and viewport resizing.
 Static site and admin: Vercel, connected to GitHub main.
 Shared API and server-rendered blog: Cloudflare Worker `elevation-content-api`.
 D1: `elevation-site-content`, binding `DB`.
@@ -27,4 +31,3 @@ Back up D1 through the Cloudflare dashboard or export the current content from t
 For password recovery, an account administrator can replace the single admin_auth salt/hash with a securely generated PBKDF2-SHA256 hash (100,000 iterations, 32-byte salt and output), then delete admin_sessions. Never commit the password or exported session data.
 
 Public pages retain their original static markup if the content API is unavailable. The six static pages apply saved edits with JavaScript; blog pages render on the server. Local server.js previews static files only; use the deployed environment to exercise the API and blog routes.
-
