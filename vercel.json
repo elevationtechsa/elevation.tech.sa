@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/blog/",
+      "destination": "https://elevation-content-api.ahmed-shaban1392.workers.dev/blog/"
+    },
+    {
+      "source": "/blog/:path*/",
+      "destination": "https://elevation-content-api.ahmed-shaban1392.workers.dev/blog/:path*/"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://elevation-content-api.ahmed-shaban1392.workers.dev/api/:path*"
     },
