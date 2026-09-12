@@ -22,6 +22,7 @@
       if(typeof window[name]==="function")window[name]();
     }
     if(isHome){
+      document.querySelectorAll("#products .gallery-btn").forEach(button=>button.textContent="عرض المعرض");
       document.querySelectorAll("#products .gallery-btn").forEach(button=>button.addEventListener("click",()=>window.openGallery(button.dataset.product,document.getElementById("galleryModal"),document.getElementById("galleryTitle"),document.getElementById("galleryGrid"))));
       document.querySelectorAll("#projects .project-details-btn").forEach(button=>button.addEventListener("click",()=>window.openProjectDetails(button.dataset.project)));
       // A selectable hero avoids automatic motion and remains keyboard accessible.
