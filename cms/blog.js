@@ -55,9 +55,29 @@ export function renderBlog(data,url,origin) {
   return layout(data,{title:"مدونة تقنية الارتفاع | المصاعد وخدمات المشاريع",description:"مقالات وأخبار تقنية الارتفاع للمصاعد والسلالم المتحركة، ومعلومات تساعدك على تجهيز مشروعك والتواصل مع فريقنا.",canonical:origin+"/blog/"+(page>1?"?page="+page:""),noindex:!!(q||category),body:`<div class="hero"><span class="eyebrow">المعرفة تبدأ بسؤال</span><h1>مدونة تقنية الارتفاع</h1><p class="muted">أخبارنا ومقالات تساعدك على التعرف على خدمات المصاعد والتخطيط لمشروعك.</p></div><form class="search" action="/blog/" method="get" role="search"><input type="search" name="q" value="${esc(q)}" placeholder="ابحث عن مقال" aria-label="البحث في المقالات"><select name="category" aria-label="التصنيف"><option value="">كل التصنيفات</option>${categories.map(c=>'<option value="'+esc(c)+'"'+(c===category?" selected":"")+'>'+esc(c)+'</option>').join("")}</select><button type="submit">بحث</button></form>${filtered.length?'<div class="grid">'+filtered.slice((page-1)*9,page*9).map(p=>card(p,origin)).join("")+"</div>":'<div class="empty">لا توجد مقالات مطابقة. <a href="/blog/">عرض جميع المقالات</a></div>'}<nav class="pagination" aria-label="صفحات المدونة">${page>1?'<a href="'+esc(pager(page-1))+'">السابق</a>':""}<span>صفحة ${page} من ${pages}</span>${page<pages?'<a href="'+esc(pager(page+1))+'">التالي</a>':""}</nav>`},origin);
 }
 export function renderSitemap(data,origin) {
-  const paths=["/","/pages/about.html","/pages/services.html","/pages/products.html","/pages/projects.html","/pages/contact.html","/blog/"];
-  const entries=paths.map(p=>"<url><loc>"+esc(origin+p)+"</loc></url>").concat(published(data).map(p=>"<url><loc>"+esc(origin+"/blog/"+p.slug+"/")+"</loc><lastmod>"+esc(p.updatedAt||p.publishedAt)+"</lastmod></url>"));
-  return new Response('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+entries.join("")+"</urlset>",{headers:{"Content-Type":"application/xml; charset=utf-8","Cache-Control":"no-store"}});
+  const posts=published(data);
+  const projectImages=items=>items.flatMap(item=>Array.isArray(item.images)?item.images.map(image=>image.src):[item.image]);
+  function imageTags(sources) {
+    const urls=new Set();
+    for(const source of sources) {
+      if(!source)continue;
+      try {const url=new URL(source,origin);if(url.protocol==="https:"&&!url.username&&!url.password)urls.add(url.href);} catch {}
+    }
+    return [...urls].slice(0,1000).map(url=>"<image:image><image:loc>"+esc(url)+"</image:loc></image:image>").join("");
+  }
+  const entry=(path,images=[],modified="")=>"<url><loc>"+esc(origin+path)+"</loc>"+(modified?"<lastmod>"+esc(modified)+"</lastmod>":"")+imageTags(images)+"</url>";
+  const entries=[
+    entry("/",[...data.heroSlides.map(item=>item.image),...data.services.slice(0,6).map(item=>item.image),...data.products.slice(0,6).map(item=>item.image),...projectImages(data.projects.slice(0,4)),...posts.slice(0,3).map(post=>post.image)]),
+    entry("/pages/about.html"),
+    entry("/pages/services.html",data.services.map(item=>item.image)),
+    entry("/pages/products.html",data.products.map(item=>item.image)),
+    entry("/pages/projects.html",projectImages(data.projects)),
+    entry("/pages/contact.html"),
+    entry("/blog/",posts.slice(0,9).map(post=>post.image))
+  ];
+  for(let page=2;page<=Math.ceil(posts.length/9);page++)entries.push(entry("/blog/?page="+page,posts.slice((page-1)*9,page*9).map(post=>post.image)));
+  for(const post of posts)entries.push(entry("/blog/"+post.slug+"/",[post.image],post.updatedAt||post.publishedAt));
+  return new Response('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'+entries.join("")+"</urlset>",{headers:{"Content-Type":"application/xml; charset=utf-8","Cache-Control":"no-store"}});
 }
 export function renderRSS(data,origin) {
   const items=published(data).slice(0,30).map(p=>"<item><title>"+esc(p.title)+"</title><link>"+esc(origin+"/blog/"+p.slug+"/")+"</link><guid>"+esc(origin+"/blog/"+p.slug+"/")+"</guid><description>"+esc(p.excerpt)+"</description><pubDate>"+new Date(p.publishedAt).toUTCString()+"</pubDate></item>");

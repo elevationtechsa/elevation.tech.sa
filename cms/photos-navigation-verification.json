@@ -71,6 +71,48 @@
     "allPublicPagesAndAdminHaveFooterCredit": true
   },
   "limitations": [
-    "The browser checks in this file use isolated predeployment content. Production verification is performed separately after release."
-  ]
+    "Local browser scenarios used mock API responses and the production validator. Separate production checks used temporary content and an expiring test session; all test content, media and the session were removed."
+  ],
+  "production": {
+    "date": "2026-09-11",
+    "origin": "https://elevation-tech.sa",
+    "uploadAndGallery": {
+      "authenticated": true,
+      "adminCredit": true,
+      "serviceUpload": true,
+      "projectMultiple": true,
+      "mediaRead": [
+        true,
+        true
+      ],
+      "servicePersisted": true,
+      "galleryPersisted": true,
+      "publicContent": true,
+      "publicGalleryOpened": true,
+      "publicGalleryCount": "1 / 2",
+      "publicGallerySecondPhoto": true,
+      "projectPageCredit": true,
+      "testContentRemoved": true,
+      "uploadedImageCount": 2
+    },
+    "all16PublicBlogAndAdminPages": {
+      "http200": true,
+      "footerCredit": true,
+      "publicSharedNavigation": true,
+      "blogExternalScriptsAllowed": true
+    },
+    "temporaryMediaAndSessionRemoved": true
+  },
+  "sitemap": {
+    "validXML": true,
+    "allPublicPagesAndPosts": true,
+    "draftsExcluded": true,
+    "adminExcluded": true,
+    "serviceImage": true,
+    "allGalleryPhotos": true,
+    "deduplicated": true,
+    "unsafeImageExcluded": true,
+    "articleDatesPreserved": true,
+    "paginationIncluded": true
+  }
 }

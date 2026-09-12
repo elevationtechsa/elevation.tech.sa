@@ -27,6 +27,8 @@ The root `vercel.json` proxies /api/*, /blog/* and /sitemap.xml to the Worker, k
 
 The blog includes canonical URLs, article JSON-LD, Open Graph metadata, RSS at /blog/rss.xml and a dynamic sitemap. Drafts are excluded from public APIs, search, feeds, and sitemap. Unknown and draft article URLs return 404.
 
+The sitemap at /sitemap.xml updates from published content on every request. It includes the six public pages, the blog index and pagination, and every published article. Image sitemap entries cover service photos, product images, all project gallery photos, hero images and article covers on their corresponding pages. Image URLs are absolute and deduplicated per page; article modification dates come from saved post metadata. Admin pages and drafts are excluded. robots.txt advertises the sitemap URL.
+
 ## Deployment and recovery
 Worker source and configuration are in cms/. Deploy that Worker when backend code changes; a GitHub push alone deploys only Vercel. Use Cloudflare's supported deployment tooling with cms/wrangler.jsonc. Apply cms/schema.sql only for initial setup (it uses CREATE IF NOT EXISTS). content/site.json is an initial public snapshot, not the ongoing source of truth. Never reseed over live content.
 
